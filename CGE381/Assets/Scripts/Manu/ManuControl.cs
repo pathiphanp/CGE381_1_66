@@ -8,7 +8,6 @@ public class ManuControl : MonoBehaviour
 {
     [SerializeField] GameObject bg_Start;
     [SerializeField] GameObject manu;
-    bool mode = true;
     [SerializeField] TMP_Text[] modeText;
     int indexBtnManu = 0;
     [SerializeField] BtnDataSystem[] btn;

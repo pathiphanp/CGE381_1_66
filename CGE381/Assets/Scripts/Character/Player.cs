@@ -119,14 +119,7 @@ public class Player : MonoBehaviour, IPlayerActions
             speed = walkspeed;
         }
     }
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (datacountJump > 0)
-        {
-            datacountJump -= 1;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + datapowerJump);
-        }
-    }
+
     public void OnDrop(InputAction.CallbackContext context)
     {
         drop = true;
@@ -137,11 +130,22 @@ public class Player : MonoBehaviour, IPlayerActions
             anim.SetBool("Drop", drop);
         }
     }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (datacountJump > 0)
+        {
+            datacountJump -= 1;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + datapowerJump);
+            anim.SetBool("Jump", true);
+        }
+    }
     void checkGround()
     {
-        if (Physics2D.OverlapCircle(pointCheckGround.position, radiusCheckGround, ground) && rb.velocity.y == 0)
+        if (Physics2D.OverlapCircle(pointCheckGround.position, radiusCheckGround, ground) && rb.velocity.y == 0 && datacountJump == 0)
         {
             datacountJump = countJump;
+            anim.SetBool("Jump", false);
         }
     }
     public void OnPause(InputAction.CallbackContext context)
