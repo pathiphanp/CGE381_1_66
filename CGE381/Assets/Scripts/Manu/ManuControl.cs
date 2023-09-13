@@ -9,7 +9,7 @@ public class ManuControl : MonoBehaviour
     [SerializeField] GameObject bg_Start;
     [SerializeField] GameObject manu;
     bool mode = true;
-    [SerializeField] TMP_Text modeText;
+    [SerializeField] TMP_Text[] modeText;
     int indexBtnManu = 0;
     [SerializeField] BtnDataSystem[] btn;
 
@@ -47,7 +47,10 @@ public class ManuControl : MonoBehaviour
             {
                 bg_Start.SetActive(false);
                 manu.SetActive(true);
-                modeText.text = ModeGame.EASY.ToString();
+                foreach (TMP_Text m in modeText)
+                {
+                    m.text = ModeGame.EASY.ToString();
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.X) && setSave.selectSave && !bg_Start.active)
@@ -81,13 +84,19 @@ public class ManuControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            modeText.text = ModeGame.EASY.ToString();
+            foreach (TMP_Text m in modeText)
+            {
+                m.text = ModeGame.EASY.ToString();
+            }
             Debug.Log(ModeGame.EASY.ToString());
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Debug.Log(ModeGame.HARD.ToString());
-            modeText.text = ModeGame.HARD.ToString();
+            foreach (TMP_Text m in modeText)
+            {
+                m.text = ModeGame.HARD.ToString();
+            }
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
