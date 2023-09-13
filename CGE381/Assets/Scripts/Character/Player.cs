@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IPlayerActions
     [SerializeField] float powerJump;
     float datapowerJump;
     [SerializeField] float countJump;
+    bool onJump = false;
     float datacountJump;
     [Header("Physics")]
     [SerializeField] Transform pointCheckGround;
@@ -122,12 +123,15 @@ public class Player : MonoBehaviour, IPlayerActions
 
     public void OnDrop(InputAction.CallbackContext context)
     {
-        drop = true;
-        anim.SetBool("Drop", drop);
-        if (context.canceled)
+        if (!onJump)
         {
-            drop = false;
+            drop = true;
             anim.SetBool("Drop", drop);
+            if (context.canceled)
+            {
+                drop = false;
+                anim.SetBool("Drop", drop);
+            }
         }
     }
 
@@ -137,6 +141,7 @@ public class Player : MonoBehaviour, IPlayerActions
         {
             datacountJump -= 1;
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + datapowerJump);
+            onJump = true;
             anim.SetBool("Jump", true);
         }
     }
@@ -145,6 +150,7 @@ public class Player : MonoBehaviour, IPlayerActions
         if (Physics2D.OverlapCircle(pointCheckGround.position, radiusCheckGround, ground) && rb.velocity.y == 0 && datacountJump == 0)
         {
             datacountJump = countJump;
+            onJump = false;
             anim.SetBool("Jump", false);
         }
     }
