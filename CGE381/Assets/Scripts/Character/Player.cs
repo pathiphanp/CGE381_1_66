@@ -5,21 +5,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 using static PlayerInputActions;
 
 
-public class Player : MonoBehaviour, IPlayerActions
+public class Player : MonoBehaviour, IPlayerActions, IUIActions
 {
+    public static event Action CutSceneTrigger;
+
     [Header("Point_Star")]
     [HideInInspector] public int star;
     [Header("Status")]
     [SerializeField] public int hp;
     Vector2 moveDirection;
+    [Header("ChackIdel")]
+    float waittime;
+    [Header("Walk")]
     [SerializeField] float speed;
-    [SerializeField] float runspeed;
     [SerializeField] float walkspeed;
+    [Header("Run")]
+    [SerializeField] float runspeed;
+    bool isRun = false;
+    [Header("Drop")]
     [SerializeField] bool drop = false;
+
     [Header("Jump")]
     [SerializeField] float powerJump;
     float datapowerJump;
@@ -30,7 +38,7 @@ public class Player : MonoBehaviour, IPlayerActions
     [SerializeField] Transform pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     [Header("PlayerInputActions")]
     [Space][SerializeField] PlayerInputActions playerInputAction;
     [Header("Animation")]
@@ -39,10 +47,15 @@ public class Player : MonoBehaviour, IPlayerActions
     private void OnEnable()
     {
         playerInputAction.Player.Enable();
+        ControlCutScenes.CutSceneStart += UIMode;
+        SpawnCutScenes.EndCutScene += PlayerMode;
     }
     void OnDisable()
     {
         playerInputAction.Player.Disable();
+        playerInputAction.UI.Disable();
+        ControlCutScenes.CutSceneStart -= UIMode;
+        SpawnCutScenes.EndCutScene -= PlayerMode;
     }
     void OnApplicationQuit()
     {
@@ -52,16 +65,18 @@ public class Player : MonoBehaviour, IPlayerActions
     {
         playerInputAction = new PlayerInputActions();
         playerInputAction.Player.SetCallbacks(this);
+        playerInputAction.UI.SetCallbacks(this);
     }
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
-        rb = this.gameObject.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         datacountJump = countJump;
         datapowerJump = powerJump;
         speed = walkspeed;
+
     }
 
     // Update is called once per frame
@@ -70,19 +85,6 @@ public class Player : MonoBehaviour, IPlayerActions
         checkGround();
         ControlPlayer();
     }
-    public void ControlPlayer()
-    {
-        //move
-        if (!drop)
-        {
-            rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
-    }
-
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Warp")
@@ -95,6 +97,27 @@ public class Player : MonoBehaviour, IPlayerActions
         SaveManager.Instance.star[SaveManager.Instance.numSave] = star;
         SaveManager.Instance.nameMap[SaveManager.Instance.numSave] = SceneManager.GetActiveScene().name;
         SaveManager.Instance.SaveGame(SaveManager.Instance.numSave);
+    }
+    #region //GamePlay
+    public void ControlPlayer()
+    {
+        //move
+        if (!drop)
+        {
+            rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+        if (moveDirection.x == 0)
+        {
+            waittime -= Time.deltaTime;
+            if (waittime <= 0)
+            {
+                anim.SetBool("NotMove", true);
+            }
+        }
     }
     public void OnMovement(InputAction.CallbackContext context)
     {
@@ -109,14 +132,21 @@ public class Player : MonoBehaviour, IPlayerActions
             transform.localScale = new Vector3(1, 1, 1);
         }
         moveDirection.x = inputVector.x;
+        if (context.performed)
+        {
+            anim.SetBool("NotMove", false);
+            waittime = 0.05f;
+        }
     }
     public void OnRun(InputAction.CallbackContext context)
     {
-        anim.SetBool("Run", true);
+        isRun = true;
+        anim.SetBool("Run", isRun);
         speed = runspeed;
         if (context.canceled)
         {
-            anim.SetBool("Run", false);
+            isRun = false;
+            anim.SetBool("Run", isRun);
             speed = walkspeed;
         }
     }
@@ -144,6 +174,10 @@ public class Player : MonoBehaviour, IPlayerActions
             onJump = true;
             anim.SetBool("Jump", true);
         }
+        if (rb.velocity.y != 0)
+        {
+            rb.gravityScale = 3;
+        }
     }
     void checkGround()
     {
@@ -152,12 +186,52 @@ public class Player : MonoBehaviour, IPlayerActions
             datacountJump = countJump;
             onJump = false;
             anim.SetBool("Jump", false);
+            rb.gravityScale = 2;
         }
     }
-    public void OnPause(InputAction.CallbackContext context)
+    public void OnInventory(InputAction.CallbackContext context)
     {
 
     }
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            UIMode();
+        }
+    }
+    #endregion
+    #region //UI
+    public void OnResume(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            PlayerMode();
+        }
+    }
 
+    public void OnCutSceneSkip(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Player.CutSceneTrigger();
+        }
+    }
 
+    public static void SkipCutScene()
+    {
+        CutSceneTrigger?.Invoke();
+    }
+    #endregion
+
+    void UIMode()
+    {
+        playerInputAction.Player.Disable();
+        playerInputAction.UI.Enable();
+    }
+    void PlayerMode()
+    {
+        playerInputAction.Player.Enable();
+        playerInputAction.UI.Disable();
+    }
 }
