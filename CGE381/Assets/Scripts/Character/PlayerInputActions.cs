@@ -194,6 +194,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Die"",
+                    ""type"": ""Button"",
+                    ""id"": ""108a3d22-d87c-4b79-b588-f82b326a4297"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +227,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""CutSceneSkip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""243cc537-cad2-48b0-8146-75cff08447b1"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Die"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20a974f9-6833-45a1-9b54-945541be2abe"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Die"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -236,6 +267,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Resume = m_UI.FindAction("Resume", throwIfNotFound: true);
         m_UI_CutSceneSkip = m_UI.FindAction("CutSceneSkip", throwIfNotFound: true);
+        m_UI_Die = m_UI.FindAction("Die", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -385,12 +417,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Resume;
     private readonly InputAction m_UI_CutSceneSkip;
+    private readonly InputAction m_UI_Die;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Resume => m_Wrapper.m_UI_Resume;
         public InputAction @CutSceneSkip => m_Wrapper.m_UI_CutSceneSkip;
+        public InputAction @Die => m_Wrapper.m_UI_Die;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -406,6 +440,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CutSceneSkip.started += instance.OnCutSceneSkip;
             @CutSceneSkip.performed += instance.OnCutSceneSkip;
             @CutSceneSkip.canceled += instance.OnCutSceneSkip;
+            @Die.started += instance.OnDie;
+            @Die.performed += instance.OnDie;
+            @Die.canceled += instance.OnDie;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -416,6 +453,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @CutSceneSkip.started -= instance.OnCutSceneSkip;
             @CutSceneSkip.performed -= instance.OnCutSceneSkip;
             @CutSceneSkip.canceled -= instance.OnCutSceneSkip;
+            @Die.started -= instance.OnDie;
+            @Die.performed -= instance.OnDie;
+            @Die.canceled -= instance.OnDie;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -446,5 +486,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnResume(InputAction.CallbackContext context);
         void OnCutSceneSkip(InputAction.CallbackContext context);
+        void OnDie(InputAction.CallbackContext context);
     }
 }

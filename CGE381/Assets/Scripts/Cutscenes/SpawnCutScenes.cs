@@ -24,7 +24,6 @@ public class SpawnCutScenes : MonoBehaviour
         {
             if (canSpawn)
             {
-                Debug.Log("spawn");
                 canSpawn = false;
                 GameObject c = Instantiate(cutScenes[indexCutScene], transform.position, transform.rotation, transform.parent);
                 controlCutScenes = c.GetComponent<ControlCutScenes>();

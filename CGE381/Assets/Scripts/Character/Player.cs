@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using static PlayerInputActions;
 
 
-public class Player : MonoBehaviour, IPlayerActions, IUIActions
+public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 {
     public static event Action CutSceneTrigger;
 
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     [SerializeField] float countJump;
     bool onJump = false;
     float datacountJump;
-    [Header("Physics")]
+    [Header("CheckGround")]
     [SerializeField] Transform pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
@@ -42,8 +42,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     [Header("PlayerInputActions")]
     [Space][SerializeField] PlayerInputActions playerInputAction;
     [Header("Animation")]
-    Animator anim;
-
+    [SerializeField] Animator anim;
+    [Header("Die")]
+    public GameObject dieScenes;
+    public BtnDataSystem[] btn;
+    int indexDieManu = 0;
+    bool die;
     private void OnEnable()
     {
         playerInputAction.Player.Enable();
@@ -59,7 +63,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     }
     void OnApplicationQuit()
     {
-
+        //Save();
     }
     private void Awake()
     {
@@ -70,18 +74,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
         rb = GetComponent<Rigidbody2D>();
         datacountJump = countJump;
         datapowerJump = powerJump;
         speed = walkspeed;
-
+        RestartPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(65);
+        }
         checkGround();
         ControlPlayer();
     }
@@ -214,7 +221,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     {
         if (context.started)
         {
-            Player.CutSceneTrigger();
+            if (CutSceneTrigger != null)
+            {
+                Player.CutSceneTrigger();
+            }
+            if (die == true)
+            {
+                if (indexDieManu == 0)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+                else if (indexDieManu == 1)
+                {
+                    SceneManager.LoadScene("Start and Manu");
+                }
+            }
         }
     }
 
@@ -233,5 +254,44 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions
     {
         playerInputAction.Player.Enable();
         playerInputAction.UI.Disable();
+    }
+
+    public void OnDie(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            indexDieManu = ArrowControl.aC.SetSlotUpDown(indexDieManu, btn.Length);
+            for (int i = 0; i < btn.Length; i++)
+            {
+                if (indexDieManu == i)
+                {
+                    btn[i].manuBtn.animator.Play("Highlighted");
+
+                }
+                else
+                {
+                    btn[i].manuBtn.animator.Play("Normal");
+                }
+            }
+
+        }
+    }
+
+    void RestartPlayer()
+    {
+        hp = 5;
+        die = false;
+        dieScenes.SetActive(false);
+    }
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            UIMode();
+            die = true;
+            dieScenes.SetActive(true);
+            btn[0].manuBtn.animator.Play("Highlighted");
+        }
     }
 }
