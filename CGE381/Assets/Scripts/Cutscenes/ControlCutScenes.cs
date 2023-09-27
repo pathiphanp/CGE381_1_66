@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ControlCutScenes : MonoBehaviour
 {
-    public static event Action CutSceneStart;
     public SpawnCutScenes spawnCutScenes;
 
     private void OnEnable()
@@ -18,7 +17,7 @@ public class ControlCutScenes : MonoBehaviour
     }
     void Start()
     {
-        ControlCutScenes.CutSceneStart();
+        Gamemanager.ChangeUIMode();
     }
 
     // Update is called once per frame
@@ -27,10 +26,6 @@ public class ControlCutScenes : MonoBehaviour
 
     }
 
-    public static void StartCutScenesEvent()
-    {
-        CutSceneStart?.Invoke();
-    }
 
     void SkipCutScenes()
     {

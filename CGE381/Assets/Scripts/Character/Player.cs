@@ -19,23 +19,28 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     Vector2 moveDirection;
     [Header("ChackIdel")]
     float waittime;
+    #region //Move
+    [SerializeField] float speedMove;
     [Header("Walk")]
-    [SerializeField] float speed;
     [SerializeField] float walkspeed;
     [Header("Run")]
     [SerializeField] float runspeed;
     bool isRun = false;
+    #endregion
     [Header("Drop")]
     [SerializeField] bool drop = false;
 
     [Header("Jump")]
     [SerializeField] float powerJump;
-    float datapowerJump;
+    [SerializeField] float speedDown;
+    [SerializeField] float speedUp;
     [SerializeField] float countJump;
     bool onJump = false;
+    float rby = 0f;
+
     float datacountJump;
     [Header("CheckGround")]
-    [SerializeField] Transform pointCheckGround;
+    [SerializeField] GameObject pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
     public Rigidbody2D rb;
@@ -48,18 +53,22 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     public BtnDataSystem[] btn;
     int indexDieManu = 0;
     bool die;
+    /////////////////////////
+    /////////////////////////
+
+
     private void OnEnable()
     {
         playerInputAction.Player.Enable();
-        ControlCutScenes.CutSceneStart += UIMode;
-        SpawnCutScenes.EndCutScene += PlayerMode;
+        Gamemanager.PlayerUIMode += UIMode;
+        Gamemanager.PlayerMode += PlayerMode;
     }
     void OnDisable()
     {
         playerInputAction.Player.Disable();
         playerInputAction.UI.Disable();
-        ControlCutScenes.CutSceneStart -= UIMode;
-        SpawnCutScenes.EndCutScene -= PlayerMode;
+        Gamemanager.PlayerUIMode -= UIMode;
+        Gamemanager.PlayerMode -= PlayerMode;
     }
     void OnApplicationQuit()
     {
@@ -76,10 +85,10 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
         rb = GetComponent<Rigidbody2D>();
-        datacountJump = countJump;
-        datapowerJump = powerJump;
-        speed = walkspeed;
+        speedMove = walkspeed;
         RestartPlayer();
+        rby = rb.velocity.y;
+
     }
 
     // Update is called once per frame
@@ -87,7 +96,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         if (Input.GetMouseButtonDown(0))
         {
-            TakeDamage(65);
+
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+
         }
         checkGround();
         ControlPlayer();
@@ -111,7 +124,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         //move
         if (!drop)
         {
-            rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
+            rb.velocity = new Vector2(moveDirection.x * speedMove, rb.velocity.y);
         }
         else
         {
@@ -149,12 +162,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         isRun = true;
         anim.SetBool("Run", isRun);
-        speed = runspeed;
+        speedMove = runspeed;
         if (context.canceled)
         {
             isRun = false;
             anim.SetBool("Run", isRun);
-            speed = walkspeed;
+            speedMove = walkspeed;
         }
     }
 
@@ -174,26 +187,53 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (datacountJump > 0)
+        if (context.started)
         {
-            datacountJump -= 1;
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + datapowerJump);
-            onJump = true;
-            anim.SetBool("Jump", true);
-        }
-        if (rb.velocity.y != 0)
-        {
-            rb.gravityScale = 3;
+            if (datacountJump > 0)
+            {
+                rby = 0;
+                rby = Mathf.Lerp(rby, powerJump, Time.deltaTime * speedUp);
+                datacountJump -= 1;
+                rb.velocity = new Vector2(rb.velocity.x, rby);
+                onJump = true;
+                anim.SetBool("Jump", true);
+            }
         }
     }
     void checkGround()
     {
-        if (Physics2D.OverlapCircle(pointCheckGround.position, radiusCheckGround, ground) && rb.velocity.y == 0 && datacountJump == 0)
+        if (Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground) && rb.velocity.y <= 0)
         {
-            datacountJump = countJump;
-            onJump = false;
-            anim.SetBool("Jump", false);
-            rb.gravityScale = 2;
+            rb.gravityScale = 0;
+            if (speedMove < walkspeed || speedMove < runspeed)
+            {
+                speedMove = walkspeed;
+                if (isRun)
+                {
+                    speedMove = runspeed;
+                }
+            }
+            if (rb.velocity.y != 0)
+            {
+                rb.velocity = Vector2.zero;
+            }
+            if (datacountJump == 0)
+            {
+                datacountJump = countJump;
+                onJump = false;
+                anim.SetBool("Jump", false);
+            }
+        }
+        else
+        {
+            if (rby > 7.9 && onJump)
+            {
+                rb.gravityScale = speedDown;
+            }
+            else
+            {
+                rb.gravityScale = 1;
+            }
         }
     }
     public void OnInventory(InputAction.CallbackContext context)
@@ -294,4 +334,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             btn[0].manuBtn.animator.Play("Highlighted");
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Water")
+        {
+            Debug.Log("Die");
+        }
+    }
 }
+
