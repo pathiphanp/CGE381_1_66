@@ -12,24 +12,10 @@ public class SpawnCutScenes : MonoBehaviour
     [SerializeField] int indexCutScene = 0;
     public bool canSpawn;
     public ControlCutScenes controlCutScenes;
-    [SerializeField] bool CutScenes;
-    [SerializeField] bool CameraScenes;
     [SerializeField] PlayableDirector director;
     private void Start()
     {
-        if (CutScenes)
-        {
             SpawnCutScene();
-        }
-        else if (CameraScenes)
-        {
-            CameraCutScenes();
-        }
-    }
-
-    private void CameraCutScenes()
-    {
-        director.Play();
     }
 
     public void SpawnCutScene()

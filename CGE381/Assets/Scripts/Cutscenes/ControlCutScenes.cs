@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class ControlCutScenes : MonoBehaviour
 {
     public SpawnCutScenes spawnCutScenes;
-
+    public PlayableDirector director;
     private void OnEnable()
     {
         Player.CutSceneTrigger += SkipCutScenes;
@@ -18,6 +19,10 @@ public class ControlCutScenes : MonoBehaviour
     void Start()
     {
         Gamemanager.ChangeUIMode();
+        if(director != null)
+        {
+            director.Play();
+        }
     }
 
     // Update is called once per frame
