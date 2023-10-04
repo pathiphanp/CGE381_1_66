@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -9,49 +10,37 @@ public class SpawnCutScenes : MonoBehaviour
 {
     public static event Action EndCutScene;
     [SerializeField] public GameObject[] cutScenes;
-    [SerializeField] int indexCutScene = 0;
+    [SerializeField] public int indexCutScene = 0;
     public bool canSpawn;
     public ControlCutScenes controlCutScenes;
-    [SerializeField] bool CutScenes;
-    [SerializeField] bool CameraScenes;
-    [SerializeField] PlayableDirector director;
     private void Start()
     {
-        if (CutScenes)
-        {
-            SpawnCutScene();
-        }
-        else if (CameraScenes)
-        {
-            CameraCutScenes();
-        }
-    }
-
-    private void CameraCutScenes()
-    {
-        director.Play();
+        SpawnCutScene();
     }
 
     public void SpawnCutScene()
     {
-        if (indexCutScene == cutScenes.Length)
+        if (indexCutScene > cutScenes.Length - 1)
         {
-            SpawnCutScenes.EndCutScene();
+            Gamemanager.ChangePlayerMode();
+        }
+        else if (cutScenes[indexCutScene].gameObject.scene.name != null)
+        {
+            controlCutScenes = cutScenes[indexCutScene].GetComponent<ControlCutScenes>();
+            controlCutScenes.spawnCutScenes = this;
+            canSpawn = false;
+            cutScenes[indexCutScene].SetActive(true);
         }
         else
         {
             if (canSpawn)
             {
                 canSpawn = false;
-                if (SpawnCutScenes.EndCutScene != null)
-                {
-                    GameObject c = Instantiate(cutScenes[indexCutScene], transform.position, transform.rotation, transform.parent);
-                    controlCutScenes = c.GetComponent<ControlCutScenes>();
-                }
+                GameObject c = Instantiate(cutScenes[indexCutScene], transform.position, transform.rotation, transform.parent);
+                controlCutScenes = c.GetComponent<ControlCutScenes>();
                 controlCutScenes.spawnCutScenes = this;
             }
         }
-        indexCutScene++;
     }
 
     public static void EndCutSceneEvent()

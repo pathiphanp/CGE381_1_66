@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
+
 
 public class ControlCutScenes : MonoBehaviour
 {
     public SpawnCutScenes spawnCutScenes;
+    [SerializeField] PlayableDirector director;
+    [SerializeField] bool CameraScenes;
 
     private void OnEnable()
     {
@@ -18,6 +22,10 @@ public class ControlCutScenes : MonoBehaviour
     void Start()
     {
         Gamemanager.ChangeUIMode();
+        if (CameraScenes)
+        {
+            CameraCutScenes();
+        }
     }
 
     // Update is called once per frame
@@ -25,8 +33,11 @@ public class ControlCutScenes : MonoBehaviour
     {
 
     }
-
-
+    private void CameraCutScenes()
+    {
+        director.Play();
+        Invoke("SkipCutScenes",4f);
+    }
     void SkipCutScenes()
     {
         Destroy(this.gameObject);
@@ -34,6 +45,7 @@ public class ControlCutScenes : MonoBehaviour
 
     private void OnDestroy()
     {
+        spawnCutScenes.indexCutScene++;
         spawnCutScenes.canSpawn = true;
         spawnCutScenes.SpawnCutScene();
     }

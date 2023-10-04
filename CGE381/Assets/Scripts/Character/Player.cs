@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 using static PlayerInputActions;
 
 
@@ -14,12 +15,20 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 
     [Header("Point_Star")]
     [HideInInspector] public int star;
+    public GameObject showStar;
+    public TMP_Text pointStar;
     [Header("Status")]
     [SerializeField] public int hp;
     Vector2 moveDirection;
+    [Header("Inventory")]
+    [SerializeField] GameObject inventory;
+
     [Header("ChackIdel")]
     float waittime;
     #region //Move
+    [Header("Body")]
+    [SerializeField] GameObject body;
+    [Header("Move")]
     [SerializeField] float speedMove;
     [Header("Walk")]
     [SerializeField] float walkspeed;
@@ -29,7 +38,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     #endregion
     [Header("Drop")]
     [SerializeField] bool drop = false;
-
     [Header("Jump")]
     [SerializeField] float powerJump;
     [SerializeField] float speedDown;
@@ -37,12 +45,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] float countJump;
     bool onJump = false;
     float rby = 0f;
-
     float datacountJump;
     [Header("CheckGround")]
     [SerializeField] GameObject pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
+    [SerializeField] float gravity;
+
     public Rigidbody2D rb;
     [Header("PlayerInputActions")]
     [Space][SerializeField] PlayerInputActions playerInputAction;
@@ -53,6 +62,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     public BtnDataSystem[] btn;
     int indexDieManu = 0;
     bool die;
+
     /////////////////////////
     /////////////////////////
 
@@ -94,6 +104,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
 
@@ -145,11 +156,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         anim.SetFloat("Move", inputVector.x);
         if (inputVector.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            body.transform.localScale = new Vector3(-1, 1, 1);
         }
         else if (inputVector.x > 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            body.transform.localScale = new Vector3(1, 1, 1);
         }
         moveDirection.x = inputVector.x;
         if (context.performed)
@@ -232,19 +243,25 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             }
             else
             {
-                rb.gravityScale = 1;
+                rb.gravityScale = gravity;
             }
         }
     }
     public void OnInventory(InputAction.CallbackContext context)
     {
-
+        if (context.started)
+        {
+            inventory.SetActive(true);
+            UIMode();
+            Time.timeScale = 0f;
+        }
     }
     public void OnPause(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             UIMode();
+            Time.timeScale = 0f;
         }
     }
     #endregion
@@ -254,6 +271,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (context.started)
         {
             PlayerMode();
+            inventory.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 
@@ -292,8 +311,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     void PlayerMode()
     {
-        playerInputAction.Player.Enable();
         playerInputAction.UI.Disable();
+        playerInputAction.Player.Enable();
     }
 
     public void OnDie(InputAction.CallbackContext context)
@@ -341,6 +360,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             Debug.Log("Die");
         }
+        if (other.tag == "Star")
+        {
+            star++;
+            pointStar.text = star.ToString();
+            StartCoroutine(ShowStar());
+            Destroy(other.gameObject);
+        }
+    }
+
+    IEnumerator ShowStar()
+    {
+        Debug.Log("Start");
+        showStar.SetActive(true);
+        yield return new WaitForSeconds(2);
+        showStar.SetActive(false);
     }
 }
 

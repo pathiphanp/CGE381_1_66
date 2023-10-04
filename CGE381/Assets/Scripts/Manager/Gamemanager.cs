@@ -14,7 +14,7 @@ public class Gamemanager : Singletons<Gamemanager>
     }
     public static void ChangePlayerMode()
     {
-        PlayerUIMode?.Invoke();
+        PlayerMode?.Invoke();
     }
     // Start is called before the first frame update
     void Start()
