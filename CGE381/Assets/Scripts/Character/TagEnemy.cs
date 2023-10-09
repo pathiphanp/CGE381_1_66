@@ -28,6 +28,7 @@ public class TagEnemy : MonoBehaviour
         {
             if (icon.transform.position.x != enemy.transform.position.x)
             {
+                
                 float _xDirection = Mathf.Lerp(icon.transform.position.x, enemy.transform.position.x, Time.deltaTime / speed);
                 _xDirection = Mathf.Clamp(_xDirection, clampXLeft.transform.position.x, clampXRight.transform.position.x);
                 icon.transform.position = new Vector3(_xDirection, icon.transform.position.y, icon.transform.position.z);

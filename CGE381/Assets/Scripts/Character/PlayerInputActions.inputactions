@@ -24,18 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "Run",
                     "type": "Button",
-                    "id": "795aa78d-8d9d-437f-a4de-a05396f3e10b",
+                    "id": "78a397ac-1fdd-4df0-b93a-49bb1f2c0b20",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Up",
                     "type": "Button",
-                    "id": "78a397ac-1fdd-4df0-b93a-49bb1f2c0b20",
+                    "id": "4b1cb740-404e-4a1d-98d8-fecb187fd47e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -54,6 +54,15 @@
                     "name": "Inventory",
                     "type": "Button",
                     "id": "3e8bf17d-2736-4f3a-ae8b-64c94338bd7f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "795aa78d-8d9d-437f-a4de-a05396f3e10b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -96,17 +105,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0453a0cb-d13c-4137-a058-611e0b59a218",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5726282d-5842-4642-a960-aef62adb84c4",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -146,6 +144,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d430d9e7-7b8b-4db4-b236-a6b508096b79",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0453a0cb-d13c-4137-a058-611e0b59a218",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
