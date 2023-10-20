@@ -111,7 +111,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     void OnApplicationQuit()
     {
-        Save();
+        //Save();
     }
     private void Awake()
     {
@@ -122,7 +122,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     // Start is called before the first frame update
     void Start()
     {
-        star = SaveManager.Instance.star[SaveManager.Instance.numSave];
+        //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
         rb = GetComponent<Rigidbody2D>();
         speedMove = walkspeed;
         RestartPlayer();

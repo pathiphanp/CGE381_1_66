@@ -2603,6 +2603,7 @@ MonoBehaviour:
   - {fileID: 7037442957925147485, guid: f05cd8dea1bb5c842b06442e336927a3, type: 3}
   indexCutScene: 0
   canSpawn: 1
+  nextmap: 0
   controlCutScenes: {fileID: 0}
 --- !u!1 &695601178
 GameObject:
@@ -3510,6 +3511,7 @@ MonoBehaviour:
   - {fileID: 8872454783055856553, guid: b6b1fc2e8f7cbe6468aff93b9bed94a4, type: 3}
   indexCutScene: 0
   canSpawn: 1
+  nextmap: 1
   controlCutScenes: {fileID: 0}
 --- !u!1 &879420103
 GameObject:
