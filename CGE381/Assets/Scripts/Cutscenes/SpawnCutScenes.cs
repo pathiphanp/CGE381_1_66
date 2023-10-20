@@ -12,16 +12,30 @@ public class SpawnCutScenes : MonoBehaviour
     [SerializeField] public GameObject[] cutScenes;
     [SerializeField] public int indexCutScene = 0;
     public bool canSpawn;
+    public bool nextmap;
     public ControlCutScenes controlCutScenes;
     private void Start()
     {
         SpawnCutScene();
     }
-
+    void OnEnable()
+    {
+        SpawnCutScene();
+    }
+    void OnDisable()
+    {
+        indexCutScene = 0;
+        canSpawn = true;
+    }
     public void SpawnCutScene()
     {
         if (indexCutScene > cutScenes.Length - 1)
         {
+            this.gameObject.SetActive(false);
+            if (nextmap)
+            {
+                Gamemanager.Instance.NextScenes();
+            }
             Gamemanager.ChangePlayerMode();
         }
         else if (cutScenes[indexCutScene].gameObject.scene.name != null)

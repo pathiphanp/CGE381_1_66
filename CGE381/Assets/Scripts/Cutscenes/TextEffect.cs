@@ -60,7 +60,6 @@ public class TextEffect : MonoBehaviour
             string text = suptitle.Substring(0, charC);
             textTest.text = text;
         }
-        Debug.Log(charC);
         read = true;
     }
 

@@ -11,5 +11,13 @@ public interface TakeDamage
 {
     void TakeDamage(int damage);
 }
+public interface DeleteChild
+{
+    void DeleteChild();
+}
+public interface AddChild
+{
+    void AddChild(GameObject child);
+}
 
 

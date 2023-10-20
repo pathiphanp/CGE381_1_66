@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GetStar : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Animator anim;
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Die()
     {
-        
+        anim.Play("Die");
+    }
+    public void Delete()
+    {
+        Destroy(this.gameObject);
     }
 }

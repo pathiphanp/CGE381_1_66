@@ -8,7 +8,10 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using static PlayerInputActions;
 
-
+enum Size
+{
+    SMALL, NORMAL
+}
 public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 {
     public static event Action CutSceneTrigger;
@@ -18,27 +21,32 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] bool downMode;
     [SerializeField] bool sideMode;
 
-    [Header("Point_Star")]
-    public GameObject showStar;
-    public TMP_Text pointStar;
-    [HideInInspector] public int star;
-
     [Header("Status")]
     [SerializeField] public int hp;
     public GameObject showHp;
     public TMP_Text pointHp;
 
-
-
     Vector2 moveDirection;
+    #region "Inventory"
     [Header("Inventory")]
     [SerializeField] GameObject inventory;
+    [Header("Point_Star")]
+    public GameObject showStar;
+    public TMP_Text pointStar;
+    [HideInInspector] public int star;
+    [Header("Key")]
+    public int key;
+    #endregion
+
 
     [Header("ChackIdel")]
     float waittime;
     #region //Move
     [Header("Body")]
     [SerializeField] GameObject body;
+    [Header("Small")]
+    [SerializeField] Size size;
+    [SerializeField] float smallSize;
     [Header("Move")]
     float speedMove;
     [Header("MoveDownMode")]
@@ -52,7 +60,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [Header("Run")]
     [SerializeField] float runspeed;
     bool isRun = false;
-    #endregion
     [Header("Drop")]
     [SerializeField] bool drop = false;
     [Header("Jump")]
@@ -63,10 +70,17 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     bool onJump = false;
     float rby = 0f;
     float datacountJump;
+    #endregion
+
     [Header("CheckGround")]
     [SerializeField] GameObject pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
+    [SerializeField] LayerMask platfrom;
+    [SerializeField] GameObject _platfrom;
+
+    [SerializeField] float distanceChrckPlatfrom;
+
     [SerializeField] float gravity;
 
     public Rigidbody2D rb;
@@ -97,7 +111,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     void OnApplicationQuit()
     {
-        //Save();
+        Save();
     }
     private void Awake()
     {
@@ -108,7 +122,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     // Start is called before the first frame update
     void Start()
     {
-        //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
+        star = SaveManager.Instance.star[SaveManager.Instance.numSave];
         rb = GetComponent<Rigidbody2D>();
         speedMove = walkspeed;
         RestartPlayer();
@@ -223,7 +237,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             downspeed = standard_down;
         }
     }
-
     public void OnDrop(InputAction.CallbackContext context)
     {
         drop = true;
@@ -267,10 +280,26 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             downspeed = standard_down;
         }
     }
+    void OnDrawGizmos()
+    {
+        Debug.DrawRay(pointCheckGround.transform.position, Vector3.down * distanceChrckPlatfrom);
+    }
     void checkGround()
     {
-        if (Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground) && rb.velocity.y <= 0)
+        Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
+        RaycastHit2D hit = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
+
+        if (checkGround && rb.velocity.y <= 0)
         {
+            if (hit)
+            {
+                _platfrom = hit.collider.gameObject;
+                if (_platfrom != null)
+                {
+                    AddChild add = _platfrom.GetComponent<AddChild>();
+                    add.AddChild(this.gameObject);
+                }
+            }
             rb.gravityScale = 0;
             if (speedMove < walkspeed || speedMove < runspeed)
             {
@@ -293,6 +322,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         else
         {
+            if (_platfrom != null)
+            {
+                DeleteChild delete = _platfrom.GetComponent<DeleteChild>();
+                delete.DeleteChild();
+                _platfrom = null;
+            }
             if (rby > 7.9 && onJump)
             {
                 rb.gravityScale = speedDown;
@@ -426,20 +461,39 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (other.tag == "Star")
         {
             star++;
+            other.GetComponent<GetStar>().Die();
             pointStar.text = star.ToString();
             StartCoroutine(ShowStar());
-            Destroy(other.gameObject);
         }
         if (other.tag == "Enemy")
         {
             TakeDamage(1);
             pointHp.text = hp.ToString();
             StartCoroutine(ShowHp());
-            Destroy(other.gameObject);
         }
-
+        if (other.tag == "Mushroom")
+        {
+            AliceSmall();
+        }
+        if (other.tag == "Key")
+        {
+            key++;
+            other.GetComponent<Key>().Die();
+        }
     }
-
+    void AliceSmall()
+    {
+        if (size == Size.NORMAL)
+        {
+            size = Size.SMALL;
+            transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+        }
+        else
+        {
+            size = Size.NORMAL;
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
     IEnumerator ShowStar()
     {
         showStar.SetActive(true);

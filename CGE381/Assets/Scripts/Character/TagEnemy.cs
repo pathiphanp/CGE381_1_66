@@ -8,6 +8,7 @@ public class TagEnemy : MonoBehaviour
     public GameObject icon;
     public GameObject enemy;
     public float speed;
+    public float timeDuration;
     public bool onTag;
     public GameObject clampXLeft;
     public GameObject clampXRight;
@@ -28,8 +29,9 @@ public class TagEnemy : MonoBehaviour
         {
             if (icon.transform.position.x != enemy.transform.position.x)
             {
-                
-                float _xDirection = Mathf.Lerp(icon.transform.position.x, enemy.transform.position.x, Time.deltaTime / speed);
+                speed += Time.deltaTime;
+                float precentcomplete = speed / timeDuration;
+                float _xDirection = Mathf.Lerp(icon.transform.position.x, enemy.transform.position.x, precentcomplete);
                 _xDirection = Mathf.Clamp(_xDirection, clampXLeft.transform.position.x, clampXRight.transform.position.x);
                 icon.transform.position = new Vector3(_xDirection, icon.transform.position.y, icon.transform.position.z);
             }
@@ -41,6 +43,7 @@ public class TagEnemy : MonoBehaviour
     {
         this.enemy = enemy;
         icon.SetActive(true);
+        speed = 0;
         onTag = true;
     }
     void OnTriggerEnter2D(Collider2D other)

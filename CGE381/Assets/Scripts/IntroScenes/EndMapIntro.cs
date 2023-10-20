@@ -7,11 +7,11 @@ public class EndMapIntro : MonoBehaviour
     [SerializeField] GameObject cameraCutScenes;
     void OnEnable()
     {
-        
+
     }
     void OnDisable()
     {
-        
+
     }
     // Start is called before the first frame update
     void Start()

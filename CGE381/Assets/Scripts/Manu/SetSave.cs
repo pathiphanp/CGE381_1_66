@@ -22,11 +22,10 @@ public class SetSave : MonoBehaviour
 
     private void OnDisable()
     {
-        RestSlot();
     }
     void Start()
     {
-
+        //RestSlot();
     }
     private void Update()
     {

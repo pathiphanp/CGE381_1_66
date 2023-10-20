@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Start and Manu.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/GamePlay 1.unity
+    path: Assets/Scenes/GamePlay 1/GamePlay 1.unity
     guid: 8afb53f5076b6144599397435887b15f
   - enabled: 1
     path: Assets/Scenes/GamePlay 2.unity
@@ -20,10 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay 4.unity
     guid: 772b62ea4714acc42b725b36bcb1822e
-  - enabled: 1
-    path: Assets/Scenes/GamePlay 5.unity
-    guid: a1ee5f31e62e2c2498cbeef5905af032
-  - enabled: 1
-    path: Assets/Scenes/GamePlay 6.unity
-    guid: 49f8efaff90e0134c815dfd0d6297e16
   m_configObjects: {}
