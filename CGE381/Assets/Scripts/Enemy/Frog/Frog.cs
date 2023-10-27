@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Frog : Platfrom
+public class Frog : MonoBehaviour
 {
+    [SerializeField] Collider2D checkGround;
+    [SerializeField] float radius;
+    [SerializeField] LayerMask ground;
+
     [SerializeField] bool canJump;
-    [SerializeField] float delayJump;
     [SerializeField] float pownJump;
 
     Animator anim;
@@ -17,20 +20,37 @@ public class Frog : Platfrom
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        StartCoroutine(PlatfromMove());
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        LoopJump();
 
     }
-    public override IEnumerator PlatfromMove()
+    void Behavior()
     {
-        return base.PlatfromMove();
-    }
+        //FindPlayer
+        
+        //HuntPlayer
 
+    }
+    void LoopJump()
+    {
+        if (Physics2D.OverlapCircle(checkGround.transform.position, radius, ground) && canJump)
+        {
+            canJump = false;
+            anim.Play("Jump");
+        }
+    }
+    public void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, pownJump);
+    }
+    public void ResetJump()
+    {
+        canJump = true;
+    }
 
 
 }

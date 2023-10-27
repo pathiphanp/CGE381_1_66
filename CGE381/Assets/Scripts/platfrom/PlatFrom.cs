@@ -10,8 +10,9 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     [SerializeField] float delayStopPlatfrom;
 
     [Header("SetPosition")]
-    [SerializeField] GameObject startPosition;
-    [SerializeField] GameObject endPosition;
+    [SerializeField] public GameObject startPosition;
+    [SerializeField] public GameObject endPosition;
+    [SerializeField] public Vector3 target;
     [Header("SetSpeed")]
     [SerializeField] float speedMove;
     [SerializeField] float timeDuration;
@@ -19,38 +20,44 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     void Start()
     {
         transform.localPosition = startPosition.transform.localPosition;
-        StartCoroutine(PlatfromMove());
+        target = endPosition.transform.localPosition;
     }
     void Update()
     {
-
+        PlatfromMove();
     }
-    public virtual IEnumerator PlatfromMove()
+    public virtual void PlatfromMove()
     {
-        Vector3 target;
-        speedMove = 0;
-        if (transform.localPosition == endPosition.transform.localPosition)
+        if (transform.localPosition == startPosition.transform.localPosition)
         {
-            target = startPosition.transform.localPosition;
-        }
-        else
-        {
+            speedMove = 0;
             target = endPosition.transform.localPosition;
         }
-
-        while (transform.localPosition != target)
+        else if (transform.localPosition == endPosition.transform.localPosition)
         {
-            speedMove += Time.deltaTime;
-            float percentCompete = speedMove / timeDuration;
-            transform.localPosition =
-            Vector3.MoveTowards(transform.localPosition,
-            target, percentCompete);
-            yield return true;
+            speedMove = 0;
+            target = startPosition.transform.localPosition;
         }
-        yield return new WaitForSeconds(delayStopPlatfrom);
-        StartCoroutine(PlatfromMove());
+        speedMove += Time.deltaTime;
+        float percentCompete = speedMove / timeDuration;
+        transform.localPosition =
+        Vector3.MoveTowards(transform.localPosition,
+        target, percentCompete);
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        /*if (other.gameObject.tag == "Start")
+        {
+            speedMove = 0;
+            target = endPosition.transform.localPosition;
+        }
+        if (other.gameObject.tag == "End")
+        {
+            speedMove = 0;
+            target = startPosition.transform.localPosition;
+        }*/
 
+    }
     public void DeleteChild()
     {
         transform.DetachChildren();

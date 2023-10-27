@@ -12,6 +12,8 @@ TagManager:
   - Mushroom
   - Door
   - Key
+  - Start
+  - End
   layers:
   - Default
   - TransparentFX
