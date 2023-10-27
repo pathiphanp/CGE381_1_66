@@ -6,6 +6,7 @@ using UnityEngine;
 public class TagEnemy : MonoBehaviour
 {
     public GameObject icon;
+    public GameObject clampicon;
     public GameObject enemy;
     public float speed;
     public float timeDuration;
@@ -33,7 +34,7 @@ public class TagEnemy : MonoBehaviour
                 float precentcomplete = speed / timeDuration;
                 float _xDirection = Mathf.Lerp(icon.transform.position.x, enemy.transform.position.x, precentcomplete);
                 _xDirection = Mathf.Clamp(_xDirection, clampXLeft.transform.position.x, clampXRight.transform.position.x);
-                icon.transform.position = new Vector3(_xDirection, icon.transform.position.y, icon.transform.position.z);
+                icon.transform.position = new Vector3(_xDirection, clampicon.transform.position.y, icon.transform.position.z);
             }
         }
 

@@ -10,6 +10,7 @@ public class ControlCutScenes : MonoBehaviour
     public SpawnCutScenes spawnCutScenes;
     [SerializeField] PlayableDirector director;
     [SerializeField] bool CameraScenes;
+    [SerializeField] bool canNotSkipCutScenes;
 
     private void OnEnable()
     {
@@ -36,13 +37,19 @@ public class ControlCutScenes : MonoBehaviour
     private void CameraCutScenes()
     {
         director.Play();
-        Invoke("SkipCutScenes",4f);
+        Invoke("SkipCutScenes", 4f);
     }
     void SkipCutScenes()
     {
+        if (!canNotSkipCutScenes)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    void EndCutScenes()
+    {
         Destroy(this.gameObject);
     }
-
     private void OnDestroy()
     {
         spawnCutScenes.indexCutScene++;

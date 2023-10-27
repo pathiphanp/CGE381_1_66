@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,9 +16,6 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     [SerializeField] float speedMove;
     [SerializeField] float timeDuration;
 
-    float i1 = 0;
-    float i2 = 0;
-
     void Start()
     {
         transform.localPosition = startPosition.transform.localPosition;
@@ -27,7 +25,7 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     {
 
     }
-    IEnumerator PlatfromMove()
+    public virtual IEnumerator PlatfromMove()
     {
         Vector3 target;
         speedMove = 0;
@@ -43,10 +41,9 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
         while (transform.localPosition != target)
         {
             speedMove += Time.deltaTime;
-            //Debug.Log("in : " + (i2 += Time.deltaTime));
             float percentCompete = speedMove / timeDuration;
             transform.localPosition =
-            Vector3.Lerp(transform.localPosition,
+            Vector3.MoveTowards(transform.localPosition,
             target, percentCompete);
             yield return true;
         }

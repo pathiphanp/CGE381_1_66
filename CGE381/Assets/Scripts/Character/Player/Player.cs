@@ -16,7 +16,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 {
     public static event Action CutSceneTrigger;
 
-    private const int V = 1;
     [Header("SetGame")]
     [SerializeField] bool downMode;
     [SerializeField] bool sideMode;
@@ -485,11 +484,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         if (size == Size.NORMAL)
         {
+            powerJump = 17;
             size = Size.SMALL;
             transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
         }
         else
         {
+            powerJump = 22;
             size = Size.NORMAL;
             transform.localScale = new Vector3(1, 1, 1);
         }

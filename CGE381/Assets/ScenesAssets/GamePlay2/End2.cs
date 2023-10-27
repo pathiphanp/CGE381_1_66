@@ -4,28 +4,17 @@ using UnityEngine;
 
 public class End2 : MonoBehaviour
 {
-    [SerializeField] GameObject bgBlack;
     [SerializeField] GameObject CutScenes;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other)
         {
-            StartCoroutine(End());
-            Gamemanager.ChangeUIMode();
+            End();
         }
     }
 
-    IEnumerator End()
+    void End()
     {
-        bgBlack.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        bgBlack.SetActive(false);
         CutScenes.SetActive(true);
-        NextMap();
-    }
-
-    public void NextMap()
-    {
-        Gamemanager.Instance.NextScenes();
     }
 }
