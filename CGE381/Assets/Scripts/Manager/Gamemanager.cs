@@ -8,6 +8,7 @@ public class Gamemanager : Singletons<Gamemanager>
 {
     public static event Action PlayerUIMode;
     public static event Action PlayerMode;
+    public bool cutScenesStartGame;
 
     public static void ChangeUIMode()
     {

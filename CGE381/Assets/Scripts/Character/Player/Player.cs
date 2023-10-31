@@ -76,6 +76,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
     [SerializeField] LayerMask platfrom;
+    [SerializeField] LayerMask dodamage;
     [SerializeField] GameObject _platfrom;
 
     [SerializeField] float distanceChrckPlatfrom;
@@ -126,7 +127,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         speedMove = walkspeed;
         RestartPlayer();
         rby = rb.velocity.y;
-        SetUpDownMode();
     }
 
     // Update is called once per frame
@@ -160,15 +160,17 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         SaveManager.Instance.SaveGame(SaveManager.Instance.numSave);
     }
     #region //GamePlay
-    void SetUpDownMode()
+    void SetUpDownMode(bool start)
     {
-        if (downMode)
+        if (downMode && start)
         {
             anim.SetBool("DownMode", downMode);
             downspeed = standard_down;
+            rb.gravityScale = 1;
         }
         else
         {
+            rb.gravityScale = 0;
             downspeed = 0;
         }
 
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             rb.velocity = new Vector2(moveDirection.x * speedMove, rb.velocity.y);
         }
-        else
+        else if (downMode)
         {
             rb.velocity = new Vector2(moveDirection.x * speedMove, downspeed);
         }
@@ -260,15 +262,19 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         if (context.started && !downMode)
         {
-            if (datacountJump > 0)
-            {
-                rby = 0;
-                rby = Mathf.Lerp(rby, powerJump, Time.deltaTime * speedUp);
-                datacountJump -= 1;
-                rb.velocity = new Vector2(rb.velocity.x, rby);
-                onJump = true;
-                anim.SetBool("Jump", true);
-            }
+            Jump();
+        }
+    }
+    void Jump()
+    {
+        if (datacountJump > 0)
+        {
+            rby = 0;
+            rby = Mathf.Lerp(rby, powerJump, Time.deltaTime * speedUp);
+            datacountJump -= 1;
+            rb.velocity = new Vector2(rb.velocity.x, rby);
+            onJump = true;
+            anim.SetBool("Jump", true);
         }
     }
     public void OnUp(InputAction.CallbackContext context)
@@ -286,13 +292,15 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     void checkGround()
     {
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
-        RaycastHit2D hit = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
+        RaycastHit2D plat = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
+        RaycastHit2D doda = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, dodamage);
 
-        if (checkGround && rb.velocity.y <= 0)
+        if (checkGround && rb.velocity.y <= 0)//On Ground
         {
-            if (hit)
+            if (plat)//CheckPlatfrom
             {
-                _platfrom = hit.collider.gameObject;
+                Debug.Log("b");
+                _platfrom = plat.collider.gameObject;
                 if (_platfrom != null)
                 {
                     AddChild add = _platfrom.GetComponent<AddChild>();
@@ -300,7 +308,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                 }
             }
             rb.gravityScale = 0;
-            if (speedMove < walkspeed || speedMove < runspeed)
+            if (speedMove < walkspeed || speedMove < runspeed)//Change speed
             {
                 speedMove = walkspeed;
                 if (isRun)
@@ -308,27 +316,34 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                     speedMove = runspeed;
                 }
             }
-            if (rb.velocity.y != 0)
+            if (rb.velocity.y != 0)//Stop move
             {
                 rb.velocity = Vector2.zero;
             }
-            if (datacountJump == 0)
+            if (datacountJump == 0)//Reset JumpCount
             {
                 datacountJump = countJump;
                 onJump = false;
                 anim.SetBool("Jump", false);
             }
         }
-        else
+        else //Out Ground
         {
-            if (_platfrom != null)
+            if (_platfrom != null)//Out off Platfrom
             {
                 DeleteChild delete = _platfrom.GetComponent<DeleteChild>();
                 delete.DeleteChild();
                 _platfrom = null;
             }
-            if (rby > 7.9 && onJump)
+            if (rby > 7.9 && onJump)//Down to Floor
             {
+                if (doda)
+                {
+                    datacountJump++;
+                    Jump();
+                    Destroy(doda.collider.gameObject);
+                }
+
                 rb.gravityScale = speedDown;
             }
             else if (!die)
@@ -398,11 +413,18 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         playerInputAction.Player.Disable();
         playerInputAction.UI.Enable();
+        if (Gamemanager.Instance.cutScenesStartGame)
+        {
+            body.SetActive(false);
+        }
+        SetUpDownMode(false);
     }
     void PlayerMode()
     {
         playerInputAction.UI.Disable();
         playerInputAction.Player.Enable();
+        body.SetActive(true);
+        SetUpDownMode(true);
     }
 
     public void OnDie(InputAction.CallbackContext context)

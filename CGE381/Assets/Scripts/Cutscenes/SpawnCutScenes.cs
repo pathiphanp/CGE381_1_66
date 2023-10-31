@@ -10,6 +10,7 @@ public class SpawnCutScenes : MonoBehaviour
 {
     public static event Action EndCutScene;
     [SerializeField] public GameObject[] cutScenes;
+    [SerializeField] GameObject BgNext;
     [SerializeField] public int indexCutScene = 0;
     public bool canSpawn;
     public bool nextmap;
@@ -29,25 +30,27 @@ public class SpawnCutScenes : MonoBehaviour
     }
     public void SpawnCutScene()
     {
+        //End Cut Scenes
         if (indexCutScene > cutScenes.Length - 1)
         {
             this.gameObject.SetActive(false);
             if (nextmap)
             {
+                BgNext.SetActive(true);
                 Gamemanager.Instance.NextScenes();
             }
             Gamemanager.ChangePlayerMode();
         }
-        else if (cutScenes[indexCutScene].gameObject.scene.name != null)
+        else
         {
             controlCutScenes = cutScenes[indexCutScene].GetComponent<ControlCutScenes>();
             controlCutScenes.spawnCutScenes = this;
-            canSpawn = false;
-            cutScenes[indexCutScene].SetActive(true);
-        }
-        else
-        {
-            if (canSpawn)
+            if (controlCutScenes.CameraScenes)//Check Cut ScenesCamera
+            {
+                canSpawn = false;
+                cutScenes[indexCutScene].SetActive(true);
+            }
+            if (canSpawn)//Spawn Cut Scenes
             {
                 canSpawn = false;
                 GameObject c = Instantiate(cutScenes[indexCutScene], transform.position, transform.rotation, transform.parent);
