@@ -167,6 +167,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             anim.SetBool("DownMode", downMode);
             downspeed = standard_down;
             rb.gravityScale = 1;
+
         }
         else
         {
@@ -178,7 +179,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     public void ControlPlayer()
     {
         //move
-        if (drop && !downMode)
+        if (drop && !downMode && rb.velocity.y == 0)
         {
             rb.velocity = Vector2.zero;
         }
@@ -205,11 +206,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         anim.SetFloat("Move", inputVector.x);
         if (inputVector.x < 0)
         {
-            body.transform.localScale = new Vector3(-1, 1, 1);
+            //Right
+            body.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else if (inputVector.x > 0)
         {
-            body.transform.localScale = new Vector3(1, 1, 1);
+            //Left
+            body.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         moveDirection.x = inputVector.x;
         if (context.performed)
@@ -260,7 +263,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && !downMode)
+        if (context.started && !downMode && !drop)
         {
             Jump();
         }
@@ -529,7 +532,5 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         yield return new WaitForSeconds(2);
         showHp.SetActive(false);
     }
-
-
 }
 

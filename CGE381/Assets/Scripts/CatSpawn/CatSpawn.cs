@@ -28,6 +28,7 @@ public class CatSpawn : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             anim.Play("CatWarp");
+            Gamemanager.ChangeUIMode();
         }
     }
     void PlayCutScenes()

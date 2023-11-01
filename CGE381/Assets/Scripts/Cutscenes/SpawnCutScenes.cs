@@ -14,6 +14,7 @@ public class SpawnCutScenes : MonoBehaviour
     [SerializeField] public int indexCutScene = 0;
     public bool canSpawn;
     public bool nextmap;
+    public bool catwarp;
     public ControlCutScenes controlCutScenes;
     private void Start()
     {
@@ -33,6 +34,10 @@ public class SpawnCutScenes : MonoBehaviour
         //End Cut Scenes
         if (indexCutScene > cutScenes.Length - 1)
         {
+            if (catwarp)
+            {
+                SpawnCutScenes.EndCutSceneEvent();
+            }
             this.gameObject.SetActive(false);
             if (nextmap)
             {

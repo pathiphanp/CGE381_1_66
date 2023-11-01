@@ -53,7 +53,6 @@ public class TagEnemy : MonoBehaviour
         {
             icon.SetActive(false);
             onTag = false;
-            Debug.Log(other.name);
         }
     }
 

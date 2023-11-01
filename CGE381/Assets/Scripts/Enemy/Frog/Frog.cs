@@ -61,7 +61,6 @@ public class Frog : MonoBehaviour
     {
         top = new Vector2(transform.position.x - boxRight, transform.position.y - boxTop);
         bot = new Vector2(transform.position.x - boxleft, transform.position.y - botDown);
-
         if (Physics2D.OverlapArea(top, bot, ground) && canJump)
         {
             rb.gravityScale = 0;
