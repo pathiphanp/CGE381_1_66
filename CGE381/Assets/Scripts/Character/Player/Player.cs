@@ -207,12 +207,24 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (inputVector.x < 0)
         {
             //Right
+            if (downMode)
+            {
+                anim.SetBool("Side", true);
+            }
             body.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else if (inputVector.x > 0)
         {
             //Left
+            if (downMode)
+            {
+                anim.SetBool("Side", true);
+            }
             body.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            anim.SetBool("Side", false);
         }
         moveDirection.x = inputVector.x;
         if (context.performed)

@@ -325,7 +325,7 @@ MonoBehaviour:
   endPosition: {fileID: 1144253799}
   target: {x: 0, y: 0, z: 0}
   speedMove: 0
-  timeDuration: 500
+  timeDuration: 100
 --- !u!61 &38649783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1437,6 +1437,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 375694994, guid: 719f4b807f300564f945a1c88ff87cd3, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 851261443, guid: 719f4b807f300564f945a1c88ff87cd3, type: 3}
       propertyPath: m_FlipX
       value: 0
@@ -2386,7 +2390,7 @@ MonoBehaviour:
   endPosition: {fileID: 1853415077}
   target: {x: 0, y: 0, z: 0}
   speedMove: 0
-  timeDuration: 500
+  timeDuration: 100
 --- !u!61 &420462424
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4692,7 +4696,7 @@ MonoBehaviour:
   endPosition: {fileID: 1990816000}
   target: {x: 0, y: 0, z: 0}
   speedMove: 0
-  timeDuration: 500
+  timeDuration: 100
 --- !u!61 &1064619753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5946,7 +5950,7 @@ MonoBehaviour:
   endPosition: {fileID: 1633078215}
   target: {x: 0, y: 0, z: 0}
   speedMove: 0
-  timeDuration: 500
+  timeDuration: 100
 --- !u!61 &1465333615
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7506,7 +7510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1695955818
 Transform:
   m_ObjectHideFlags: 0
@@ -8886,7 +8890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1891840216
 Transform:
   m_ObjectHideFlags: 0
@@ -9420,13 +9424,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7524c44d0f27a24888bbd45672328c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: 0
-  stoptime:
-  - 11
-  - 21
-  - 41
-  - 67
-  index: 0
 --- !u!1 &2012429278
 GameObject:
   m_ObjectHideFlags: 0
