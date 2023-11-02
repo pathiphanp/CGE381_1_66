@@ -498,13 +498,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             star++;
             other.GetComponent<GetStar>().Die();
-            pointStar.text = star.ToString();
             StartCoroutine(ShowStar());
         }
         if (other.tag == "Enemy")
         {
             TakeDamage(1);
-            pointHp.text = hp.ToString();
             StartCoroutine(ShowHp());
         }
         if (other.tag == "Mushroom")
@@ -515,6 +513,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             key++;
             other.GetComponent<Key>().Die();
+        }
+        if (other.tag == "Heal")
+        {
+            hp++;
+            hp = Mathf.Clamp(hp, 0, 5);
+            StartCoroutine(ShowHp());
+            Destroy(other.gameObject);
         }
     }
     void AliceSmall()
@@ -534,12 +539,14 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     IEnumerator ShowStar()
     {
+        pointStar.text = star.ToString();
         showStar.SetActive(true);
         yield return new WaitForSeconds(2);
         showStar.SetActive(false);
     }
     IEnumerator ShowHp()
     {
+        pointHp.text = hp.ToString();
         showHp.SetActive(true);
         yield return new WaitForSeconds(2);
         showHp.SetActive(false);

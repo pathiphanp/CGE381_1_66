@@ -13,18 +13,17 @@ public class CardEnemy : MonoBehaviour
 
     [SerializeField] float delayAtk;
 
-    bool atk = false;
 
     [SerializeField] GameObject weapon;
 
     void Start()
     {
-        targetY = start.transform.localPosition.y;
+        targetY = end.transform.localPosition.y;
         StartCoroutine(LoopAtk());
     }
     IEnumerator LoopAtk()
     {
-        while (!atk)
+        while (weapon.transform.localPosition.y != targetY)
         {
             speed += Time.deltaTime;
             float percencomplete = speed / duration;
@@ -32,11 +31,6 @@ public class CardEnemy : MonoBehaviour
             targetY, percencomplete);
             weapon.transform.localPosition = new Vector3(weapon.transform.localPosition.x,
             moveY, weapon.transform.localPosition.z);
-            if (weapon.transform.localPosition.y == targetY)
-            {
-                Debug.Log("a");
-                atk = true;
-            }
             yield return true;
         }
         if (weapon.transform.localPosition.y == start.transform.localPosition.y)
@@ -48,7 +42,7 @@ public class CardEnemy : MonoBehaviour
             targetY = start.transform.localPosition.y;
         }
         yield return new WaitForSeconds(delayAtk);
-        atk = false;
+        speed = 0;
         StartCoroutine(LoopAtk());
     }
 }

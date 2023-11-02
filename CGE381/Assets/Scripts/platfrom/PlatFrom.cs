@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Platfrom : MonoBehaviour, DeleteChild, AddChild
 {
+    [SerializeField] bool platfrom = true;
     [Header("SetDelay")]
     [SerializeField] float delayStopPlatfrom;
 
@@ -65,6 +66,9 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
 
     public void AddChild(GameObject child)
     {
-        child.transform.parent = transform;
+        if (platfrom)
+        {
+            child.transform.parent = transform;
+        }
     }
 }
