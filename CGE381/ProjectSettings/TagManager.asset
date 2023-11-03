@@ -15,6 +15,7 @@ TagManager:
   - Start
   - End
   - Heal
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Enemy
   - Platfrom
   - HeadEnemy
-  - 
+  - GroundEnemy
   - 
   - 
   - 
@@ -49,6 +50,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BoxMap
+    uniqueID: 1094498071
+    locked: 0
+  - name: Wepon
+    uniqueID: 3614141581
+    locked: 0
+  - name: Hand
+    uniqueID: 2430077975
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

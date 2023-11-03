@@ -23,6 +23,7 @@ public class DoorChecks : MonoBehaviour
             if (player.key > 0)
             {
                 player.key--;
+                player.keyItem.SetActive(false);
                 if (endMap)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

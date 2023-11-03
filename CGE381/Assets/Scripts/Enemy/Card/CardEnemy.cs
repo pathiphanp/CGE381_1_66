@@ -13,36 +13,47 @@ public class CardEnemy : MonoBehaviour
 
     [SerializeField] float delayAtk;
 
+    [SerializeField] bool canAtk = true;
 
     [SerializeField] GameObject weapon;
 
     void Start()
     {
+        canAtk = true;
         targetY = end.transform.localPosition.y;
-        StartCoroutine(LoopAtk());
     }
-    IEnumerator LoopAtk()
+    void Update()
     {
-        while (weapon.transform.localPosition.y != targetY)
+        atk();
+    }
+    void atk()
+    {
+        speed += Time.deltaTime;
+        float percencomplete = speed / duration;
+        float moveY = Mathf.Lerp(weapon.transform.localPosition.y,
+        targetY, percencomplete);
+        weapon.transform.localPosition = new Vector3(weapon.transform.localPosition.x,
+        moveY, weapon.transform.localPosition.z);
+        if (weapon.transform.localPosition.y == targetY && canAtk)
         {
-            speed += Time.deltaTime;
-            float percencomplete = speed / duration;
-            float moveY = Mathf.Lerp(weapon.transform.localPosition.y,
-            targetY, percencomplete);
-            weapon.transform.localPosition = new Vector3(weapon.transform.localPosition.x,
-            moveY, weapon.transform.localPosition.z);
-            yield return true;
+            canAtk = false;
+            if (weapon.transform.localPosition.y == end.transform.localPosition.y)
+            {
+                targetY = start.transform.localPosition.y;
+                speed = 0;
+                canAtk = true;
+            }
+            else
+            {
+                StartCoroutine(DelayAtk());
+            }
         }
-        if (weapon.transform.localPosition.y == start.transform.localPosition.y)
-        {
-            targetY = end.transform.localPosition.y;
-        }
-        else
-        {
-            targetY = start.transform.localPosition.y;
-        }
+    }
+    IEnumerator DelayAtk()
+    {
         yield return new WaitForSeconds(delayAtk);
+        targetY = end.transform.localPosition.y;
         speed = 0;
-        StartCoroutine(LoopAtk());
+        canAtk = true;
     }
 }

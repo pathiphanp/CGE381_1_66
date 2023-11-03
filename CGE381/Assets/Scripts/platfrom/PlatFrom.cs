@@ -14,6 +14,7 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     [SerializeField] public GameObject startPosition;
     [SerializeField] public GameObject endPosition;
     [SerializeField] public Vector3 target;
+    bool canMove = true;
     [Header("SetSpeed")]
     [SerializeField] float speedMove;
     [SerializeField] float timeDuration;
@@ -29,6 +30,20 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     }
     public virtual void PlatfromMove()
     {
+        if (transform.localPosition == target && canMove)
+        {
+            canMove = false;
+            StartCoroutine(DelayPlatFrom());
+        }
+        speedMove += Time.deltaTime;
+        float percentCompete = speedMove / timeDuration;
+        transform.localPosition =
+        Vector3.MoveTowards(transform.localPosition,
+        target, percentCompete);
+    }
+    IEnumerator DelayPlatFrom()
+    {
+        yield return new WaitForSeconds(delayStopPlatfrom);
         if (transform.localPosition == startPosition.transform.localPosition)
         {
             speedMove = 0;
@@ -39,25 +54,7 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
             speedMove = 0;
             target = startPosition.transform.localPosition;
         }
-        speedMove += Time.deltaTime;
-        float percentCompete = speedMove / timeDuration;
-        transform.localPosition =
-        Vector3.MoveTowards(transform.localPosition,
-        target, percentCompete);
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        /*if (other.gameObject.tag == "Start")
-        {
-            speedMove = 0;
-            target = endPosition.transform.localPosition;
-        }
-        if (other.gameObject.tag == "End")
-        {
-            speedMove = 0;
-            target = startPosition.transform.localPosition;
-        }*/
-
+        canMove = true;
     }
     public void DeleteChild()
     {

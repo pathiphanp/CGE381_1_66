@@ -24,16 +24,17 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] public int hp;
     public GameObject showHp;
     public TMP_Text pointHp;
-
+    bool immortal = false;
     Vector2 moveDirection;
-    #region "Inventory"
-    [Header("Inventory")]
-    [SerializeField] GameObject inventory;
     [Header("Point_Star")]
     public GameObject showStar;
     public TMP_Text pointStar;
     [HideInInspector] public int star;
+    #region "Inventory"
+    [Header("Inventory")]
+    [SerializeField] GameObject inventory;
     [Header("Key")]
+    [SerializeField] public GameObject keyItem;
     public int key;
     #endregion
 
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     #region //Move
     [Header("Body")]
     [SerializeField] GameObject body;
+    [SerializeField] GameObject leg;
     [Header("Small")]
     [SerializeField] Size size;
     [SerializeField] float smallSize;
@@ -93,6 +95,9 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     public BtnDataSystem[] btn;
     int indexDieManu = 0;
     bool die;
+    [Header("Sprite")]
+    [SerializeField] SpriteRenderer _sprite;
+    [SerializeField] SpriteRenderer _sprite_Leg;
 
     /////////////////////////
     /////////////////////////
@@ -127,6 +132,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         speedMove = walkspeed;
         RestartPlayer();
         rby = rb.velocity.y;
+        _sprite = body.GetComponent<SpriteRenderer>();
+        _sprite_Leg = leg.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -191,7 +198,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             rb.velocity = new Vector2(moveDirection.x * speedMove, downspeed);
         }
-        if (moveDirection.x == 0)
+        if (moveDirection.x == 0)//Check Idel
         {
             waittime -= Time.deltaTime;
             if (waittime <= 0)
@@ -309,12 +316,10 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
         RaycastHit2D plat = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
         RaycastHit2D doda = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, dodamage);
-
         if (checkGround && rb.velocity.y <= 0)//On Ground
         {
             if (plat)//CheckPlatfrom
             {
-                Debug.Log("b");
                 _platfrom = plat.collider.gameObject;
                 if (_platfrom != null)
                 {
@@ -352,19 +357,18 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             }
             if (rby > 7.9 && onJump)//Down to Floor
             {
-                if (doda)
-                {
-                    datacountJump++;
-                    Jump();
-                    Destroy(doda.collider.gameObject);
-                }
-
                 rb.gravityScale = speedDown;
             }
             else if (!die)
             {
                 rb.gravityScale = gravity;
             }
+        }
+        if (doda)//Check destroy Enenmy
+        {
+            datacountJump = 1;
+            Jump();
+            Destroy(doda.collider.gameObject);
         }
     }
     public void OnInventory(InputAction.CallbackContext context)
@@ -500,10 +504,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             other.GetComponent<GetStar>().Die();
             StartCoroutine(ShowStar());
         }
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && !immortal)
         {
             TakeDamage(1);
             StartCoroutine(ShowHp());
+            StartCoroutine(Immortal());
         }
         if (other.tag == "Mushroom")
         {
@@ -512,6 +517,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (other.tag == "Key")
         {
             key++;
+            keyItem.SetActive(true);
             other.GetComponent<Key>().Die();
         }
         if (other.tag == "Heal")
@@ -550,6 +556,29 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         showHp.SetActive(true);
         yield return new WaitForSeconds(2);
         showHp.SetActive(false);
+    }
+    IEnumerator Immortal()
+    {
+        anim.Play("Hit");
+        immortal = true;
+        for (int i = 0; i < 30; i++)
+        {
+            if (_sprite.color.a == 0)
+            {
+                _sprite.color = new Color(1, 1, 1, 1);
+                _sprite_Leg.color = new Color(1, 1, 1, 1);
+
+            }
+            else
+            {
+                _sprite.color = new Color(1, 1, 1, 0);
+                _sprite_Leg.color = new Color(1, 1, 1, 0);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+        _sprite_Leg.color = new Color(1, 1, 1, 1);
+        _sprite.color = new Color(1, 1, 1, 1);
+        immortal = false;
     }
 }
 

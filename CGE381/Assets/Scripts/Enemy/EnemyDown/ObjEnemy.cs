@@ -6,18 +6,32 @@ using UnityEngine;
 public class ObjEnemy : MonoBehaviour
 {
     Rigidbody2D rb;
+    Collider2D call;
+    Animator anim;
+    [HideInInspector] public SpawnEnemyDown control;
     [SerializeField] public float speedDown;
     // Start is called before the first frame update
     void Start()
     {
-        this.AddComponent<PolygonCollider2D>();
+        anim = GetComponent<Animator>();
+        call = this.AddComponent<PolygonCollider2D>();
         rb = this.AddComponent<Rigidbody2D>();
+        call.isTrigger = true;
+        rb.gravityScale = 0;
         rb.velocity = new Vector2(rb.velocity.x, speedDown);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Ground")
+        {
+            anim.Play("Die");
+        }
     }
+    void Destroythis()
+    {
+        Destroy(this.gameObject);
+    }
+
+
 }

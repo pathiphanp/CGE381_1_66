@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class ClockEnemy : Platfrom
@@ -25,8 +26,9 @@ public class ClockEnemy : Platfrom
     {
         if (head.gameObject == null)
         {
-            anim.Play("Die");
+            target = transform.localPosition;
             call.enabled = false;
+            anim.Play("Die");
         }
         base.PlatfromMove();
     }

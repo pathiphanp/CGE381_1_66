@@ -15,7 +15,7 @@ public class SpawnCutScenes : MonoBehaviour
     public bool canSpawn;
     public bool nextmap;
     public bool catwarp;
-    public ControlCutScenes controlCutScenes;
+    [HideInInspector] public ControlCutScenes controlCutScenes;
     private void Start()
     {
         SpawnCutScene();

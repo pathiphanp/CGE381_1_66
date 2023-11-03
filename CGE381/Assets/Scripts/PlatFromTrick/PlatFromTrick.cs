@@ -21,12 +21,10 @@ public class PlatFromTrick : MonoBehaviour
     }
     IEnumerator FloorTrick()
     {
-        Debug.Log("StartTrick");
         canAction = true;
         yield return new WaitForSeconds(waitStartTick);
         if (canAction)
         {
-            Debug.Log("TrickAction");
             anim.Play("OpenTrick");
         }
     }
@@ -34,7 +32,6 @@ public class PlatFromTrick : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("ReSetTrick");
             canAction = false;
         }
     }

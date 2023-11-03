@@ -5,26 +5,26 @@ using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
     Collider2D mushroom;
+    Animator anim;
     [SerializeField] float cooldown;
 
     void Start()
     {
         mushroom = GetComponent<Collider2D>();
-        StartCoroutine(ResetSetMushroom());
+        anim = GetComponent<Animator>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other)
+        if (other.gameObject.tag == "Player")
         {
-            StartCoroutine(ResetSetMushroom());
+            mushroom.enabled = false;
+            anim.Play("PlaAtk");
         }
     }
 
-    IEnumerator ResetSetMushroom()
+    public void ResetSetMushroom()
     {
-        mushroom.enabled = false;
-        yield return new WaitForSeconds(cooldown);
+        Debug.Log("Reset");
         mushroom.enabled = true;
-
     }
 }

@@ -18,7 +18,7 @@ public class Frog : MonoBehaviour
     [SerializeField] public Vector3 target;
     [SerializeField] public State state;
 
-    [Header("Check")]
+    [Header("Ray Check Ground")]
     [SerializeField] Vector2 top;
     [SerializeField] Vector2 bot;
     [SerializeField] float boxleft;
@@ -27,18 +27,30 @@ public class Frog : MonoBehaviour
     [SerializeField] float botDown;
     [SerializeField] LayerMask ground;
     [Header("Jump")]
+    [SerializeField] float delayJump;
+    [Header("Up")]
     [SerializeField] bool canJump;
-    [SerializeField] float hightJump;
+    bool jump = true;
+    float dataHight = 0;
+    [SerializeField] float hightMax;
+    [SerializeField] float speedTohight;
+    [Header("Down")]
+    [SerializeField] float gravityDown;
+    [SerializeField] float speedDown;
+    float dataSpeedDown;
+    bool downJump;
+    [Header("distanceJump")]
     [SerializeField] float distanceJump;
-    float left;
-    float right;
+    float distanceleft;
+    float distanceright;
+    [Header("HeadEnemy")]
     [SerializeField] GameObject takedamage;
+
 
 
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer sprite;
-
 
     // Start is called before the first frame update
     void Start()
@@ -46,38 +58,21 @@ public class Frog : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        left = -distanceJump;
-        right = +distanceJump;
+        AllSetValue();
+    }
+    void AllSetValue()
+    {
+        distanceleft = -distanceJump;
+        distanceright = +distanceJump;
+        dataSpeedDown = speedDown;
         target = endPosition.transform.localPosition;
     }
-
     // Update is called once per frame
     void Update()
     {
         Behavior();
         CheckGround();
-    }
-    void CheckGround()
-    {
-        top = new Vector2(transform.position.x - boxRight, transform.position.y - boxTop);
-        bot = new Vector2(transform.position.x - boxleft, transform.position.y - botDown);
-        if (Physics2D.OverlapArea(top, bot, ground) && canJump)
-        {
-            rb.gravityScale = 0;
-            rb.velocity = Vector2.zero;
-            anim.Play("JumpDown");
-            if (canJump)
-            {
-                canJump = false;
-                StartCoroutine(LoopJump());
-            }
-        }
-
-    }
-    IEnumerator LoopJump()
-    {
-        yield return new WaitForSeconds(1);
-        anim.Play("JumpUp");
+        JumpControl();
     }
     void Behavior()
     {
@@ -91,7 +86,48 @@ public class Frog : MonoBehaviour
             target = targetPosition.transform.localPosition;
         }
     }
-
+    void JumpControl()
+    {
+        if (canJump == true)
+        {
+            dataHight = Mathf.Lerp(dataHight, speedTohight, Time.deltaTime);
+            rb.velocity = new Vector2(rb.velocity.x, dataHight);
+            if (rb.velocity.y >= hightMax)
+            {
+                downJump = true;
+                canJump = false;
+                dataSpeedDown = speedDown;
+                rb.velocity = new Vector2(rb.velocity.x, dataSpeedDown);
+            }
+        }
+        if (rb.velocity.y < 0 && downJump)
+        {
+            downJump = false;
+            rb.gravityScale = gravityDown;
+        }
+    }
+    void CheckGround()
+    {
+        top = new Vector2(transform.position.x - boxRight, transform.position.y - boxTop);
+        bot = new Vector2(transform.position.x - boxleft, transform.position.y - botDown);
+        if (Physics2D.OverlapArea(top, bot, ground) && jump)
+        {
+            rb.gravityScale = 0;
+            rb.velocity = Vector2.zero;
+            dataSpeedDown = 0;
+            dataHight = 0;
+            if (jump)
+            {
+                jump = false;
+                StartCoroutine(LoopJump());
+            }
+        }
+    }
+    IEnumerator LoopJump()
+    {
+        yield return new WaitForSeconds(delayJump);
+        anim.Play("JumpUp");
+    }
     public IEnumerator Jump()
     {
         if (state == State.NONE)
@@ -109,24 +145,25 @@ public class Frog : MonoBehaviour
         {
             //Right
             sprite.flipX = true;
-            distanceJump = right;
+            distanceJump = distanceright;
         }
         else
         {
             //Left
             sprite.flipX = false;
-            distanceJump = left;
+            distanceJump = distanceleft;
         }
         rb.gravityScale = 1;
-        rb.velocity = new Vector2(rb.velocity.x, hightJump);
+        canJump = true;
         yield return new WaitForSeconds(0.2f);
         rb.velocity = new Vector2(distanceJump, rb.velocity.y);
         //Debug.Log("Up : " + rb.velocity.y);
     }
     public IEnumerator ResetJump()
     {
-        yield return new WaitForSeconds(1);
-        canJump = true;
+        anim.Play("JumpDown");
+        jump = true;
+        yield return new WaitForSeconds(0);
     }
 
     public IEnumerator ResetHunt()
