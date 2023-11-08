@@ -18,7 +18,14 @@ public class ObjEnemy : MonoBehaviour
         rb = this.AddComponent<Rigidbody2D>();
         call.isTrigger = true;
         rb.gravityScale = 0;
-        rb.velocity = new Vector2(rb.velocity.x, speedDown);
+        if (control.spawnSide)
+        {
+            rb.velocity = new Vector2(speedDown, rb.velocity.y);
+        }
+        if (control.spawnDown)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, speedDown);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

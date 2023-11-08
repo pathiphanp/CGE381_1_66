@@ -77,15 +77,16 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] GameObject pointCheckGround;
     [SerializeField] float radiusCheckGround;
     [SerializeField] LayerMask ground;
-    [SerializeField] LayerMask platfrom;
+    [Header("Check Head Enemy")]
     [SerializeField] LayerMask dodamage;
+    [Header("Platfrom")]
+    [SerializeField] LayerMask platfrom;
     [SerializeField] GameObject _platfrom;
-
     [SerializeField] float distanceChrckPlatfrom;
-
+    [Header("Set Gravity")]
     [SerializeField] float gravity;
+    [HideInInspector] public Rigidbody2D rb;
 
-    public Rigidbody2D rb;
     [Header("PlayerInputActions")]
     [Space][SerializeField] PlayerInputActions playerInputAction;
     [Header("Animation")]
@@ -316,9 +317,9 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
         RaycastHit2D plat = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
         RaycastHit2D doda = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, dodamage);
-        if (checkGround && rb.velocity.y <= 0)//On Ground
+        if (plat)//CheckPlatfrom
         {
-            if (plat)//CheckPlatfrom
+            if (_platfrom == null)
             {
                 _platfrom = plat.collider.gameObject;
                 if (_platfrom != null)
@@ -327,6 +328,16 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                     add.AddChild(this.gameObject);
                 }
             }
+        }
+        else//Out off Platfrom
+        {
+            if (_platfrom != null)
+            {
+                OutPlatfrom();
+            }
+        }
+        if (checkGround && rb.velocity.y <= 0)//On Ground
+        {
             rb.gravityScale = 0;
             if (speedMove < walkspeed || speedMove < runspeed)//Change speed
             {
@@ -349,12 +360,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         else //Out Ground
         {
-            if (_platfrom != null)//Out off Platfrom
-            {
-                DeleteChild delete = _platfrom.GetComponent<DeleteChild>();
-                delete.DeleteChild();
-                _platfrom = null;
-            }
+
             if (rby > 7.9 && onJump)//Down to Floor
             {
                 rb.gravityScale = speedDown;
@@ -362,6 +368,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             else if (!die)
             {
                 rb.gravityScale = gravity;
+
             }
         }
         if (doda)//Check destroy Enenmy
@@ -370,6 +377,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Jump();
             Destroy(doda.collider.gameObject);
         }
+    }
+    public void OutPlatfrom()
+    {
+        DeleteChild delete = _platfrom.GetComponent<DeleteChild>();
+        delete.DeleteChild();
+        _platfrom = null;
     }
     public void OnInventory(InputAction.CallbackContext context)
     {
@@ -502,6 +515,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             star++;
             other.GetComponent<GetStar>().Die();
+            CheckGainAllStars.Instance.CheckStar();
             StartCoroutine(ShowStar());
         }
         if (other.tag == "Enemy" && !immortal)

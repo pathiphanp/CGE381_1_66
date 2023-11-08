@@ -9,6 +9,9 @@ public class SpawnEnemyDown : MonoBehaviour
     public GameObject[] objEnemy;
     [SerializeField] float delaySpawn;
 
+    [Header("Spawn type")]
+    [SerializeField] public bool spawnSide;
+    [SerializeField] public bool spawnDown;
     bool canSpawn = true;
 
     void Update()

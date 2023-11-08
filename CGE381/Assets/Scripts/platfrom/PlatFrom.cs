@@ -66,6 +66,16 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
         if (platfrom)
         {
             child.transform.parent = transform;
+            if (child.transform.localPosition.y > 0.4f)
+            {
+                child.transform.localPosition = new Vector3(child.transform.localPosition.x,
+                0.53f, child.transform.localPosition.z);
+            }
+            else
+            {
+                gameObject.layer = 1 << 0;
+                child.GetComponent<Player>().OutPlatfrom();
+            }
         }
     }
 }
