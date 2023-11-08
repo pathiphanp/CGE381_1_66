@@ -7,6 +7,7 @@ public class Mushroom : MonoBehaviour
     Collider2D mushroom;
     Animator anim;
     [SerializeField] float cooldown;
+    bool canGain = true;
 
     void Start()
     {
@@ -15,16 +16,17 @@ public class Mushroom : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && canGain)
         {
-            mushroom.enabled = false;
+            Debug.Log("Gain");
+            other.gameObject.GetComponent<Player>().AliceChangeSize();
+            canGain = false;
             anim.Play("PlaAtk");
         }
     }
-
     public void ResetSetMushroom()
     {
         Debug.Log("Reset");
-        mushroom.enabled = true;
+        canGain = true;
     }
 }

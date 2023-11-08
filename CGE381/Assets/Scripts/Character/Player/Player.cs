@@ -97,8 +97,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     int indexDieManu = 0;
     bool die;
     [Header("Sprite")]
-    [SerializeField] SpriteRenderer _sprite;
-    [SerializeField] SpriteRenderer _sprite_Leg;
+    SpriteRenderer _sprite;
+    SpriteRenderer _sprite_Leg;
 
     /////////////////////////
     /////////////////////////
@@ -276,7 +276,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             downspeed = standard_down;
         }
     }
-
     void DownSpeedControl()
     {
         downspeed = boostpeed_down;
@@ -315,27 +314,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     void checkGround()
     {
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
-        RaycastHit2D plat = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
         RaycastHit2D doda = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, dodamage);
-        if (plat)//CheckPlatfrom
-        {
-            if (_platfrom == null)
-            {
-                _platfrom = plat.collider.gameObject;
-                if (_platfrom != null)
-                {
-                    AddChild add = _platfrom.GetComponent<AddChild>();
-                    add.AddChild(this.gameObject);
-                }
-            }
-        }
-        else//Out off Platfrom
-        {
-            if (_platfrom != null)
-            {
-                OutPlatfrom();
-            }
-        }
+        CheckPlatfrom();
         if (checkGround && rb.velocity.y <= 0)//On Ground
         {
             rb.gravityScale = 0;
@@ -376,6 +356,29 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             datacountJump = 1;
             Jump();
             Destroy(doda.collider.gameObject);
+        }
+    }
+    void CheckPlatfrom()
+    {
+        RaycastHit2D plat = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, platfrom);
+        if (plat)//CheckPlatfrom
+        {
+            if (_platfrom == null)
+            {
+                _platfrom = plat.collider.gameObject;
+                if (_platfrom != null)
+                {
+                    AddChild add = _platfrom.GetComponent<AddChild>();
+                    add.AddChild(this.gameObject);
+                }
+            }
+        }
+        else//Out off Platfrom
+        {
+            if (_platfrom != null)
+            {
+                OutPlatfrom();
+            }
         }
     }
     public void OutPlatfrom()
@@ -524,10 +527,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             StartCoroutine(ShowHp());
             StartCoroutine(Immortal());
         }
-        if (other.tag == "Mushroom")
-        {
-            AliceSmall();
-        }
         if (other.tag == "Key")
         {
             key++;
@@ -542,7 +541,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Destroy(other.gameObject);
         }
     }
-    void AliceSmall()
+    public void AliceChangeSize()
     {
         if (size == Size.NORMAL)
         {

@@ -5,12 +5,16 @@ using UnityEngine;
 public class CheckGainAllStars : Singletons<CheckGainAllStars>
 {
     [SerializeField] GameObject cutScenes;
-    int countStar;
-    int stargain;
+    [SerializeField] int countStar;
+    [SerializeField] int stargain;
+    void Start()
+    {
+        countStar = transform.childCount;
+    }
     public void CheckStar()
     {
         stargain++;
-        if (stargain == countStar)
+        if (stargain == countStar - 1)
         {
             cutScenes.SetActive(true);
         }
