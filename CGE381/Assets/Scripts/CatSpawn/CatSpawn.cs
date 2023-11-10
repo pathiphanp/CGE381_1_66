@@ -7,6 +7,7 @@ public class CatSpawn : MonoBehaviour
     Collider2D col;
     Animator anim;
     [SerializeField] GameObject spawnCutScenes;
+    bool candie;
 
     private void OnEnable()
     {
@@ -28,6 +29,7 @@ public class CatSpawn : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             anim.Play("CatWarp");
+            candie = true;
             Gamemanager.ChangeUIMode();
         }
     }
@@ -42,6 +44,9 @@ public class CatSpawn : MonoBehaviour
     }
     void Die()
     {
-        Destroy(this.gameObject);
+        if (candie)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

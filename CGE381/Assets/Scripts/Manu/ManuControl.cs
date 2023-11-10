@@ -68,7 +68,7 @@ public class ManuControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && setSave.selectSave || Input.GetKeyDown(KeyCode.DownArrow) && setSave.selectSave)
         {
-            indexBtnManu = ArrowControl.aC.SetSlotUpDown(indexBtnManu, btn.Length - 1);
+            indexBtnManu = ArrowControl.Instance.SetSlotUpDown(indexBtnManu, btn.Length - 1);
             loopBtn();
         }
         if (btn[1].manu.active)

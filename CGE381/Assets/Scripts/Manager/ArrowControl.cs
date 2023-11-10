@@ -2,14 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowControl : MonoBehaviour
+public class ArrowControl : Singletons<ArrowControl>
 {
-    public static ArrowControl aC;
-    private void Awake()
-    {
-        aC = this;
-    }
-
     public int SetSlotSide(int index, int clampMax)
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))

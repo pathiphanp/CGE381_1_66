@@ -67,7 +67,7 @@ public class Setname : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))//SetName
         {
-            systemName[indexName].setNamePlayer = (char)ArrowControl.aC.SetSlotUpDown(systemName[indexName].setNamePlayer, 91);
+            systemName[indexName].setNamePlayer = (char)ArrowControl.Instance.SetSlotUpDown(systemName[indexName].setNamePlayer, 91);
             if (systemName[indexName].setNamePlayer == 91)
             {
                 systemName[indexName].setNamePlayer = 'A';
@@ -79,7 +79,7 @@ public class Setname : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))//SelectNameSlot
         {
-            indexName = ArrowControl.aC.SetSlotSide(indexName, systemName.Length - 1);
+            indexName = ArrowControl.Instance.SetSlotSide(indexName, systemName.Length - 1);
             for (int i = 0; i < systemName.Length; i++)
             {
                 if (indexName == i)

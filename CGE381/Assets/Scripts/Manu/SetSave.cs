@@ -51,7 +51,7 @@ public class SetSave : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftArrow) && selectSave || Input.GetKeyDown(KeyCode.RightArrow) && selectSave)
         {
-            indexSave = ArrowControl.aC.SetSlotSide(indexSave, transform.childCount - 1);
+            indexSave = ArrowControl.Instance.SetSlotSide(indexSave, transform.childCount - 1);
             for (int i = 0; i < _slodSave.Count; i++)
             {
                 if (indexSave == i)

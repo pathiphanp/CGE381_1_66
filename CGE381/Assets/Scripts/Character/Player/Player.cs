@@ -15,6 +15,7 @@ enum Size
 public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 {
     public static event Action CutSceneTrigger;
+    public static event Action HealAll;
 
     [Header("SetGame")]
     [SerializeField] bool downMode;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     public GameObject showHp;
     public TMP_Text pointHp;
     bool immortal = false;
+    bool normalDie = true;
     Vector2 moveDirection;
     [Header("Point_Star")]
     public GameObject showStar;
@@ -64,11 +66,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [Header("Drop")]
     [SerializeField] bool drop = false;
     [Header("Jump")]
-    [SerializeField] float powerJump;
+    [SerializeField] float powerJumpNormal;
+    [SerializeField] float powerJumpSmall;
+    float powerJump;
     [SerializeField] float speedDown;
     [SerializeField] float speedUp;
     [SerializeField] float countJump;
-    bool onJump = false;
+    [SerializeField] bool onJump = false;
     float rby = 0f;
     float datacountJump;
     #endregion
@@ -107,6 +111,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         playerInputAction.Player.Enable();
         Gamemanager.PlayerUIMode += UIMode;
         Gamemanager.PlayerMode += PlayerMode;
+        Player.HealAll += HealFull;
     }
     void OnDisable()
     {
@@ -114,6 +119,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         playerInputAction.UI.Disable();
         Gamemanager.PlayerUIMode -= UIMode;
         Gamemanager.PlayerMode -= PlayerMode;
+        Player.HealAll -= HealFull;
     }
     void OnApplicationQuit()
     {
@@ -124,17 +130,25 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         playerInputAction = new PlayerInputActions();
         playerInputAction.Player.SetCallbacks(this);
         playerInputAction.UI.SetCallbacks(this);
+        rb = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
     void Start()
     {
         //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
-        rb = GetComponent<Rigidbody2D>();
         speedMove = walkspeed;
+        powerJump = powerJumpNormal;
+        datacountJump = countJump;
         RestartPlayer();
         rby = rb.velocity.y;
-        _sprite = body.GetComponent<SpriteRenderer>();
-        _sprite_Leg = leg.GetComponent<SpriteRenderer>();
+        if (body != null)
+        {
+            _sprite = body.GetComponent<SpriteRenderer>();
+        }
+        if (leg != null)
+        {
+            _sprite_Leg = leg.GetComponent<SpriteRenderer>();
+        }
     }
 
     // Update is called once per frame
@@ -331,7 +345,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             {
                 rb.velocity = Vector2.zero;
             }
-            if (datacountJump == 0)//Reset JumpCount
+            if (datacountJump == 0 || onJump || !onJump)//Reset JumpCount
             {
                 datacountJump = countJump;
                 onJump = false;
@@ -340,18 +354,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         else //Out Ground
         {
-
-            if (rby > 7.9 && onJump)//Down to Floor
+            if (datacountJump == 0)//Down to Floor
             {
                 rb.gravityScale = speedDown;
             }
-            else if (!die)
+            else
             {
                 rb.gravityScale = gravity;
-
+                if (!onJump)
+                {
+                    anim.Play("JumpDown");
+                }
+                anim.SetBool("Jump", true);
             }
         }
-        if (doda)//Check destroy Enenmy
+        if (doda && !immortal)//Check destroy Enenmy
         {
             datacountJump = 1;
             Jump();
@@ -438,14 +455,25 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
     }
 
+
+    #endregion
     public static void SkipCutScene()
     {
         CutSceneTrigger?.Invoke();
     }
-    #endregion
-
+    public static void GainHealAll()
+    {
+        HealAll?.Invoke();
+    }
+    void HealFull()
+    {
+        hp = 5;
+        StartCoroutine(ShowHp());
+    }
+    #region //ChangeMode
     void UIMode()
     {
+        immortal = true;
         playerInputAction.Player.Disable();
         playerInputAction.UI.Enable();
         if (Gamemanager.Instance.cutScenesStartGame)
@@ -456,17 +484,18 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     void PlayerMode()
     {
+        immortal = false;
         playerInputAction.UI.Disable();
         playerInputAction.Player.Enable();
         body.SetActive(true);
         SetUpDownMode(true);
     }
-
+    #endregion
     public void OnDie(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            indexDieManu = ArrowControl.aC.SetSlotUpDown(indexDieManu, btn.Length);
+            indexDieManu = ArrowControl.Instance.SetSlotUpDown(indexDieManu, btn.Length);
             for (int i = 0; i < btn.Length; i++)
             {
                 if (indexDieManu == i)
@@ -489,14 +518,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         die = false;
         dieScenes.SetActive(false);
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, string dieReprot)
     {
         hp -= damage;
         if (hp <= 0)
         {
-            Debug.Log("die");
             rb.velocity = Vector2.zero;
             UIMode();
+            if (dieReprot == "Water")
+            {
+                anim.Play("WaterDie");
+            }
+            else
+            {
+                DieMode();
+            }
         }
     }
 
@@ -511,8 +547,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         if (other.tag == "Water")
         {
-            TakeDamage(99);
-            anim.Play("WaterDie");
+            TakeDamage(99, "Water");
         }
         if (other.tag == "Star")
         {
@@ -523,7 +558,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         if (other.tag == "Enemy" && !immortal)
         {
-            TakeDamage(1);
+            TakeDamage(1, "");
             StartCoroutine(ShowHp());
             StartCoroutine(Immortal());
         }
@@ -545,13 +580,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         if (size == Size.NORMAL)
         {
-            powerJump = 17;
+            powerJump = powerJumpSmall;
             size = Size.SMALL;
             transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
         }
         else
         {
-            powerJump = 22;
+            powerJump = powerJumpNormal;
             size = Size.NORMAL;
             transform.localScale = new Vector3(1, 1, 1);
         }
@@ -574,7 +609,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         anim.Play("Hit");
         immortal = true;
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 20; i++)
         {
             if (_sprite.color.a == 0)
             {

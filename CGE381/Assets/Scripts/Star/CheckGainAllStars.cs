@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class CheckGainAllStars : Singletons<CheckGainAllStars>
 {
+
     [SerializeField] GameObject cutScenes;
     [SerializeField] int countStar;
     [SerializeField] int stargain;
     void Start()
     {
-        countStar = transform.childCount;
+        countStar = transform.childCount - 1;
     }
     public void CheckStar()
     {
         stargain++;
-        if (stargain == countStar - 1)
+        if (stargain == countStar)
         {
             cutScenes.SetActive(true);
+            Player.GainHealAll();
         }
     }
 }

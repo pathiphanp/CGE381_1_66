@@ -18,26 +18,40 @@ public class ObjEnemy : MonoBehaviour
         rb = this.AddComponent<Rigidbody2D>();
         call.isTrigger = true;
         rb.gravityScale = 0;
-        if (control.spawnSide)
+        if (control != null)
         {
-            rb.velocity = new Vector2(speedDown, rb.velocity.y);
+            if (control.spawnSide)
+            {
+                rb.velocity = new Vector2(speedDown, rb.velocity.y);
+            }
+            if (control.spawnDown)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, speedDown);
+            }
         }
-        if (control.spawnDown)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, speedDown);
-        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Player")
         {
             anim.Play("Die");
         }
+        if(other.gameObject.tag == "Ground")
+        {
+            Invoke("DelayDie", 2f);
+        }
     }
+
     void Destroythis()
     {
         Destroy(this.gameObject);
+    }
+
+    void DelayDie()
+    {
+        anim.Play("Die");
     }
 
 

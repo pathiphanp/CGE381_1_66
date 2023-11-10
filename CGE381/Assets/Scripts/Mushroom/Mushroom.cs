@@ -18,7 +18,6 @@ public class Mushroom : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && canGain)
         {
-            Debug.Log("Gain");
             other.gameObject.GetComponent<Player>().AliceChangeSize();
             canGain = false;
             anim.Play("PlaAtk");
@@ -26,7 +25,6 @@ public class Mushroom : MonoBehaviour
     }
     public void ResetSetMushroom()
     {
-        Debug.Log("Reset");
         canGain = true;
     }
 }

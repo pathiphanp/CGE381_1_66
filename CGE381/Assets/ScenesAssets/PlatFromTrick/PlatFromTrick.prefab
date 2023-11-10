@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2059113658030325399}
   - component: {fileID: 2059113658030325393}
   - component: {fileID: 2059113658030325392}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlatFromTrick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2059113658030325397
 SpriteRenderer:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7e4b52b1eaa8e409b1fb1a693eb9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitStartTick: 3
+  waitStartTick: 1
 --- !u!95 &2059113658030325392
 Animator:
   serializedVersion: 5

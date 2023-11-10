@@ -2065,6 +2065,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534365894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8322560747252951357, guid: a4dfc29744b01df4fa8ffcb1ee01e160, type: 3}
+  m_PrefabInstance: {fileID: 1044004361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &542523571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,6 +2813,7 @@ MonoBehaviour:
   indexCutScene: 0
   canSpawn: 1
   nextmap: 0
+  catwarp: 0
   controlCutScenes: {fileID: 0}
 --- !u!1 &695601178
 GameObject:
@@ -3727,6 +3739,7 @@ MonoBehaviour:
   indexCutScene: 0
   canSpawn: 1
   nextmap: 1
+  catwarp: 0
   controlCutScenes: {fileID: 0}
 --- !u!1 &879420103
 GameObject:
@@ -4735,14 +4748,16 @@ MonoBehaviour:
   downMode: 0
   sideMode: 1
   hp: 0
-  showHp: {fileID: 0}
-  pointHp: {fileID: 0}
-  inventory: {fileID: 619582402026874535}
+  showHp: {fileID: 574510230}
+  pointHp: {fileID: 534365894}
   showStar: {fileID: 619582400058234821}
   pointStar: {fileID: 619582401803714263}
   star: 0
+  inventory: {fileID: 619582402026874535}
+  keyItem: {fileID: 0}
   key: 0
   body: {fileID: 619582400098249111}
+  leg: {fileID: 0}
   size: 0
   smallSize: 0
   boostpeed_down: 0
@@ -4761,10 +4776,10 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 128
-  platfrom:
+  dodamage:
     serializedVersion: 2
     m_Bits: 0
-  dodamage:
+  platfrom:
     serializedVersion: 2
     m_Bits: 0
   _platfrom: {fileID: 0}
@@ -7730,7 +7745,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &619582400746975470
 MonoBehaviour:

@@ -47,4 +47,6 @@ MonoBehaviour:
   objEnemy:
   - {fileID: 8908971731689508655, guid: 97805e7369190d849945124dd6f8e155, type: 3}
   - {fileID: 6146721144793993971, guid: b976790cdee3dd04795e0201ffe71517, type: 3}
-  delaySpawn: 0
+  delaySpawn: 30
+  spawnSide: 0
+  spawnDown: 0

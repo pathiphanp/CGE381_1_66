@@ -19,6 +19,7 @@ public class Frog : MonoBehaviour
     [SerializeField] public State state;
 
     [Header("Ray Check Ground")]
+    [SerializeField] GameObject checkGround;
     [SerializeField] Vector2 top;
     [SerializeField] Vector2 bot;
     [SerializeField] float boxleft;
@@ -33,7 +34,7 @@ public class Frog : MonoBehaviour
     bool jump = true;
     float dataHight = 0;
     [SerializeField] float hightMax;
-    [SerializeField] float speedTohight;
+    [SerializeField] float speedToHight;
     [Header("Down")]
     [SerializeField] float gravityDown;
     [SerializeField] float speedDown;
@@ -90,7 +91,7 @@ public class Frog : MonoBehaviour
     {
         if (canJump == true)
         {
-            dataHight = Mathf.Lerp(dataHight, speedTohight, Time.deltaTime);
+            dataHight = Mathf.Lerp(dataHight, speedToHight, Time.deltaTime);
             rb.velocity = new Vector2(rb.velocity.x, dataHight);
             if (rb.velocity.y >= hightMax)
             {
@@ -154,14 +155,17 @@ public class Frog : MonoBehaviour
             distanceJump = distanceleft;
         }
         rb.gravityScale = 1;
+        checkGround.SetActive(false);
         canJump = true;
         yield return new WaitForSeconds(0.2f);
         rb.velocity = new Vector2(distanceJump, rb.velocity.y);
+
         //Debug.Log("Up : " + rb.velocity.y);
     }
     public IEnumerator ResetJump()
     {
         anim.Play("JumpDown");
+        checkGround.SetActive(true);
         jump = true;
         yield return new WaitForSeconds(0);
     }

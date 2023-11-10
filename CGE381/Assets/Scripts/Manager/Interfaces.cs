@@ -9,7 +9,7 @@ public interface Interfaces
 
 public interface TakeDamage
 {
-    void TakeDamage(int damage);
+    void TakeDamage(int damage, string dieReprot);
 }
 public interface DeleteChild
 {
