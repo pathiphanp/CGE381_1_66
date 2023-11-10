@@ -7,7 +7,7 @@ public enum State
 {
     NONE, HUNT
 }
-public class Frog : MonoBehaviour
+public class EnemyJump : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] public GameObject startPosition;
@@ -47,12 +47,9 @@ public class Frog : MonoBehaviour
     [Header("HeadEnemy")]
     [SerializeField] GameObject takedamage;
 
-
-
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer sprite;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -183,6 +180,7 @@ public class Frog : MonoBehaviour
 
     void Die()
     {
+        
         Destroy(this.gameObject);
     }
 

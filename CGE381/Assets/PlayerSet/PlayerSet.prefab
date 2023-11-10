@@ -32,7 +32,7 @@ Transform:
   - {fileID: 6194130283065285656}
   - {fileID: 6731977943223117042}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6194130283065285659
 GameObject:
@@ -62,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6194130283065285659}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0533574, y: 7.6245384, z: -10}
+  m_LocalPosition: {x: 1.7922063, y: 1.8730245, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -319,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6194130283923179545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.763, y: 9.07, z: -10}
+  m_LocalPosition: {x: -8.762999, y: 9.07, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -503,7 +503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580768719780779979, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: distanceChrckPlatfrom
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6580768719780779984, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: m_Material

@@ -68,21 +68,9 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
             //Add in Platfrom
             child.transform.parent = transform;
             //Set Position on platfrom
+            Debug.Log(child.name);
             child.transform.localPosition = new Vector3(child.transform.localPosition.x,
             0.53f, child.transform.localPosition.z);
-            /*if (child.transform.localPosition.y > -1f)
-            {
-                Debug.Log("add");
-                child.transform.localPosition = new Vector3(child.transform.localPosition.x,
-                0.53f, child.transform.localPosition.z);
-            }
-            else
-            {
-                Debug.Log("not add");
-                gameObject.layer = 0 << 0;
-                child.GetComponent<Player>().OutPlatfrom();
-                Invoke("ResetLayerPlatfrom", 0.2f);
-            }*/
         }
     }
 

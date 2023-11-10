@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPlayer : MonoBehaviour
 {
-    public Frog frog;
+    public EnemyJump frog;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
