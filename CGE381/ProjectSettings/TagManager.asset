@@ -16,6 +16,7 @@ TagManager:
   - End
   - Heal
   - Ground
+  - Bird
   layers:
   - Default
   - TransparentFX

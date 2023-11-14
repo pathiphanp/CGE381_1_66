@@ -7,6 +7,7 @@ public class Bird : Platfrom
     [SerializeField] GameObject[] item;
     Animator anim;
     Collider2D coll;
+    [HideInInspector] public BossClock bossClock;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -19,6 +20,7 @@ public class Bird : Platfrom
     }
     void Die()
     {
+        bossClock.canSpawn = true;
         coll.enabled = false;
         anim.Play("Die");
     }

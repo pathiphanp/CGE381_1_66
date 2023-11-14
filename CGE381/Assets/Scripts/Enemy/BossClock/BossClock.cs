@@ -8,6 +8,8 @@ public class BossClock : ClockEnemy
     [SerializeField] GameObject prefabhead;
     [SerializeField] bool immrotal;
     [SerializeField] GameObject prefabbrid;
+    [SerializeField] GameObject bossset;
+    [HideInInspector] public bool canSpawn = true;
     public override void Start()
     {
         base.Start();
@@ -24,7 +26,11 @@ public class BossClock : ClockEnemy
         {
             immrotal = true;
             stop = 0;
-            SpawnBird();
+            if (canSpawn)
+            {
+                canSpawn = false;
+                SpawnBird();
+            }
             anim.Play("Stun");
         }
     }
@@ -37,12 +43,18 @@ public class BossClock : ClockEnemy
             yield return new WaitForSeconds(1);
             SpawdHead();
             immrotal = false;
-            stop = 1;
+            StartCoroutine(delaySpeed());
         }
         else
         {
             Die();
         }
+    }
+    IEnumerator delaySpeed()
+    {
+        stop = 2;
+        yield return new WaitForSeconds(2f);
+        stop = 1;
     }
     void SpawdHead()
     {
@@ -53,22 +65,34 @@ public class BossClock : ClockEnemy
     }
     void SpawnBird()
     {
-        GameObject bird = Instantiate(prefabbrid);
-        Bird _bird = bird.GetComponent<Bird>();
-        _bird.startPosition = startPosition;
-        _bird.endPosition = endPosition;
         Vector3 target = Vector3.zero;
+        GameObject bird = Instantiate(prefabbrid);
         if (transform.localPosition.x > target.x)//Left
         {
-            target = startPosition.transform.position;
+            target = startPosition.transform.localPosition;
         }
         else//Right
         {
-            target = endPosition.transform.position;
+            target = endPosition.transform.localPosition;
         }
+        bird.transform.position = new Vector3(bossset.transform.position.x,
+            prefabbrid.transform.localPosition.y, prefabbrid.transform.localPosition.z);
+        Bird _bird = null;
+        for (int i = 0; i < bird.transform.childCount; i++)
+        {
+            if (bird.transform.GetChild(i).GetComponent<Bird>())
+            {
+                _bird = bird.transform.GetChild(i).GetComponent<Bird>();
+            }
+            else
+            {
+
+            }
+        }
+        _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
+        _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
         _bird.target = target;
-        bird.transform.position = new Vector3(target.x,
-            prefabbrid.transform.position.y, prefabbrid.transform.position.z);
+
     }
     void Die()
     {
