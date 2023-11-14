@@ -83,6 +83,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] LayerMask ground;
     [Header("Check Head Enemy")]
     [SerializeField] LayerMask dodamage;
+    bool candodamage = true;
     [Header("Platfrom")]
     [SerializeField] LayerMask platfrom;
     [SerializeField] GameObject _platfrom;
@@ -328,7 +329,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     void checkGround()
     {
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
-        RaycastHit2D doda = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, dodamage);
+        RaycastHit2D dodamage = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, this.dodamage);
         CheckPlatfrom();
         if (checkGround && rb.velocity.y <= 0)//On Ground
         {
@@ -368,12 +369,19 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                 anim.SetBool("Jump", true);
             }
         }
-        if (doda && !immortal)//Check destroy Enenmy
+        if (dodamage)//Check destroy Enenmy
         {
+            StartCoroutine(Immortal_when_atk());
             datacountJump = 1;
             Jump();
-            Destroy(doda.collider.gameObject);
+            Destroy(dodamage.collider.gameObject);
         }
+    }
+    IEnumerator Immortal_when_atk()
+    {
+        immortal = true;
+        yield return new WaitForSeconds(0.5f);
+        immortal = false;
     }
     void CheckPlatfrom()
     {
@@ -560,7 +568,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             TakeDamage(1, "");
             StartCoroutine(ShowHp());
-            StartCoroutine(Immortal());
+            StartCoroutine(Immortal_when_atk());
         }
         if (other.tag == "Key")
         {
@@ -574,6 +582,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             hp = Mathf.Clamp(hp, 0, 5);
             StartCoroutine(ShowHp());
             Destroy(other.gameObject);
+        }
+        if (other.tag == "Bird")
+        {
+            Bird bird = other.GetComponent<Bird>();
+            bird.DropItem();
         }
     }
     public void AliceChangeSize()
@@ -605,7 +618,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         yield return new WaitForSeconds(2);
         showHp.SetActive(false);
     }
-    IEnumerator Immortal()
+    IEnumerator Immortal_when_hit()
     {
         anim.Play("Hit");
         immortal = true;

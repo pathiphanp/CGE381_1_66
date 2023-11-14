@@ -1286,19 +1286,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: bot.x
-      value: 52.886402
+      value: 56.3
       objectReference: {fileID: 0}
     - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: bot.y
-      value: 7.6699014
+      value: 7.25
       objectReference: {fileID: 0}
     - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: top.x
-      value: 54.6264
+      value: 58.039997
       objectReference: {fileID: 0}
     - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: top.y
-      value: 7.4199014
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
+      propertyPath: hightMax
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5101129718320560238, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1991,14 +1995,6 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 1647811054}
-    - target: {fileID: 6194130283923179543, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.763
-      objectReference: {fileID: 0}
-    - target: {fileID: 6731977943223117036, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
-      propertyPath: distanceChrckPlatfrom
-      value: 0.24
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7519,6 +7515,10 @@ PrefabInstance:
     - target: {fileID: 1479227656572356594, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101129717807019349, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
+      propertyPath: hightMax
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 7734601627928908576, guid: 172635be6c0245d43ba6d2ec072483d1, type: 3}
       propertyPath: m_Name

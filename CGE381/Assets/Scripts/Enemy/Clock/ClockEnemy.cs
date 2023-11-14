@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class ClockEnemy : Platfrom
 {
-    [SerializeField] GameObject head;
-    Collider2D call;
-    Animator anim;
+    [SerializeField] public GameObject head;
+    [SerializeField] bool havehead = true;
+    [HideInInspector] public Collider2D coll;
+    [HideInInspector] public Animator anim;
     SpriteRenderer sprite;
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         transform.localPosition = startPosition.transform.localPosition;
         target = endPosition.transform.localPosition;
-        call = GetComponent<Collider2D>();
+        coll = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
     }
@@ -26,23 +27,26 @@ public class ClockEnemy : Platfrom
     }
     public override void PlatfromMove()
     {
-        if (head.gameObject == null)
-        {
-            target = transform.localPosition;
-            call.enabled = false;
-            anim.Play("Die");
-        }
+        CheckDie();
         base.PlatfromMove();
-        if (transform.localPosition.x > target.x)
+        if (transform.localPosition.x > target.x)//Left
         {
             sprite.flipX = true;
         }
-        else
+        else//Right
         {
             sprite.flipX = false;
         }
     }
-
+    public virtual void CheckDie()
+    {
+        if (head.gameObject == null && havehead)
+        {
+            target = transform.localPosition;
+            coll.enabled = false;
+            anim.Play("Die");
+        }
+    }
     void Destroy()
     {
         Destroy(this.gameObject);

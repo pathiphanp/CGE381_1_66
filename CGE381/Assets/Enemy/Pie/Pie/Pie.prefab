@@ -112,8 +112,8 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   state: 0
   checkGround: {fileID: 5382640898933786571}
-  top: {x: 60.00754, y: 33.370003}
-  bot: {x: 58.267544, y: 33.620003}
+  top: {x: 58.039997, y: 7}
+  bot: {x: 56.3, y: 7.25}
   boxleft: 0.87
   boxRight: -0.87
   boxTop: 0.6
@@ -123,7 +123,7 @@ MonoBehaviour:
     m_Bits: 128
   delayJump: 1
   canJump: 0
-  hightMax: 15
+  hightMax: 19
   speedToHight: 50
   gravityDown: 7
   speedDown: -7

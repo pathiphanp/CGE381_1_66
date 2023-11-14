@@ -18,6 +18,7 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
     [Header("SetSpeed")]
     [SerializeField] float speedMove;
     [SerializeField] float timeDuration;
+    [SerializeField] public float stop;
 
     void Start()
     {
@@ -35,8 +36,12 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
             canMove = false;
             StartCoroutine(DelayPlatFrom());
         }
+        if (stop == 0)
+        {
+            speedMove = 0;
+        }
         speedMove += Time.deltaTime;
-        float percentCompete = speedMove / timeDuration;
+        float percentCompete = speedMove * stop / timeDuration;
         transform.localPosition =
         Vector3.MoveTowards(transform.localPosition,
         target, percentCompete);
