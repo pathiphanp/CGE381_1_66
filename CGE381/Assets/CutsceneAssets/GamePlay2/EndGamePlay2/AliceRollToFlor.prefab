@@ -208,7 +208,8 @@ MonoBehaviour:
   spawnCutScenes: {fileID: 0}
   director: {fileID: 0}
   CameraScenes: 0
-  canNotSkipCutScenes: 0
+  canNotSkipCutScenes: 1
+  startGame: 0
 --- !u!95 &7193340293905165459
 Animator:
   serializedVersion: 5

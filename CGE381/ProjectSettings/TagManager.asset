@@ -17,6 +17,10 @@ TagManager:
   - Heal
   - Ground
   - Bird
+  - HealAll
+  - Immotal
+  - HightJump
+  - DogamageBoss
   layers:
   - Default
   - TransparentFX

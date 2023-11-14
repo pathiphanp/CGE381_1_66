@@ -4767,10 +4767,12 @@ MonoBehaviour:
   walkspeed: 4.4
   runspeed: 8.9
   drop: 0
-  powerJump: 22
-  speedDown: 7
+  powerJumpNormal: 29
+  powerJumpSmall: 23
+  speedDown: 10
   speedUp: 10000
   countJump: 1
+  onJump: 0
   pointCheckGround: {fileID: 619582400592495208}
   radiusCheckGround: 0.2
   ground:

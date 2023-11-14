@@ -83,6 +83,7 @@ public class BossClock : ClockEnemy
             if (bird.transform.GetChild(i).GetComponent<Bird>())
             {
                 _bird = bird.transform.GetChild(i).GetComponent<Bird>();
+                _bird.bossClock = this;
             }
             else
             {
