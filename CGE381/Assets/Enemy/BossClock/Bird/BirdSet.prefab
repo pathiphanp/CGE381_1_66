@@ -420,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8260972940712631361}
   m_Layer: 0
-  m_Name: Bird
+  m_Name: BirdSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -442,5 +442,5 @@ Transform:
   - {fileID: 8260972940140267496}
   - {fileID: 459842696195829678}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

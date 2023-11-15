@@ -40,10 +40,10 @@ public class BossClock : ClockEnemy
         hp--;
         if (hp > 0)
         {
+            StartCoroutine(delaySpeed());
             yield return new WaitForSeconds(1);
             SpawdHead();
             immrotal = false;
-            StartCoroutine(delaySpeed());
         }
         else
         {
@@ -67,14 +67,7 @@ public class BossClock : ClockEnemy
     {
         Vector3 target = Vector3.zero;
         GameObject bird = Instantiate(prefabbrid);
-        if (transform.localPosition.x > target.x)//Left
-        {
-            target = startPosition.transform.localPosition;
-        }
-        else//Right
-        {
-            target = endPosition.transform.localPosition;
-        }
+
         bird.transform.position = new Vector3(bossset.transform.position.x,
             prefabbrid.transform.localPosition.y, prefabbrid.transform.localPosition.z);
         Bird _bird = null;
@@ -84,15 +77,32 @@ public class BossClock : ClockEnemy
             {
                 _bird = bird.transform.GetChild(i).GetComponent<Bird>();
                 _bird.bossClock = this;
+                Invoke("Die",2);
+                _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
+                _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
+                _bird.transform.localPosition = new Vector3(10, 0, 0);
+                if (transform.localPosition.x > target.x)//Left
+                {
+                    target = startPosition.transform.localPosition;
+                }
+                else//Right
+                {
+                    target = endPosition.transform.localPosition;
+                }
+                _bird.target = target;
+
+                //Destroy(_bird.gameObject);
+                /*_bird.bossClock = this;
+                _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
+                _bird.target = target;
+                _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
+                _bird.transform.localPosition = _bird.startPosition.transform.localPosition;*/
             }
             else
             {
 
             }
         }
-        _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
-        _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
-        _bird.target = target;
 
     }
     void Die()
