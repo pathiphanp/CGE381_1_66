@@ -15,10 +15,6 @@ public class BossClock : ClockEnemy
         base.Start();
         SpawdHead();
     }
-    public override void PlatfromMove()
-    {
-        base.PlatfromMove();
-    }
 
     public override void CheckDie()
     {
@@ -41,7 +37,7 @@ public class BossClock : ClockEnemy
         if (hp > 0)
         {
             StartCoroutine(delaySpeed());
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.1f);
             SpawdHead();
             immrotal = false;
         }
@@ -77,7 +73,6 @@ public class BossClock : ClockEnemy
             {
                 _bird = bird.transform.GetChild(i).GetComponent<Bird>();
                 _bird.bossClock = this;
-                Invoke("Die",2);
                 _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
                 _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
                 _bird.transform.localPosition = new Vector3(10, 0, 0);
@@ -90,13 +85,6 @@ public class BossClock : ClockEnemy
                     target = endPosition.transform.localPosition;
                 }
                 _bird.target = target;
-
-                //Destroy(_bird.gameObject);
-                /*_bird.bossClock = this;
-                _bird.startPosition.transform.localPosition = startPosition.transform.localPosition;
-                _bird.target = target;
-                _bird.endPosition.transform.localPosition = endPosition.transform.localPosition;
-                _bird.transform.localPosition = _bird.startPosition.transform.localPosition;*/
             }
             else
             {

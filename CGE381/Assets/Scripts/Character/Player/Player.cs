@@ -569,6 +569,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             TakeDamage(1, "");
             StartCoroutine(ShowHp());
             StartCoroutine(Immortal_when_atk());
+            EnemyHit();
         }
         if (other.tag == "Key")
         {
@@ -578,9 +579,28 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         if (other.tag == "Heal")
         {
-            hp++;
-            hp = Mathf.Clamp(hp, 0, 5);
-            StartCoroutine(ShowHp());
+            Heal(1);
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "HealAll")
+        {
+            Heal(5);
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "BuffJump")
+        {
+            StartCoroutine(BuffJump());
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "Immortal")
+        {
+            StartCoroutine(Immortal_when_hit(60));
+            Destroy(other.gameObject);
+        }
+        if (other.tag == "DodamageBoss")
+        {
+            BossClock bossClock = FindObjectOfType<BossClock>();
+            Destroy(bossClock.head);
             Destroy(other.gameObject);
         }
         if (other.tag == "Bird")
@@ -588,6 +608,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Bird bird = other.GetComponent<Bird>();
             bird.DropItem();
         }
+    }
+    void Heal(int heal)
+    {
+        hp += heal;
+        hp = Mathf.Clamp(hp, 0, 5);
+        StartCoroutine(ShowHp());
     }
     public void AliceChangeSize()
     {
@@ -618,17 +644,20 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         yield return new WaitForSeconds(2);
         showHp.SetActive(false);
     }
-    IEnumerator Immortal_when_hit()
+    void EnemyHit()
     {
         anim.Play("Hit");
+        StartCoroutine(Immortal_when_hit(30));
+    }
+    IEnumerator Immortal_when_hit(int immrotaltime)
+    {
         immortal = true;
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < immrotaltime; i++)
         {
             if (_sprite.color.a == 0)
             {
                 _sprite.color = new Color(1, 1, 1, 1);
                 _sprite_Leg.color = new Color(1, 1, 1, 1);
-
             }
             else
             {
@@ -640,6 +669,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         _sprite_Leg.color = new Color(1, 1, 1, 1);
         _sprite.color = new Color(1, 1, 1, 1);
         immortal = false;
+    }
+    IEnumerator BuffJump()
+    {
+        powerJump = 40;
+        yield return new WaitForSeconds(4);
+        powerJump = powerJumpNormal;
     }
 }
 

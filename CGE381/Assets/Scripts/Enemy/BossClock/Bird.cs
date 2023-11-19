@@ -5,28 +5,25 @@ using UnityEngine;
 public class Bird : Platfrom
 {
     [SerializeField] GameObject[] item;
-    Animator anim;
+    [SerializeField] GameObject dieAnimation;
     Collider2D coll;
+    SpriteRenderer sprite;
     public BossClock bossClock;
     void Start()
     {
-        anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         coll = GetComponent<Collider2D>();
-        SetUp();
     }
     public void DropItem()
     {
         Die();
-        Instantiate(item[Random.Range(0, item.Length)]);
-    }
-    public void SetUp()
-    {
-        transform.localPosition = startPosition.transform.localPosition;
+        Instantiate(item[Random.Range(0, item.Length)], transform.position, transform.rotation);
     }
     void Die()
     {
         bossClock.canSpawn = true;
         coll.enabled = false;
-        anim.Play("Die");
+        sprite.enabled = false;
+        dieAnimation.SetActive(true);
     }
 }
