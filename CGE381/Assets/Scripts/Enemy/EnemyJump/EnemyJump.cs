@@ -180,7 +180,6 @@ public class EnemyJump : MonoBehaviour
 
     void Die()
     {
-        
         Destroy(this.gameObject);
     }
 

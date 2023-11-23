@@ -342,7 +342,11 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   speedMove: 0
   timeDuration: 100
+  stop: 1
   head: {fileID: 1478091195}
+  havehead: 1
+  coll: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!95 &6447799441196572693
 Animator:
   serializedVersion: 5

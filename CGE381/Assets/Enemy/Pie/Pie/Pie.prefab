@@ -112,8 +112,8 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   state: 0
   checkGround: {fileID: 5382640898933786571}
-  top: {x: 58.039997, y: 7}
-  bot: {x: 56.3, y: 7.25}
+  top: {x: 59.459995, y: 33.68}
+  bot: {x: 57.719997, y: 33.93}
   boxleft: 0.87
   boxRight: -0.87
   boxTop: 0.6
@@ -123,11 +123,11 @@ MonoBehaviour:
     m_Bits: 128
   delayJump: 1
   canJump: 0
-  hightMax: 19
+  hightMax: 13
   speedToHight: 50
   gravityDown: 7
   speedDown: -7
-  distanceJump: 4
+  distanceJump: 6
   takedamage: {fileID: 5101129717778515487}
 --- !u!50 &5101129717807019344
 Rigidbody2D:
@@ -231,7 +231,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5101129717778515484}
   - component: {fileID: 5101129717778515485}
-  - component: {fileID: 5101129717778515482}
   m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
@@ -247,7 +246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5101129717778515487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0.79, z: 0}
+  m_LocalPosition: {x: -0.04, y: 0.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -299,33 +298,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.010013, y: 0.4031756}
   m_EdgeRadius: 0
---- !u!50 &5101129717778515482
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5101129717778515487}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 2
 --- !u!1 &5101129718320560273
 GameObject:
   m_ObjectHideFlags: 0

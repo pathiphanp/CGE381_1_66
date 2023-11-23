@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay 6/GamePlay 6.unity
     guid: 49f8efaff90e0134c815dfd0d6297e16
+  - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: deb683854517da24386a6404993ad055
   m_configObjects: {}

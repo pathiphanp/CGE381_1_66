@@ -21,9 +21,9 @@ public class Bird : Platfrom
     }
     void Die()
     {
-        bossClock.canSpawn = true;
         coll.enabled = false;
         sprite.enabled = false;
+        bossClock.canSpawn = true;
         dieAnimation.SetActive(true);
     }
 }

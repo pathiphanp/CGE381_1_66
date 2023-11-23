@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8627712150863604302}
   - component: {fileID: 8627712150863604297}
   - component: {fileID: 2140414743035844371}
+  - component: {fileID: -7683941174714378718}
   m_Layer: 0
   m_Name: Immortal
-  m_TagString: Immortal
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7683941174714378718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627712150863604296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7aa21f20cf24449bfcb14a094c0286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mytag: Immortal

@@ -3537,11 +3537,12 @@ MonoBehaviour:
   - {fileID: 4847297038389634246, guid: 09f9f5999397d9f439f2dd003b2976f9, type: 3}
   - {fileID: 1092005597788559810, guid: 3b7aefb1cab8d9949b8e5a0945d2365c, type: 3}
   - {fileID: 6628792074307669021, guid: e0c0f80c838f77e44a484f5796afc0b9, type: 3}
-  BgNext: {fileID: 0}
+  fadeNextMap: {fileID: 0}
+  startGame: {fileID: 0}
   indexCutScene: 0
   canSpawn: 1
   nextmap: 0
-  catwarp: 0
+  destroyCutScenes: 0
   controlCutScenes: {fileID: 0}
 --- !u!1001 &562003258
 PrefabInstance:
@@ -5002,6 +5003,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8647089208212294533, guid: c3a02a15415cfee44bcc50b8d3a049b3, type: 3}
+      propertyPath: destroyCutScenes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8647089208212294533, guid: c3a02a15415cfee44bcc50b8d3a049b3, type: 3}
       propertyPath: cutScenes.Array.data[0]
       value: 
@@ -8717,11 +8722,12 @@ MonoBehaviour:
   cutScenes:
   - {fileID: 1092005597788559810, guid: 871e5617b38983e428c17643fb77e1b4, type: 3}
   - {fileID: 1092005597788559810, guid: c4fa1f368d09ba345a5263905c3cd53a, type: 3}
-  BgNext: {fileID: 0}
+  fadeNextMap: {fileID: 0}
+  startGame: {fileID: 0}
   indexCutScene: 0
   canSpawn: 1
   nextmap: 0
-  catwarp: 0
+  destroyCutScenes: 0
   controlCutScenes: {fileID: 0}
 --- !u!1 &1630196289
 GameObject:
@@ -9820,6 +9826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSet
       objectReference: {fileID: 0}
+    - target: {fileID: 450179699984876942, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2942530401600568981, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9883,6 +9893,10 @@ PrefabInstance:
     - target: {fileID: 6194130283923179543, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.9000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6731977943223117036, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
+      propertyPath: distanceChrckPlatfrom
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 6731977943223117042, guid: da18c040f48e9d04d9453dde42ab1221, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12543,6 +12557,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2027475550}
     m_Modifications:
+    - target: {fileID: 898504489167600356, guid: d6b97e5325e286248b1695f446c4fd42, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2442121231183222175, guid: d6b97e5325e286248b1695f446c4fd42, type: 3}
       propertyPath: m_Name
       value: FrogEnemy
@@ -13136,7 +13154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6447799442128409468, guid: 6c480885ef7f21c44bee057dfd36c789, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 1.69
       objectReference: {fileID: 0}
     - target: {fileID: 6447799442128409468, guid: 6c480885ef7f21c44bee057dfd36c789, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13209,15 +13227,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971458, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971458, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971458, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971458, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -13225,11 +13243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971459, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_Size.y
-      value: 2.620597
+      value: 1.5946913
       objectReference: {fileID: 0}
     - target: {fileID: 343979299582971459, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_Offset.y
-      value: -0.0047221184
+      value: -0.5176749
       objectReference: {fileID: 0}
     - target: {fileID: 343979299641721942, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_Name
@@ -13241,11 +13259,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 343979299641721943, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 102
+      value: 101.79
       objectReference: {fileID: 0}
     - target: {fileID: 343979299641721943, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.6
+      value: 9.92
       objectReference: {fileID: 0}
     - target: {fileID: 343979299641721943, guid: 0ed3f27df8dad5148b7e1c0905ca9ac8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13300,6 +13318,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8647089208212294533, guid: c3a02a15415cfee44bcc50b8d3a049b3, type: 3}
+      propertyPath: destroyCutScenes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8647089209005918093, guid: c3a02a15415cfee44bcc50b8d3a049b3, type: 3}
       propertyPath: m_Camera
       value: 

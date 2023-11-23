@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 960556612}
   - component: {fileID: 960556611}
   - component: {fileID: 960556610}
+  - component: {fileID: 37331273}
   m_Layer: 0
   m_Name: Bird Die
-  m_TagString: Bird
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8260972940712631361}
+  m_Father: {fileID: 459842696195829678}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &960556612
@@ -151,6 +152,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &37331273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960556608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df16f788f5cd2ef4cb208037858128c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  die: {fileID: 8260972940712631360}
 --- !u!1 &3637559953591154190
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +196,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 960556609}
   m_Father: {fileID: 8260972940712631361}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -593,7 +608,6 @@ Transform:
   - {fileID: 8260972939417006831}
   - {fileID: 8260972940140267496}
   - {fileID: 459842696195829678}
-  - {fileID: 960556609}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

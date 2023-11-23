@@ -10,11 +10,12 @@ public class SpawnCutScenes : MonoBehaviour
 {
     public static event Action EndCutScene;
     [SerializeField] public GameObject[] cutScenes;
-    [SerializeField] GameObject BgNext;
-    [SerializeField] public int indexCutScene = 0;
+    [SerializeField] GameObject fadeNextMap;
+    [SerializeField] GameObject startGame;
+    [HideInInspector] public int indexCutScene = 0;
     public bool canSpawn;
     public bool nextmap;
-    public bool catwarp;
+    public bool destroyCutScenes;
     [HideInInspector] public ControlCutScenes controlCutScenes;
     private void Start()
     {
@@ -34,15 +35,22 @@ public class SpawnCutScenes : MonoBehaviour
         //End Cut Scenes
         if (indexCutScene > cutScenes.Length - 1)
         {
-            if (catwarp)
+            if (destroyCutScenes)
             {
                 SpawnCutScenes.EndCutSceneEvent();
             }
             this.gameObject.SetActive(false);
             if (nextmap)
             {
-                BgNext.SetActive(true);
+                if (fadeNextMap != null)
+                {
+                    fadeNextMap.SetActive(true);
+                }
                 Gamemanager.Instance.NextScenes();
+            }
+            if (startGame != null)
+            {
+                startGame.SetActive(true);
             }
             Gamemanager.ChangePlayerMode();
         }

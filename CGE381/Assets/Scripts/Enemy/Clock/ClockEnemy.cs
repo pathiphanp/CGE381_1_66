@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class ClockEnemy : Platfrom
@@ -47,7 +46,7 @@ public class ClockEnemy : Platfrom
             anim.Play("Die");
         }
     }
-    void Destroy()
+    public virtual void Destroy()
     {
         Destroy(this.gameObject);
     }

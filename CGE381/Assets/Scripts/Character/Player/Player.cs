@@ -25,7 +25,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] public int hp;
     public GameObject showHp;
     public TMP_Text pointHp;
-    bool immortal = false;
+    [SerializeField] bool immortal = false;
     bool normalDie = true;
     Vector2 moveDirection;
     [Header("Point_Star")]
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] LayerMask ground;
     [Header("Check Head Enemy")]
     [SerializeField] LayerMask dodamage;
-    bool candodamage = true;
+    bool candodamage = false;
     [Header("Platfrom")]
     [SerializeField] LayerMask platfrom;
     [SerializeField] GameObject _platfrom;
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
 
         }
-        if (!downMode)
+        if (!downMode && !die)
         {
             checkGround();
         }
@@ -329,7 +329,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     void checkGround()
     {
         Collider2D checkGround = Physics2D.OverlapCircle(pointCheckGround.transform.position, radiusCheckGround, ground);
-        RaycastHit2D dodamage = Physics2D.Raycast(pointCheckGround.transform.position, Vector2.down, distanceChrckPlatfrom, this.dodamage);
         CheckPlatfrom();
         if (checkGround && rb.velocity.y <= 0)//On Ground
         {
@@ -355,12 +354,17 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         else //Out Ground
         {
-            if (datacountJump == 0)//Down to Floor
+            if (datacountJump == 0)
             {
                 rb.gravityScale = speedDown;
+                if (rb.velocity.y <= 0)
+                {
+                    Dodamage();
+                }
             }
-            else
+            if ((rb.velocity.y <= 0 || rb.velocity.y > 0) && datacountJump > 0)//Down to Floor
             {
+                Dodamage();
                 rb.gravityScale = gravity;
                 if (!onJump)
                 {
@@ -368,20 +372,9 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                 }
                 anim.SetBool("Jump", true);
             }
+
         }
-        if (dodamage)//Check destroy Enenmy
-        {
-            StartCoroutine(Immortal_when_atk());
-            datacountJump = 1;
-            Jump();
-            Destroy(dodamage.collider.gameObject);
-        }
-    }
-    IEnumerator Immortal_when_atk()
-    {
-        immortal = true;
-        yield return new WaitForSeconds(0.5f);
-        immortal = false;
+
     }
     void CheckPlatfrom()
     {
@@ -412,6 +405,19 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         delete.DeleteChild();
         _platfrom = null;
     }
+    void Dodamage()
+    {
+        RaycastHit2D dodamage = Physics2D.Raycast(pointCheckGround.transform.position,
+        Vector2.down, distanceChrckPlatfrom, this.dodamage);
+        if (dodamage)//Check destroy Enenmy
+        {
+            datacountJump = 1;
+            Jump();
+            Destroy(dodamage.collider.gameObject);
+        }
+    }
+
+
     public void OnInventory(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -423,24 +429,23 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.started)
+        /*if (context.started)
         {
             UIMode();
             Time.timeScale = 0f;
-        }
+        }*/
     }
     #endregion
     #region //UI
     public void OnResume(InputAction.CallbackContext context)
     {
-        if (context.started)
+        /*if (context.started)
         {
             PlayerMode();
             inventory.SetActive(false);
             Time.timeScale = 1f;
-        }
+        }*/
     }
-
     public void OnCutSceneSkip(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -462,22 +467,12 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             }
         }
     }
-
-
     #endregion
     public static void SkipCutScene()
     {
         CutSceneTrigger?.Invoke();
     }
-    public static void GainHealAll()
-    {
-        HealAll?.Invoke();
-    }
-    void HealFull()
-    {
-        hp = 5;
-        StartCoroutine(ShowHp());
-    }
+
     #region //ChangeMode
     void UIMode()
     {
@@ -528,11 +523,16 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     public void TakeDamage(int damage, string dieReprot)
     {
-        hp -= damage;
+        if (immortal == false)
+        {
+            hp -= damage;
+        }
         if (hp <= 0)
         {
-            rb.velocity = Vector2.zero;
             UIMode();
+            die = true;
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;
             if (dieReprot == "Water")
             {
                 anim.Play("WaterDie");
@@ -546,7 +546,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
 
     public void DieMode()
     {
-        die = true;
         dieScenes.SetActive(true);
         btn[0].manuBtn.animator.Play("Highlighted");
     }
@@ -568,7 +567,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             TakeDamage(1, "");
             StartCoroutine(ShowHp());
-            StartCoroutine(Immortal_when_atk());
             EnemyHit();
         }
         if (other.tag == "Key")
@@ -605,8 +603,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         if (other.tag == "Bird")
         {
-            Bird bird = other.GetComponent<Bird>();
-            bird.DropItem();
+            other.GetComponent<Bird>().DropItem();
         }
     }
     void Heal(int heal)
@@ -649,6 +646,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         anim.Play("Hit");
         StartCoroutine(Immortal_when_hit(30));
     }
+
     IEnumerator Immortal_when_hit(int immrotaltime)
     {
         immortal = true;
@@ -673,8 +671,17 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     IEnumerator BuffJump()
     {
         powerJump = 40;
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(5);
         powerJump = powerJumpNormal;
+    }
+    public static void GainHealAll()
+    {
+        HealAll?.Invoke();
+    }
+    void HealFull()
+    {
+        hp = 5;
+        StartCoroutine(ShowHp());
     }
 }
 

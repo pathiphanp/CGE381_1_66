@@ -17,7 +17,7 @@ public class DoorChecks : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider)
+        if (other.collider.gameObject.tag == "Player")
         {
             Player player = other.collider.GetComponent<Player>();
             if (player.key > 0)

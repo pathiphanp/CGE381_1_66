@@ -10,6 +10,8 @@ public class BossClock : ClockEnemy
     [SerializeField] GameObject prefabbrid;
     [SerializeField] GameObject bossset;
     [HideInInspector] public bool canSpawn = true;
+    Bird _bird = null;
+    [SerializeField] GameObject cutScenesEnd;
     public override void Start()
     {
         base.Start();
@@ -21,35 +23,34 @@ public class BossClock : ClockEnemy
         if (head.gameObject == null && !immrotal)
         {
             immrotal = true;
+            hp--;
             stop = 0;
-            if (canSpawn)
+            if (hp > 0)
             {
-                canSpawn = false;
-                SpawnBird();
+                if (canSpawn)
+                {
+                    SpawnBird();
+                }
+                anim.Play("Stun");
             }
-            anim.Play("Stun");
+            else
+            {
+                Die();
+            }
         }
     }
 
     IEnumerator DelayGainDamage()
     {
-        hp--;
-        if (hp > 0)
-        {
-            StartCoroutine(delaySpeed());
-            yield return new WaitForSeconds(0.1f);
-            SpawdHead();
-            immrotal = false;
-        }
-        else
-        {
-            Die();
-        }
+        StartCoroutine(delaySpeed());
+        yield return new WaitForSeconds(0.1f);
+        SpawdHead();
+        immrotal = false;
     }
     IEnumerator delaySpeed()
     {
-        stop = 2;
-        yield return new WaitForSeconds(2f);
+        stop = 1;
+        yield return new WaitForSeconds(1f);
         stop = 1;
     }
     void SpawdHead()
@@ -66,7 +67,6 @@ public class BossClock : ClockEnemy
 
         bird.transform.position = new Vector3(bossset.transform.position.x,
             prefabbrid.transform.localPosition.y, prefabbrid.transform.localPosition.z);
-        Bird _bird = null;
         for (int i = 0; i < bird.transform.childCount; i++)
         {
             if (bird.transform.GetChild(i).GetComponent<Bird>())
@@ -79,10 +79,13 @@ public class BossClock : ClockEnemy
                 if (transform.localPosition.x > target.x)//Left
                 {
                     target = startPosition.transform.localPosition;
+                    _bird.transform.localPosition = endPosition.transform.localPosition;
+
                 }
                 else//Right
                 {
                     target = endPosition.transform.localPosition;
+                    _bird.transform.localPosition = startPosition.transform.localPosition;
                 }
                 _bird.target = target;
             }
@@ -96,11 +99,12 @@ public class BossClock : ClockEnemy
     void Die()
     {
         coll.enabled = false;
+        stop = 0;
         anim.Play("Die");
     }
-    void Destroythis()
+    public override void Destroy()
     {
-        Destroy(this.gameObject);
+        cutScenesEnd.SetActive(true);
+        base.Destroy();
     }
-
 }

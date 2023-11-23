@@ -46,11 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutScenes:
   - {fileID: 3803942747562891356, guid: ccc887e3df09dd644b384180fa4ba1a2, type: 3}
-  BgNext: {fileID: 0}
+  - {fileID: 4847297038389634246, guid: 6c5c93c5f9cf05f4b846727d73386500, type: 3}
+  fadeNextMap: {fileID: 0}
+  startGame: {fileID: 0}
   indexCutScene: 0
   canSpawn: 1
   nextmap: 0
-  catwarp: 0
+  destroyCutScenes: 0
   controlCutScenes: {fileID: 0}
 --- !u!1 &6367324686899857000
 GameObject:

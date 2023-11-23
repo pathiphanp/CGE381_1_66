@@ -73,7 +73,6 @@ public class Platfrom : MonoBehaviour, DeleteChild, AddChild
             //Add in Platfrom
             child.transform.parent = transform;
             //Set Position on platfrom
-            Debug.Log(child.name);
             child.transform.localPosition = new Vector3(child.transform.localPosition.x,
             0.53f, child.transform.localPosition.z);
         }

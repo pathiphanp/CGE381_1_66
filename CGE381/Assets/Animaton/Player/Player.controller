@@ -724,7 +724,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterDie
-  m_Speed: 0.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -1097,7 +1097,7 @@ AnimatorStateMachine:
     m_Position: {x: 450, y: -390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3200438494050786099}
-    m_Position: {x: 680, y: 190, z: 0}
+    m_Position: {x: 850, y: -260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3546847456594503994}
     m_Position: {x: 430, y: 170, z: 0}
@@ -1109,7 +1109,7 @@ AnimatorStateMachine:
     m_Position: {x: 390, y: -500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2273533222855221551}
-    m_Position: {x: 425, y: -435, z: 0}
+    m_Position: {x: 660, y: -320, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -1675099303252175901}
