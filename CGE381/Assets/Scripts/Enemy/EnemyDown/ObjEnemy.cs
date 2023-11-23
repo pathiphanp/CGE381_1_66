@@ -8,6 +8,7 @@ public class ObjEnemy : MonoBehaviour
     Rigidbody2D rb;
     Collider2D call;
     Animator anim;
+    public float delayDie;
     [HideInInspector] public SpawnEnemyDown control;
     [SerializeField] public float speedDown;
     // Start is called before the first frame update
@@ -38,9 +39,9 @@ public class ObjEnemy : MonoBehaviour
         {
             anim.Play("Die");
         }
-        if(other.gameObject.tag == "Ground")
+        if (other.gameObject.tag == "Ground")
         {
-            Invoke("DelayDie", 2f);
+            Invoke("DelayDie", delayDie);
         }
     }
 

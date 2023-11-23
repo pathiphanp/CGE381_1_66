@@ -340,8 +340,7 @@ MonoBehaviour:
   startPosition: {fileID: 343979299180339514}
   endPosition: {fileID: 343979300321185166}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 100
+  speedMove: 10
   stop: 1
   head: {fileID: 1478091195}
   havehead: 1
@@ -399,7 +398,7 @@ Transform:
   - {fileID: 343979300321185167}
   - {fileID: 343979299582971458}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &343979300321185166
 GameObject:

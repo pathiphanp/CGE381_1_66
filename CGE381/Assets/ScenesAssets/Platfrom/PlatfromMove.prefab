@@ -300,8 +300,7 @@ MonoBehaviour:
   startPosition: {fileID: 6447799442606552593}
   endPosition: {fileID: 6447799441465694885}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 200
+  speedMove: 5
   stop: 1
 --- !u!61 &6447799442203875688
 BoxCollider2D:

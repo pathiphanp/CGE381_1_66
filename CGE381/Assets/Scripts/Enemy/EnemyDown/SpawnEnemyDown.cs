@@ -12,6 +12,7 @@ public class SpawnEnemyDown : MonoBehaviour
     [Header("Spawn type")]
     [SerializeField] public bool spawnSide;
     [SerializeField] public bool spawnDown;
+    [SerializeField] float delayObjDie;
     bool canSpawn = true;
 
     void Update()
@@ -24,8 +25,11 @@ public class SpawnEnemyDown : MonoBehaviour
     }
     IEnumerator SpawnObj()
     {
-        GameObject enemy = Instantiate(objEnemy[Random.Range(0, objEnemy.Length)], transform.localPosition, transform.localRotation);
-        enemy.GetComponent<ObjEnemy>().control = this;
+        GameObject enemy = Instantiate(objEnemy[Random.Range(0, objEnemy.Length)],
+        transform.localPosition, transform.localRotation);
+        ObjEnemy _enemy = enemy.GetComponent<ObjEnemy>();
+        _enemy.control = this;
+        _enemy.delayDie = delayObjDie;
         yield return new WaitForSeconds(delaySpawn);
         canSpawn = true;
     }
