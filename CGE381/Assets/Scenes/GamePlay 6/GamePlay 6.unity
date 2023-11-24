@@ -1868,8 +1868,7 @@ MonoBehaviour:
   startPosition: {fileID: 294417720713132009}
   endPosition: {fileID: 294417719706491741}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 40
+  speedMove: 10
   stop: 1
   head: {fileID: 0}
   havehead: 1

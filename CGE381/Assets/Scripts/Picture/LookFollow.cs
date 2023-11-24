@@ -35,12 +35,12 @@ public class LookFollow : MonoBehaviour
         {
             float target = player.transform.position.x;//Target Look
             //Eye Left look
-            float _eyeLeft = Mathf.Lerp(eyeLeft.transform.localPosition.x, target, Time.deltaTime / duration);
+            float _eyeLeft = Mathf.Lerp(eyeLeft.transform.localPosition.x, target, Time.deltaTime * duration);
             _eyeLeft = Mathf.Clamp(_eyeLeft, clampMinEyeLeft, clampMaxEyeLeft);
             eyeLeft.transform.localPosition = new Vector3(_eyeLeft, eyeLeft.transform.localPosition.y,
             eyeLeft.transform.localPosition.z);
             //Eye Right look
-            float _eyeRight = Mathf.Lerp(eyeRight.transform.localPosition.x, target, Time.deltaTime / duration);
+            float _eyeRight = Mathf.Lerp(eyeRight.transform.localPosition.x, target, Time.deltaTime * duration);
             _eyeRight = Mathf.Clamp(_eyeRight, clampMinEyeRight, clampMaxEyeRight);
             eyeRight.transform.localPosition = new Vector3(_eyeRight, eyeRight.transform.localPosition.y,
             eyeRight.transform.localPosition.z);

@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platfrom: 1
-  delayStopPlatfrom: 2
+  delayStopPlatfrom: 1
   startPosition: {fileID: 6447799442606552593}
   endPosition: {fileID: 6447799441465694885}
   target: {x: 0, y: 0, z: 0}

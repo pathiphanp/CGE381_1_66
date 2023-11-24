@@ -326,8 +326,7 @@ MonoBehaviour:
   startPosition: {fileID: 1282102528}
   endPosition: {fileID: 1144253799}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 100
+  speedMove: 7
   stop: 1
 --- !u!61 &38649783
 BoxCollider2D:
@@ -2004,8 +2003,7 @@ MonoBehaviour:
   startPosition: {fileID: 1397327}
   endPosition: {fileID: 1853415077}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 100
+  speedMove: 7
   stop: 1
 --- !u!61 &420462424
 BoxCollider2D:
@@ -4078,8 +4076,7 @@ MonoBehaviour:
   startPosition: {fileID: 1599482551}
   endPosition: {fileID: 1990816000}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 100
+  speedMove: 7
   stop: 1
 --- !u!61 &1064619753
 BoxCollider2D:
@@ -5355,8 +5352,7 @@ MonoBehaviour:
   startPosition: {fileID: 182375149}
   endPosition: {fileID: 1633078215}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 100
+  speedMove: 7
   stop: 1
 --- !u!61 &1465333615
 BoxCollider2D:

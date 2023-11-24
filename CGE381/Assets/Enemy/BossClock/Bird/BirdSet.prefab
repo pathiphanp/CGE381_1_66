@@ -270,8 +270,7 @@ MonoBehaviour:
   startPosition: {fileID: 8260972939417006830}
   endPosition: {fileID: 8260972940140267503}
   target: {x: 0, y: 0, z: 0}
-  speedMove: 0
-  timeDuration: 400
+  speedMove: 5
   stop: 1
   item:
   - {fileID: 5830776510604608642, guid: dc6ecb5e9746d1b48bd33b1d7b54b5a3, type: 3}
@@ -609,5 +608,5 @@ Transform:
   - {fileID: 8260972940140267496}
   - {fileID: 459842696195829678}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

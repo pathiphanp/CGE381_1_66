@@ -537,7 +537,7 @@ Transform:
   - {fileID: 898504489363948652}
   - {fileID: 3200096359810628409}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6032730216189259755
 GameObject:
@@ -692,7 +692,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &898504490138907536
 Animator:

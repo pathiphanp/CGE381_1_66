@@ -75,6 +75,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     [SerializeField] bool onJump = false;
     float rby = 0f;
     float datacountJump;
+    int jumpMove;
     #endregion
 
     [Header("CheckGround")]
@@ -168,13 +169,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             checkGround();
         }
         ControlPlayer();
-    }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Warp")
-        {
-            SceneManager.LoadScene("GamePlay 2");
-        }
+        //Debug.Log(rb.velocity.y);
     }
     void Save()
     {
@@ -208,6 +203,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         }
         else if (sideMode)
         {
+            jumpMove = Mathf.RoundToInt(rb.velocity.y);
+            anim.SetInteger("JumpMove", jumpMove);
             rb.velocity = new Vector2(moveDirection.x * speedMove, rb.velocity.y);
         }
         else if (downMode)
@@ -341,20 +338,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                     speedMove = runspeed;
                 }
             }
-            if (rb.velocity.y != 0)//Stop move
+            if (rb.velocity.y < 0)
             {
-                rb.velocity = Vector2.zero;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
             }
-            if (datacountJump == 0 || onJump || !onJump)//Reset JumpCount
+            if (datacountJump == 0)//Reset JumpCount
             {
                 datacountJump = countJump;
-                onJump = false;
-                anim.SetBool("Jump", false);
             }
+
+            onJump = false;
+            anim.SetBool("Jump", false);
         }
         else //Out Ground
         {
-            if (datacountJump == 0)
+            if (onJump && datacountJump == 0)
             {
                 rb.gravityScale = speedDown;
                 if (rb.velocity.y <= 0)
@@ -365,12 +363,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             if ((rb.velocity.y <= 0 || rb.velocity.y > 0) && datacountJump > 0)//Down to Floor
             {
                 Dodamage();
+                datacountJump--;
                 rb.gravityScale = gravity;
                 if (!onJump)
                 {
                     anim.Play("JumpDown");
+                    anim.SetBool("Jump", true);
                 }
-                anim.SetBool("Jump", true);
             }
 
         }
@@ -409,7 +408,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     {
         RaycastHit2D dodamage = Physics2D.Raycast(pointCheckGround.transform.position,
         Vector2.down, distanceChrckPlatfrom, this.dodamage);
-        if (dodamage)//Check destroy Enenmy
+        if (dodamage && size == Size.NORMAL)//Check destroy Enenmy
         {
             datacountJump = 1;
             Jump();
@@ -618,7 +617,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             powerJump = powerJumpSmall;
             size = Size.SMALL;
-            transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+            transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
         }
         else
         {
