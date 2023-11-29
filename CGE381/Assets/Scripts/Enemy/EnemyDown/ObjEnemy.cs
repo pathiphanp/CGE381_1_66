@@ -55,5 +55,14 @@ public class ObjEnemy : MonoBehaviour
         anim.Play("Die");
     }
 
+    void SoundDie()
+    {
+
+    }
+
+    void SoundRoll()
+    {
+
+    }
 
 }

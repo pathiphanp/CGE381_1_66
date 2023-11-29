@@ -50,4 +50,13 @@ public class ClockEnemy : Platfrom
     {
         Destroy(this.gameObject);
     }
+
+    void SoundDie()
+    {
+
+    }
+    void SoundRun()
+    {
+        
+    }
 }

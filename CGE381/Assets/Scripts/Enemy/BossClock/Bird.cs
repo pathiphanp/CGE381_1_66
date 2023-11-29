@@ -26,4 +26,13 @@ public class Bird : Platfrom
         bossClock.canSpawn = true;
         dieAnimation.SetActive(true);
     }
+
+    void SoundFly()
+    {
+        SoundManager.Instance.PlaySfx("Fly");
+    }
+    void SoundDie()
+    {
+        SoundManager.Instance.PlaySfx("Die");
+    }
 }
