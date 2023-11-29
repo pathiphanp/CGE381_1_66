@@ -24,7 +24,7 @@ public class SaveManager : Singletons<SaveManager>
     }
     private void OnDisable()
     {
-        //ResetSave();
+        
     }
     public void SaveGame(int indexSlotSave)
     {
@@ -46,9 +46,6 @@ public class SaveManager : Singletons<SaveManager>
             PlayerPrefs.SetInt("Star3", star[indexSlotSave]);
             PlayerPrefs.SetString("Map3", nameMap[indexSlotSave]);
         }
-
-
-        Debug.Log("Save Completed");
     }
     public void LoadSave(int indexSlotSave)
     {
@@ -70,7 +67,6 @@ public class SaveManager : Singletons<SaveManager>
             star[indexSlotSave] = PlayerPrefs.GetInt("Star3", star[indexSlotSave]);
             nameMap[indexSlotSave] = PlayerPrefs.GetString("Map3", nameMap[indexSlotSave]);
         }
-        Debug.Log("LoadSave Completed");
     }
 
     public void LoadGame(bool newGame, int indexSlotSave)

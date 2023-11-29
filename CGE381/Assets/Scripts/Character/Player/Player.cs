@@ -309,6 +309,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             rb.velocity = new Vector2(rb.velocity.x, rby);
             onJump = true;
             anim.SetBool("Jump", true);
+            SoundManager.Instance.PlaySfx("Jump");
         }
     }
     public void OnUp(InputAction.CallbackContext context)
@@ -360,10 +361,13 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                     Dodamage();
                 }
             }
-            if ((rb.velocity.y <= 0 || rb.velocity.y > 0) && datacountJump > 0)//Down to Floor
+            if ((rb.velocity.y <= 0 || rb.velocity.y > 0) && !onJump)//Down to Floor
             {
                 Dodamage();
-                datacountJump--;
+                if (datacountJump > 0)
+                {
+                    datacountJump--;
+                }
                 rb.gravityScale = gravity;
                 if (!onJump)
                 {
@@ -371,7 +375,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
                     anim.SetBool("Jump", true);
                 }
             }
-
         }
 
     }
@@ -383,11 +386,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             if (_platfrom == null)
             {
                 _platfrom = plat.collider.gameObject;
-                if (_platfrom != null)
-                {
-                    AddChild add = _platfrom.GetComponent<AddChild>();
-                    add.AddChild(this.gameObject);
-                }
+            }
+            if (_platfrom != null)
+            {
+                AddChild add = _platfrom.GetComponent<AddChild>();
+                add.AddChild(this.gameObject);
             }
         }
         else//Out off Platfrom
@@ -415,8 +418,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Destroy(dodamage.collider.gameObject);
         }
     }
-
-
     public void OnInventory(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -682,5 +683,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         hp = 5;
         StartCoroutine(ShowHp());
     }
+    
 }
 

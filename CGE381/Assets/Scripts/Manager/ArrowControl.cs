@@ -6,6 +6,7 @@ public class ArrowControl : Singletons<ArrowControl>
 {
     public int SetSlotSide(int index, int clampMax)
     {
+        SoundManager.Instance.PlaySfx("ArrowMove");
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             index--;
@@ -19,6 +20,7 @@ public class ArrowControl : Singletons<ArrowControl>
 
     public int SetSlotUpDown(int index, int clampMax)
     {
+        SoundManager.Instance.PlaySfx("ArrowMove");
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             index--;
