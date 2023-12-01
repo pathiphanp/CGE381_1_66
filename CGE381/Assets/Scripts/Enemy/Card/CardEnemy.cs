@@ -17,16 +17,20 @@ public class CardEnemy : MonoBehaviour
 
     [SerializeField] GameObject weapon;
 
+    bool atk = true;
+    AudioSource sfxSource;
+
     void Start()
     {
+        sfxSource = GetComponent<AudioSource>();
         canAtk = true;
         targetY = end.transform.localPosition.y;
     }
     void Update()
     {
-        atk();
+        Atk();
     }
-    void atk()
+    void Atk()
     {
         speed += Time.deltaTime;
         float percencomplete = speed / duration;
@@ -53,7 +57,10 @@ public class CardEnemy : MonoBehaviour
     {
         yield return new WaitForSeconds(delayAtk);
         targetY = end.transform.localPosition.y;
+        sfxSource.PlayOneShot(SoundManager.Instance.SearchSfx("CardAtk"));
         speed = 0;
         canAtk = true;
     }
+
+
 }

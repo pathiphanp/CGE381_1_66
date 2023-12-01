@@ -125,7 +125,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     }
     void OnApplicationQuit()
     {
-        //Save();
+        Save();
     }
     private void Awake()
     {
@@ -137,7 +137,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     // Start is called before the first frame update
     void Start()
     {
-        //star = SaveManager.Instance.star[SaveManager.Instance.numSave];
+        LoadSave();
         speedMove = walkspeed;
         powerJump = powerJumpNormal;
         datacountJump = countJump;
@@ -176,6 +176,10 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         SaveManager.Instance.star[SaveManager.Instance.numSave] = star;
         SaveManager.Instance.nameMap[SaveManager.Instance.numSave] = SceneManager.GetActiveScene().name;
         SaveManager.Instance.SaveGame(SaveManager.Instance.numSave);
+    }
+    void LoadSave()
+    {
+        star = SaveManager.Instance.star[SaveManager.Instance.numSave];
     }
     #region //GamePlay
     void SetUpDownMode(bool start)
@@ -309,7 +313,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             rb.velocity = new Vector2(rb.velocity.x, rby);
             onJump = true;
             anim.SetBool("Jump", true);
-            SoundManager.Instance.PlaySfx("Jump");
+            SoundManager.Instance.PlaySfx("PlayerJump");
         }
     }
     public void OnUp(InputAction.CallbackContext context)
@@ -418,15 +422,10 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Destroy(dodamage.collider.gameObject);
         }
     }
-    public void OnInventory(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            inventory.SetActive(true);
-            UIMode();
-            Time.timeScale = 0f;
-        }
-    }
+
+    #endregion
+    #region //UI    
+
     public void OnPause(InputAction.CallbackContext context)
     {
         /*if (context.started)
@@ -435,16 +434,14 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             Time.timeScale = 0f;
         }*/
     }
-    #endregion
-    #region //UI
     public void OnResume(InputAction.CallbackContext context)
     {
-        /*if (context.started)
+        if (context.started)
         {
             PlayerMode();
             inventory.SetActive(false);
             Time.timeScale = 1f;
-        }*/
+        }
     }
     public void OnCutSceneSkip(InputAction.CallbackContext context)
     {
@@ -467,11 +464,21 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             }
         }
     }
-    #endregion
     public static void SkipCutScene()
     {
         CutSceneTrigger?.Invoke();
     }
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            inventory.SetActive(true);
+            UIMode();
+            Time.timeScale = 0f;
+        }
+    }
+    #endregion
+
 
     #region //ChangeMode
     void UIMode()
@@ -683,6 +690,6 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         hp = 5;
         StartCoroutine(ShowHp());
     }
-    
+
 }
 

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class SoundPlayer : MonoBehaviour
 {
-   void SoundWalkAndRun()
+   void SoundWalkAndRun1()
    {
-      SoundManager.Instance.PlaySfx("WalkAndRun");
+      SoundManager.Instance.PlaySfx("PlayerWalkAndRun1");
+   }
+   void SoundWalkAndRun2()
+   {
+      SoundManager.Instance.PlaySfx("PlayerWalkAndRun2");
    }
    void SoundFastDown()
    {

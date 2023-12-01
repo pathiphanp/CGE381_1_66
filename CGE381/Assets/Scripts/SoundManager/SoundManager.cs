@@ -48,6 +48,22 @@ public class SoundManager : Singletons<SoundManager>
         }
     }
 
+    public AudioClip SearchSfx(string nameSound)
+    {
+        AudioClip sound = null;
+        Sound s = Array.Find(sfxSound, x => x.nameSound == nameSound);
+        if (s == null)
+        {
+            Debug.Log("Not have SFX");
+        }
+        else
+        {
+            sound = s.clip;
+        }
+        return sound;
+    }
+
+    #region VolumeControl
     void VolumeControl()
     {
         VolumeUp();
@@ -72,14 +88,14 @@ public class SoundManager : Singletons<SoundManager>
     {
         if (Input.GetKeyDown(KeyCode.Keypad8))
         {
-            musicSource.volume += Time.deltaTime;
+            musicSource.volume += 0.01f;
         }
         if (Input.GetKey(KeyCode.Keypad8))
         {
             holdTimeMusic += Time.deltaTime;
             if (holdTimeMusic > delayholdTime)
             {
-                musicSource.volume += Time.deltaTime;
+                musicSource.volume += 0.01f;
             }
         }
         if (Input.GetKeyUp(KeyCode.Keypad8))
@@ -92,14 +108,14 @@ public class SoundManager : Singletons<SoundManager>
     {
         if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-            sfxSource.volume += Time.deltaTime;
+            sfxSource.volume += 0.01f;
         }
         if (Input.GetKey(KeyCode.Keypad6))
         {
             holdTimeSFX += Time.deltaTime;
             if (holdTimeSFX > delayholdTime)
             {
-                sfxSource.volume += Time.deltaTime;
+                sfxSource.volume += 0.01f;
             }
         }
         if (Input.GetKeyUp(KeyCode.Keypad6))
@@ -116,14 +132,14 @@ public class SoundManager : Singletons<SoundManager>
     {
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            musicSource.volume -= Time.deltaTime;
+            musicSource.volume -= 0.01f;
         }
         if (Input.GetKey(KeyCode.Keypad2))
         {
             holdTimeMusic += Time.deltaTime;
             if (holdTimeMusic > delayholdTime)
             {
-                musicSource.volume -= Time.deltaTime;
+                musicSource.volume -= 0.01f;
             }
         }
         if (Input.GetKeyUp(KeyCode.Keypad2))
@@ -135,14 +151,14 @@ public class SoundManager : Singletons<SoundManager>
     {
         if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            sfxSource.volume -= Time.deltaTime;
+            sfxSource.volume -= 0.01f;
         }
         if (Input.GetKey(KeyCode.Keypad4))
         {
             holdTimeSFX += Time.deltaTime;
             if (holdTimeSFX > delayholdTime)
             {
-                sfxSource.volume -= Time.deltaTime;
+                sfxSource.volume -= 0.01f;
             }
         }
         if (Input.GetKeyUp(KeyCode.Keypad4))
@@ -150,4 +166,5 @@ public class SoundManager : Singletons<SoundManager>
             holdTimeSFX = 0;
         }
     }
+    #endregion
 }

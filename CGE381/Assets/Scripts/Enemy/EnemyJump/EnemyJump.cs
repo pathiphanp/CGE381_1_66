@@ -50,9 +50,11 @@ public class EnemyJump : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     SpriteRenderer sprite;
+    AudioSource sfxSource;
     // Start is called before the first frame update
     void Start()
     {
+        sfxSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -188,5 +190,10 @@ public class EnemyJump : MonoBehaviour
         top = new Vector2(transform.position.x - boxRight, transform.position.y - boxTop);
         bot = new Vector2(transform.position.x - boxleft, transform.position.y - botDown);
         DebugBox.DrawRectange(top, bot);
+    }
+
+    void SoundJumpFrog()
+    {
+        sfxSource.PlayOneShot(SoundManager.Instance.SearchSfx("EnemyJump"));
     }
 }

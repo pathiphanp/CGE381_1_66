@@ -71,7 +71,7 @@ public class ManuControl : MonoBehaviour
             indexBtnManu = ArrowControl.Instance.SetSlotUpDown(indexBtnManu, btn.Length - 1);
             loopBtn();
         }
-        if (btn[1].manu.active)
+        if (btn[1].manu.gameObject.active)
         {
             ChangeMode();
         }

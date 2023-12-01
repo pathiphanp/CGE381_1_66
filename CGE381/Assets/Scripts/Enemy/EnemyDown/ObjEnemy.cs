@@ -6,18 +6,20 @@ using UnityEngine;
 public class ObjEnemy : MonoBehaviour
 {
     Rigidbody2D rb;
-    Collider2D call;
+    Collider2D coll;
     Animator anim;
     public float delayDie;
     [HideInInspector] public SpawnEnemyDown control;
     [SerializeField] public float speedDown;
+    AudioSource sfxSound;
     // Start is called before the first frame update
     void Start()
     {
+        sfxSound = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        call = this.AddComponent<PolygonCollider2D>();
+        coll = this.AddComponent<PolygonCollider2D>();
         rb = this.AddComponent<Rigidbody2D>();
-        call.isTrigger = true;
+        coll.isTrigger = true;
         rb.gravityScale = 0;
         if (control != null)
         {
@@ -37,10 +39,12 @@ public class ObjEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            coll.enabled = false;
             anim.Play("Die");
         }
         if (other.gameObject.tag == "Ground")
         {
+            coll.enabled = false;
             Invoke("DelayDie", delayDie);
         }
     }
@@ -57,7 +61,7 @@ public class ObjEnemy : MonoBehaviour
 
     void SoundDie()
     {
-
+        sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("GlassDie"));
     }
 
     void SoundRoll()

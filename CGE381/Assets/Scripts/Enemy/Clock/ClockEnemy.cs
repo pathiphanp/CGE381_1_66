@@ -9,6 +9,7 @@ public class ClockEnemy : Platfrom
     [HideInInspector] public Collider2D coll;
     [HideInInspector] public Animator anim;
     SpriteRenderer sprite;
+    AudioSource sfxSound;
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -17,6 +18,7 @@ public class ClockEnemy : Platfrom
         coll = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        sfxSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,8 +57,12 @@ public class ClockEnemy : Platfrom
     {
 
     }
-    void SoundRun()
+    void SoundRun1()
     {
-        
+        sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("ClockWalk1"));
+    }
+    void SoundRun2()
+    {
+        sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("ClockWalk2"));
     }
 }
