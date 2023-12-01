@@ -3485,7 +3485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &552591444
 Transform:
   m_ObjectHideFlags: 0
@@ -7148,7 +7148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1290759916
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11027,9 +11027,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
+      propertyPath: sfxSound.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: musicSound.Array.size
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
+      propertyPath: sfxSound.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
+    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
+      propertyPath: sfxSound.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
+    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
+      propertyPath: sfxSound.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 89eda186adbfeb04c8f522787c6696be, type: 3}
     - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: musicSound.Array.data[0].clip
       value: 
@@ -11054,6 +11070,10 @@ PrefabInstance:
       propertyPath: musicSound.Array.data[6].clip
       value: 
       objectReference: {fileID: 8300000, guid: deb04b73cff69ce45acc1e77d3536572, type: 3}
+    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
+      propertyPath: sfxSound.Array.data[8].nameSound
+      value: StarDie
+      objectReference: {fileID: 0}
     - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: musicSound.Array.data[0].nameSound
       value: StartGameAndManu

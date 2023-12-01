@@ -4303,6 +4303,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 830613686}
+--- !u!114 &1522528379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522528374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15c20ddbd51b4b4e94b6d29e1780f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1620609482
 GameObject:
   m_ObjectHideFlags: 0
@@ -4988,7 +5000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 438565233527425805, guid: 7a2418e3831173443819c445068b2e6e, type: 3}
       propertyPath: nameMusic
-      value: GamePlat1
+      value: GamePlay1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6543,4 +6555,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6037819264135988588, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1522528378}
+    - targetCorrespondingSourceObject: {fileID: 6037819264135988588, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1522528379}
   m_SourcePrefab: {fileID: 100100000, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}

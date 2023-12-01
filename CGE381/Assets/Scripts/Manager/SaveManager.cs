@@ -96,7 +96,6 @@ public class SaveManager : Singletons<SaveManager>
                 modeGame = ModeGame.HARD;
             }
             SceneManager.LoadScene(nameMap[indexSlotSave]);
-
         }
     }
     void ResetSlotSave()

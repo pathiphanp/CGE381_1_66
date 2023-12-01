@@ -52,7 +52,6 @@ public class SetSave : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z) && !selectSave)
         {
             selectSave = true;
-            Debug.Log("Back");
             foreach (Setname s in _slodSave)
             {
                 s.ResetSlot();

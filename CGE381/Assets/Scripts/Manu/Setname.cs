@@ -36,7 +36,7 @@ public class Setname : MonoBehaviour
             slotEmty = false;
             namePlayer.text = SaveManager.Instance.namePlayer[slotNum];
         }
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -111,12 +111,17 @@ public class Setname : MonoBehaviour
     }
     public void ResetSlot()
     {
-        foreach (SystemSlotName s in systemName)
+        if (SaveManager.Instance.namePlayer[slotNum] == "")
         {
-            s.setNamePlayer = 'A';
-            s.obNamePlayer.SetActive(false);
+            foreach (SystemSlotName s in systemName)
+            {
+                Debug.Log("NameDe");
+                s.setNamePlayer = 'A';
+                s.namePlayer.text = "A";
+                s.obNamePlayer.SetActive(false);
+            }
+            defaultname.SetActive(true);
         }
-        defaultname.SetActive(true);
         selectSlot = false;
     }
 }

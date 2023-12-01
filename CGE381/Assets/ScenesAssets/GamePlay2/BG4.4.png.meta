@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -105,7 +105,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BG4.4_0
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 127
+        width: 385
+        height: 826
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dbccbb8213f5294d926548fd3b769f1
+      internalID: 341348987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG4.4_1
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 497
+        width: 363
+        height: 321
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a9900bf84354c1478421c57f26ebe7e
+      internalID: -784820645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG4.4_2
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 197
+        width: 363
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82917381ad9349c48910e4d9b48812bd
+      internalID: -1974565951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG4.4_3
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 209
+        width: 363
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 663a8cc25044ed24b874072feffdf3d6
+      internalID: -563617750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -116,7 +200,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BG4.4_0: 341348987
+      BG4.4_1: -784820645
+      BG4.4_2: -1974565951
+      BG4.4_3: -563617750
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
