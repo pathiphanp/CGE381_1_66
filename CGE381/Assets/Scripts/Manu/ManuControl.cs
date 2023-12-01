@@ -85,16 +85,18 @@ public class ManuControl : MonoBehaviour
         {
             foreach (TMP_Text m in modeText)
             {
-                m.text = ModeGame.EASY.ToString();
+                SaveManager.Instance.modeGame = ModeGame.EASY;
+                m.text = SaveManager.Instance.modeGame.ToString();
             }
-            Debug.Log(ModeGame.EASY.ToString());
+            //Debug.Log(ModeGame.EASY.ToString());
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Debug.Log(ModeGame.HARD.ToString());
+            //Debug.Log(ModeGame.HARD.ToString());
             foreach (TMP_Text m in modeText)
             {
-                m.text = ModeGame.HARD.ToString();
+                SaveManager.Instance.modeGame = ModeGame.HARD;
+                m.text = SaveManager.Instance.modeGame.ToString();
             }
         }
         if (Input.GetKeyDown(KeyCode.X))

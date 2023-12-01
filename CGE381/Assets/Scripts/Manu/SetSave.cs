@@ -9,23 +9,33 @@ public class SetSave : MonoBehaviour
     [HideInInspector] public int indexSave = 0;
     public bool firstRead = true;
     [HideInInspector] public bool selectSave = true;
+    [SerializeField] bool resetAllSave;
     private void OnEnable()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        if (resetAllSave)
         {
-            slodSave.Add(transform.GetChild(i).gameObject);
-            _slodSave.Add(slodSave[i].GetComponent<Setname>());
-            _slodSave[i].setSave = this;
+            RestSlot();
         }
+        if (slodSave.Count == 0)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                slodSave.Add(transform.GetChild(i).gameObject);
+                _slodSave.Add(slodSave[i].GetComponent<Setname>());
+                _slodSave[i].setSave = this;
+            }
+        }
+
         _slodSave[0].bg_select.SetActive(true);
     }
 
     private void OnDisable()
     {
+
     }
     void Start()
     {
-        //RestSlot();
+
     }
     private void Update()
     {
@@ -42,10 +52,10 @@ public class SetSave : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z) && !selectSave)
         {
             selectSave = true;
+            Debug.Log("Back");
             foreach (Setname s in _slodSave)
             {
                 s.ResetSlot();
-                s.selectSlot = false;
             }
         }
 

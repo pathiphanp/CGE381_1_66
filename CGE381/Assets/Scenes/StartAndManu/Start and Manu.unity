@@ -2229,7 +2229,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg_Start: {fileID: 552591443}
   manu: {fileID: 1937956530}
-  modeText: []
+  modeText:
+  - {fileID: 182415900}
+  - {fileID: 1595516000}
   btn:
   - manu: {fileID: 1290759915}
     manuBtn: {fileID: 1736222443}
@@ -3483,7 +3485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &552591444
 Transform:
   m_ObjectHideFlags: 0
@@ -4167,6 +4169,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modeGame: 0
+  _modeGame:
+  - 
+  - 
+  - 
   namePlayer:
   - 
   - 
@@ -6204,6 +6210,7 @@ MonoBehaviour:
   indexSave: 0
   firstRead: 1
   selectSave: 1
+  resetAllSave: 1
 --- !u!1 &1136070008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7141,7 +7148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1290759916
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10462,7 +10469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1937956531
 RectTransform:
   m_ObjectHideFlags: 0

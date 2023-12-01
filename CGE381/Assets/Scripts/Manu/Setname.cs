@@ -26,7 +26,6 @@ public class Setname : MonoBehaviour
             s.namePlayer = s.obNamePlayer.GetComponent<TMP_Text>();
         }
         namePlayer = defaultname.GetComponent<TMP_Text>();
-
     }
 
     // Start is called before the first frame update
@@ -34,10 +33,10 @@ public class Setname : MonoBehaviour
     {
         if (SaveManager.Instance.namePlayer[slotNum] != "")
         {
-            Debug.Log("Slot not emty");
             slotEmty = false;
             namePlayer.text = SaveManager.Instance.namePlayer[slotNum];
         }
+        
     }
     // Update is called once per frame
     void Update()
@@ -106,7 +105,7 @@ public class Setname : MonoBehaviour
             SaveManager.Instance.namePlayer[slotNum] = systemName[0].setNamePlayer.ToString()
                         + systemName[1].setNamePlayer.ToString()
                         + systemName[2].setNamePlayer.ToString();
-            SaveManager.Instance.LoadGame(true,0);
+            SaveManager.Instance.LoadGame(true, 0);
             SaveManager.Instance.numSave = slotNum;
         }
     }
@@ -118,5 +117,6 @@ public class Setname : MonoBehaviour
             s.obNamePlayer.SetActive(false);
         }
         defaultname.SetActive(true);
+        selectSlot = false;
     }
 }

@@ -1013,7 +1013,6 @@ Transform:
   - {fileID: 1080497654}
   - {fileID: 2074297814}
   - {fileID: 1237526029}
-  - {fileID: 1639167043}
   m_Father: {fileID: 1887333159}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9108,6 +9107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639167043}
+  - component: {fileID: 1639167044}
   m_Layer: 0
   m_Name: AllHeal
   m_TagString: Untagged
@@ -9129,9 +9129,22 @@ Transform:
   m_Children:
   - {fileID: 707021906}
   - {fileID: 371478023}
-  m_Father: {fileID: 139439942}
+  m_Father: {fileID: 1887333159}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1639167044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639167042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e06e6c65f2564e93eb39d8c3182d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allHeal: {fileID: 1639167042}
 --- !u!4 &1660895918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4410146991996859935, guid: 21f212bd5196f744ebee164b5bfca4a4, type: 3}
@@ -11142,6 +11155,7 @@ Transform:
   - {fileID: 1963380152}
   - {fileID: 851297565}
   - {fileID: 941420696}
+  - {fileID: 1639167043}
   - {fileID: 139439942}
   - {fileID: 327908444}
   - {fileID: 959701006}
