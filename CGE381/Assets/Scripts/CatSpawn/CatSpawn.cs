@@ -49,4 +49,8 @@ public class CatSpawn : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    void SoundCatWarp()
+    {
+        SoundManager.Instance.PlaySfx("CatWarp");
+    }
 }

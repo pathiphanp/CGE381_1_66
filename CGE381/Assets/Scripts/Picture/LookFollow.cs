@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class LookFollow : MonoBehaviour
 {
-    [Header("Eye Left")]
-    [SerializeField] GameObject eyeLeft;
-    [SerializeField] float clampMinEyeLeft;
-    [SerializeField] float clampMaxEyeLeft;
-    [Header("Eye Right")]
-    [SerializeField] GameObject eyeRight;
-    [SerializeField] float clampMinEyeRight;
-    [SerializeField] float clampMaxEyeRight;
+    [Header("Eye")]
+    [SerializeField] GameObject eye;
+    [SerializeField] float clampMinEye;
+    [SerializeField] float clampMaxEye;
     [Header("Speed Look")]
     [SerializeField] float duration;
     float speed;
@@ -35,15 +31,10 @@ public class LookFollow : MonoBehaviour
         {
             float target = player.transform.position.x;//Target Look
             //Eye Left look
-            float _eyeLeft = Mathf.Lerp(eyeLeft.transform.localPosition.x, target, Time.deltaTime * duration);
-            _eyeLeft = Mathf.Clamp(_eyeLeft, clampMinEyeLeft, clampMaxEyeLeft);
-            eyeLeft.transform.localPosition = new Vector3(_eyeLeft, eyeLeft.transform.localPosition.y,
-            eyeLeft.transform.localPosition.z);
-            //Eye Right look
-            float _eyeRight = Mathf.Lerp(eyeRight.transform.localPosition.x, target, Time.deltaTime * duration);
-            _eyeRight = Mathf.Clamp(_eyeRight, clampMinEyeRight, clampMaxEyeRight);
-            eyeRight.transform.localPosition = new Vector3(_eyeRight, eyeRight.transform.localPosition.y,
-            eyeRight.transform.localPosition.z);
+            float _eye = Mathf.Lerp(eye.transform.localPosition.x, target, Time.deltaTime * duration);
+            _eye = Mathf.Clamp(_eye, clampMinEye, clampMaxEye);
+            eye.transform.localPosition = new Vector3(_eye, eye.transform.localPosition.y,
+            eye.transform.localPosition.z);
         }
 
     }

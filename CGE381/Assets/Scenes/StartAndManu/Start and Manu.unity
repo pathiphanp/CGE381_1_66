@@ -2155,7 +2155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotNum: 0
-  setSave: {fileID: 0}
+  setSaveSlot: {fileID: 0}
   defaultname: {fileID: 347910730}
   namePlayer: {fileID: 347910732}
   systemName:
@@ -3565,7 +3565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotNum: 2
-  setSave: {fileID: 0}
+  setSaveSlot: {fileID: 0}
   defaultname: {fileID: 1145955751}
   namePlayer: {fileID: 1145955753}
   systemName:
@@ -5516,7 +5516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotNum: 1
-  setSave: {fileID: 0}
+  setSaveSlot: {fileID: 0}
   defaultname: {fileID: 1573019833}
   namePlayer: {fileID: 1573019835}
   systemName:
@@ -6210,7 +6210,7 @@ MonoBehaviour:
   indexSave: 0
   firstRead: 1
   selectSave: 1
-  resetAllSave: 1
+  resetAllSave: 0
 --- !u!1 &1136070008
 GameObject:
   m_ObjectHideFlags: 0
@@ -11025,82 +11025,6 @@ PrefabInstance:
     - target: {fileID: 1367547251435837671, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[8].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 89eda186adbfeb04c8f522787c6696be, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: c7d75ef22147f484c90da80ce3b6c6e7, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 08cdcce38decd5e4498c10ea46ce024b, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 455a2c79c7e1d114288ca7562364459e, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 06b4d4d7071546e42adcc2497563aa0b, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[4].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 29ce50fb022af7a449f4f90e63cde945, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: deb04b73cff69ce45acc1e77d3536572, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[8].nameSound
-      value: StarDie
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[0].nameSound
-      value: StartGameAndManu
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[1].nameSound
-      value: GamePlay1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[2].nameSound
-      value: GamePlay2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[3].nameSound
-      value: GamePlay3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[4].nameSound
-      value: GamePlay4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[5].nameSound
-      value: GamePlay5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: musicSound.Array.data[6].nameSound
-      value: GamePlay6
       objectReference: {fileID: 0}
     - target: {fileID: 1367547251435837673, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: m_Name

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public enum ModeGame
 {
-    NONE, EASY, HARD
+    EASY, HARD
 }
 public class SaveManager : Singletons<SaveManager>
 {
@@ -19,13 +19,18 @@ public class SaveManager : Singletons<SaveManager>
 
     private void OnEnable()
     {
-        LoadSave(0);
-        LoadSave(1);
-        LoadSave(2);
-        ResetSlotSave();
+        LoadAll();
     }
     private void OnDisable()
     {
+
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            ResetSlotSave();
+        }
     }
     public void SaveGame(int indexSlotSave)
     {
@@ -98,6 +103,12 @@ public class SaveManager : Singletons<SaveManager>
             SceneManager.LoadScene(nameMap[indexSlotSave]);
         }
     }
+    public void LoadAll()
+    {
+        LoadSave(0);
+        LoadSave(1);
+        LoadSave(2);
+    }
     void ResetSlotSave()
     {
         PlayerPrefs.SetString("Plyer1", "");
@@ -114,6 +125,7 @@ public class SaveManager : Singletons<SaveManager>
         PlayerPrefs.SetInt("Star3", 0);
         PlayerPrefs.SetString("Map3", "");
         PlayerPrefs.SetString("ModeGame3", "NONE");
+        LoadAll();
     }
 
 }

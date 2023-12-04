@@ -14,7 +14,7 @@ public class PlatFromTrick : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject)
+        if (other.gameObject.tag == "Player")
         {
             StartCoroutine(FloorTrick());
         }
@@ -30,7 +30,7 @@ public class PlatFromTrick : MonoBehaviour
     }
     void OnCollisionExit2D(Collision2D other)
     {
-        if (other.collider)
+        if (other.collider.tag == "Player")
         {
             canAction = false;
         }

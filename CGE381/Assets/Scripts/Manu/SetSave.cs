@@ -1,83 +1,125 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class SetSave : MonoBehaviour
 {
-    [SerializeField] List<GameObject> slodSave = new List<GameObject>();
-    [SerializeField] List<Setname> _slodSave = new List<Setname>();
-    [HideInInspector] public int indexSave = 0;
-    public bool firstRead = true;
-    [HideInInspector] public bool selectSave = true;
-    [SerializeField] bool resetAllSave;
+    [SerializeField] public int slotNum;
+    [SerializeField] public SetSaveSlot setSaveSlot;
+    [SerializeField] GameObject defaultname;
+    [SerializeField] TMP_Text namePlayer;
+    [SerializeField] SystemSlotName[] systemName;
+    [SerializeField] public int indexName = 0;
+    public GameObject bg_select;
+    /*[HideInInspector]*/
+    public bool selectSlot = false;
+    bool slotEmty = true;
+
     private void OnEnable()
     {
-        if (resetAllSave)
+        foreach (SystemSlotName s in systemName)
         {
-            RestSlot();
+            s.namePlayer = s.obNamePlayer.GetComponent<TMP_Text>();
         }
-        if (slodSave.Count == 0)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                slodSave.Add(transform.GetChild(i).gameObject);
-                _slodSave.Add(slodSave[i].GetComponent<Setname>());
-                _slodSave[i].setSave = this;
-            }
-        }
-
-        _slodSave[0].bg_select.SetActive(true);
+        namePlayer = defaultname.GetComponent<TMP_Text>();
     }
 
-    private void OnDisable()
-    {
-
-    }
+    // Start is called before the first frame update
     void Start()
     {
-
-    }
-    private void Update()
-    {
-        SelectSave();
-    }
-
-    void SelectSave()
-    {
-        if (Input.GetKeyDown(KeyCode.X) && selectSave)
+        if (SaveManager.Instance.namePlayer[slotNum] != "")
         {
-            selectSave = false;
-            _slodSave[indexSave].selectSlot = true;
+            slotEmty = false;
+            namePlayer.text = SaveManager.Instance.namePlayer[slotNum];
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && !selectSave)
+
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (selectSlot)
         {
-            selectSave = true;
-            foreach (Setname s in _slodSave)
+            SelectSlot();
+        }
+    }
+    void SelectSlot()
+    {
+        if (slotEmty)
+        {
+            defaultname.SetActive(false);
+            foreach (SystemSlotName s in systemName)
             {
-                s.ResetSlot();
+                s.obNamePlayer.SetActive(true);
+            }
+            SetName();
+        }
+        else
+        {
+            SaveManager.Instance.LoadGame(false, slotNum);
+        }
+    }
+    void SetName()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))//SetName
+        {
+            systemName[indexName].setNamePlayer = (char)ArrowControl.Instance.SetSlotUpDown(systemName[indexName].setNamePlayer, 91);
+            if (systemName[indexName].setNamePlayer == 91)
+            {
+                systemName[indexName].setNamePlayer = 'A';
+            }
+            else if (systemName[indexName].setNamePlayer == 64)
+            {
+                systemName[indexName].setNamePlayer = 'Z';
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && selectSave || Input.GetKeyDown(KeyCode.RightArrow) && selectSave)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))//SelectNameSlot
         {
-            indexSave = ArrowControl.Instance.SetSlotSide(indexSave, transform.childCount - 1);
-            for (int i = 0; i < _slodSave.Count; i++)
+            indexName = ArrowControl.Instance.SetSlotSide(indexName, systemName.Length - 1);
+            for (int i = 0; i < systemName.Length; i++)
             {
-                if (indexSave == i)
+                if (indexName == i)
                 {
-                    _slodSave[i].bg_select.SetActive(true);
+                    systemName[i].arow.SetActive(true);
                 }
-                else
+                else if (indexName != i)
                 {
-                    _slodSave[i].bg_select.SetActive(false);
+                    systemName[i].arow.SetActive(false);
                 }
             }
         }
-    }
+        systemName[indexName].setNamePlayer = (Char)Mathf.Clamp(systemName[indexName].setNamePlayer, 'A', 'Z');
+        systemName[indexName].namePlayer.text = systemName[indexName].setNamePlayer.ToString();//ChangeName
+        StartCoroutine(SaveNameAndSlotSave());//NewGame
 
-    void RestSlot()
+    }
+    IEnumerator SaveNameAndSlotSave()
     {
-        _slodSave.Clear();
-        slodSave.Clear();
+        yield return new WaitForSeconds(0.5f);
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            //Save and go to PlayGame(New Game)
+            SaveManager.Instance.namePlayer[slotNum] = systemName[0].namePlayer.text + systemName[1].namePlayer.text + systemName[2].namePlayer.text;
+            SaveManager.Instance.LoadGame(true, 0);
+            SaveManager.Instance.numSave = slotNum;
+        }
+    }
+    public void ResetSlot()
+    {
+        if (SaveManager.Instance.namePlayer[slotNum] == "")
+        {
+            foreach (SystemSlotName s in systemName)
+            {
+                Debug.Log("NameDe");
+                s.setNamePlayer = 'A';
+                s.namePlayer.text = "A";
+                s.obNamePlayer.SetActive(false);
+            }
+            defaultname.SetActive(true);
+        }
+        selectSlot = false;
     }
 }

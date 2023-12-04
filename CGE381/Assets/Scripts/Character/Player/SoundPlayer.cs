@@ -24,4 +24,9 @@ public class SoundPlayer : MonoBehaviour
    {
       SoundManager.Instance.PlaySfx("DownSlow");
    }
+
+   void SoundWaterDie()
+   {
+      SoundManager.Instance.PlaySfx("WaterDie");
+   }
 }

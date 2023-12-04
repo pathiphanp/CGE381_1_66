@@ -122,10 +122,11 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         Gamemanager.PlayerUIMode -= UIMode;
         Gamemanager.PlayerMode -= PlayerMode;
         Player.HealAll -= HealFull;
+        //Save();
     }
     void OnApplicationQuit()
     {
-        Save();
+        //Save();
     }
     private void Awake()
     {
@@ -137,7 +138,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
     // Start is called before the first frame update
     void Start()
     {
-        LoadSave();
+        //LoadSave();
         speedMove = walkspeed;
         powerJump = powerJumpNormal;
         datacountJump = countJump;
@@ -626,12 +627,14 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
             powerJump = powerJumpSmall;
             size = Size.SMALL;
             transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+            distanceChrckPlatfrom = 0.2f;
         }
         else
         {
             powerJump = powerJumpNormal;
             size = Size.NORMAL;
             transform.localScale = new Vector3(1, 1, 1);
+            distanceChrckPlatfrom = 0.33f;
         }
     }
     IEnumerator ShowStar()

@@ -302,14 +302,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467986baa6e54fe4b9fda37b8b78deb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSound: []
+  musicSound:
+  - nameSound: StartGameAndManu
+    clip: {fileID: 8300000, guid: c7d75ef22147f484c90da80ce3b6c6e7, type: 3}
+  - nameSound: GamePlay1
+    clip: {fileID: 8300000, guid: 08cdcce38decd5e4498c10ea46ce024b, type: 3}
+  - nameSound: GamePlay2
+    clip: {fileID: 8300000, guid: 455a2c79c7e1d114288ca7562364459e, type: 3}
+  - nameSound: GamePlay3
+    clip: {fileID: 8300000, guid: 06b4d4d7071546e42adcc2497563aa0b, type: 3}
+  - nameSound: GamePlay4
+    clip: {fileID: 8300000, guid: 29ce50fb022af7a449f4f90e63cde945, type: 3}
+  - nameSound: GamePlay5
+    clip: {fileID: 0}
+  - nameSound: GamePlay6
+    clip: {fileID: 8300000, guid: deb04b73cff69ce45acc1e77d3536572, type: 3}
   sfxSound:
   - nameSound: PlayerJump
     clip: {fileID: 8300000, guid: 3f6b9428b5585364a9f9875226f77908, type: 3}
   - nameSound: PlayerWalkAndRun1
-    clip: {fileID: 8300000, guid: 04ffe9b7dccf7cb41973a40775e7da84, type: 3}
+    clip: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
   - nameSound: PlayerWalkAndRun2
-    clip: {fileID: 8300000, guid: 04ffe9b7dccf7cb41973a40775e7da84, type: 3}
+    clip: {fileID: 8300000, guid: 48cdb2618949b5b48b1c889330a3e6eb, type: 3}
   - nameSound: EnemyJump
     clip: {fileID: 8300000, guid: 15fa625bf28bf1a409efbd22ca285b75, type: 3}
   - nameSound: CardAtk
@@ -320,6 +334,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 98ba44d43d3c04e4882b541c8ceb5ac9, type: 3}
   - nameSound: GlassDie
     clip: {fileID: 8300000, guid: 0fc1e0a4de5556e45a6e5ec51e4b87c2, type: 3}
+  - nameSound: StarDie
+    clip: {fileID: 8300000, guid: 89eda186adbfeb04c8f522787c6696be, type: 3}
+  - nameSound: ArrowMove
+    clip: {fileID: 8300000, guid: fe55dd9ecd7920646b84547d23ec6d39, type: 3}
+  - nameSound: WaterDie
+    clip: {fileID: 8300000, guid: b2fb9325f9c079a4ba691aeedd463d94, type: 3}
+  - nameSound: CatWarp
+    clip: {fileID: 8300000, guid: 4a8bdf8b92853d54cb71f278e8762fbb, type: 3}
   musicSource: {fileID: 1367547250690528194}
   sfxSource: {fileID: 1367547251095161087}
   delayholdTime: 1

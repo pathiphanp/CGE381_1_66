@@ -23,4 +23,16 @@ where T : Component
             return _instance;
         }
     }
+
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this as T;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }

@@ -296,6 +296,8 @@ MonoBehaviour:
   spawnCutScenes: {fileID: 0}
   director: {fileID: 0}
   CameraScenes: 0
+  canNotSkipCutScenes: 0
+  startGame: 0
 --- !u!1 &3803942747694860056
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,8 +548,9 @@ GameObject:
   - component: {fileID: 4343120192172821930}
   - component: {fileID: 6437978077646708670}
   - component: {fileID: 4262331805054704934}
+  - component: {fileID: 2337764226015132300}
   m_Layer: 5
-  m_Name: 'BG '
+  m_Name: DoorTalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,8 +573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 205, y: 181}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6437978077646708670
 CanvasRenderer:
@@ -601,7 +604,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -576018118, guid: e2003e61a8196e044b32b22f8c3705e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccf54554d8c01d5499bc5f3581b56a2b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -611,3 +614,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2337764226015132300
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6690331300087698233}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2140016b3b9d69948b71bc58c81d8ffc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

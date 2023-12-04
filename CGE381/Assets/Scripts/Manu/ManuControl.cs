@@ -12,7 +12,7 @@ public class ManuControl : MonoBehaviour
     int indexBtnManu = 0;
     [SerializeField] BtnDataSystem[] btn;
 
-    public SetSave setSave;
+    public SetSaveSlot setSave;
     private void OnEnable()
     {
         btn[0].manuBtn.animator.Play("Highlighted");
