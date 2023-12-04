@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4214886346320433062
+--- !u!1 &2371401647025462863
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2725700840257142669}
-  - component: {fileID: 4896167167922943550}
-  - component: {fileID: 2054372272501826168}
+  - component: {fileID: 565020937406680277}
+  - component: {fileID: 8002348735919341198}
+  - component: {fileID: 5796857921829602158}
+  - component: {fileID: 2999442045735553642}
   m_Layer: 5
-  m_Name: BG Test (1)
+  m_Name: ClockBoss1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2725700840257142669
+--- !u!224 &565020937406680277
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4214886346320433062}
+  m_GameObject: {fileID: 2371401647025462863}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,24 +36,24 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 0, y: 146}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4896167167922943550
+--- !u!222 &8002348735919341198
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4214886346320433062}
+  m_GameObject: {fileID: 2371401647025462863}
   m_CullTransparentMesh: 1
---- !u!114 &2054372272501826168
+--- !u!114 &5796857921829602158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4214886346320433062}
+  m_GameObject: {fileID: 2371401647025462863}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -66,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1809935650, guid: 6e489117648ce28419bd0250f5f4136e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8cf1855b9b33d3c4c84bb5149d1d3ab1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,6 +77,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2999442045735553642
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371401647025462863}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d77cab1f1a57c654a94987771682042e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &4847297037045151489
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,9 +249,7 @@ MonoBehaviour:
   supText:
   - number: 0
     description:
-    - 'GOODNESS. I MUST
-
-      FIND THE KEY.'
+    - "I'M HOPPING MAD! \r\nSTAY OUT OF MY \r\nWAY! NO ONE MESSES \r\nWITH TIME!"
   delayRead: 0.05
   read: 1
   newline: 55
@@ -386,9 +405,7 @@ MonoBehaviour:
   supText:
   - number: 0
     description:
-    - 'GOODNESS. I MUST
-
-      FIND THE KEY.'
+    - "I'M HOPPING MAD! \r\nSTAY OUT OF MY \r\nWAY! NO ONE MESSES \r\nWITH TIME!"
   delayRead: 0.05
   read: 1
   newline: 55
@@ -479,7 +496,7 @@ GameObject:
   - component: {fileID: 4847297038389634247}
   - component: {fileID: 9220651294234184488}
   m_Layer: 5
-  m_Name: Alice
+  m_Name: ClockTalk1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,7 +515,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4847297038257896323}
-  - {fileID: 2725700840257142669}
+  - {fileID: 565020937406680277}
   - {fileID: 4847297038438167736}
   - {fileID: 4847297038018234090}
   - {fileID: 4847297037045151490}
