@@ -196,4 +196,9 @@ public class EnemyJump : MonoBehaviour
     {
         sfxSource.PlayOneShot(SoundManager.Instance.SearchSfx("EnemyJump"));
     }
+
+    void SoundDie()
+    {
+        sfxSource.PlayOneShot(SoundManager.Instance.SearchSfx("EnemyDie"));
+    }
 }

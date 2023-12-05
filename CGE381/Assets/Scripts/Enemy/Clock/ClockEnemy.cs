@@ -9,7 +9,7 @@ public class ClockEnemy : Platfrom
     [HideInInspector] public Collider2D coll;
     [HideInInspector] public Animator anim;
     SpriteRenderer sprite;
-    AudioSource sfxSound;
+    [HideInInspector] public AudioSource sfxSound;
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -55,7 +55,7 @@ public class ClockEnemy : Platfrom
 
     void SoundDie()
     {
-
+        sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("EnemyDie"));
     }
     void SoundRun1()
     {

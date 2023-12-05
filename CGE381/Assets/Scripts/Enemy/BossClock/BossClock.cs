@@ -107,4 +107,9 @@ public class BossClock : ClockEnemy
         cutScenesEnd.SetActive(true);
         base.Destroy();
     }
+
+    void SoundStun()
+    {
+        sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("EnemyStun"));
+    }
 }

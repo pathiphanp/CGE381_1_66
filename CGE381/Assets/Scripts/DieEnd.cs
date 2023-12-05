@@ -9,4 +9,9 @@ public class DieEnd : MonoBehaviour
     {
         Destroy(die);
     }
+
+    void SoundDie()
+    {
+        SoundManager.Instance.PlaySfx("EnemyDie");
+    }
 }

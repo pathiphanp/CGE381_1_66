@@ -9,9 +9,10 @@ public class ObjEnemy : MonoBehaviour
     Collider2D coll;
     Animator anim;
     public float delayDie;
-    [HideInInspector] public SpawnEnemyDown control;
+    /*[HideInInspector]*/ public SpawnEnemyDown control;
     [SerializeField] public float speedDown;
     AudioSource sfxSound;
+    [SerializeField] LayerMask ground;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class ObjEnemy : MonoBehaviour
             coll.enabled = false;
             anim.Play("Die");
         }
-        if (other.gameObject.tag == "Ground")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             coll.enabled = false;
             Invoke("DelayDie", delayDie);

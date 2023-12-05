@@ -122,6 +122,9 @@ MonoBehaviour:
   delayDie: 0
   control: {fileID: 0}
   speedDown: -2
+  ground:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!82 &6836597793333616668
 AudioSource:
   m_ObjectHideFlags: 0
