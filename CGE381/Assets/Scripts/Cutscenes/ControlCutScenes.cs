@@ -28,7 +28,6 @@ public class ControlCutScenes : MonoBehaviour
         {
             Gamemanager.Instance.cutScenesStartGame = true;
         }
-        Gamemanager.ChangeUIMode();
         if (CameraScenes)
         {
             CameraCutScenes();
@@ -39,7 +38,7 @@ public class ControlCutScenes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Gamemanager.ChangeUIMode();
     }
     private void CameraCutScenes()
     {

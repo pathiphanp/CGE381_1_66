@@ -60,6 +60,7 @@ public class ManuControl : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Z) && setSave.selectSave)
         {
+            Debug.Log("Black To Manu");
             RestMaun();
         }
     }

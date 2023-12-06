@@ -17,10 +17,14 @@ public class GetStar : MonoBehaviour
     {
         coll.enabled = false;
         anim.Play("Die");
-        sfxSource.PlayOneShot(SoundManager.Instance.SearchSfx("StarDie"));
     }
     public void Delete()
     {
         Destroy(this.gameObject);
+    }
+
+    void SoundDie()
+    {
+       SoundManager.Instance.PlaySfx("StarDie");
     }
 }

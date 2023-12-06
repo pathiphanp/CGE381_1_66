@@ -479,11 +479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6037819264696643212, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.029
+      value: 0.022
       objectReference: {fileID: 0}
     - target: {fileID: 6037819264696643213, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: m_Radius
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6037819264696643213, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: m_Enabled
@@ -493,9 +493,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6037819264696643219, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6580768719780779979, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: radiusCheckGround
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6580768719780779979, guid: 6bc5e93ec8ffe904da64ddb58e7fe1de, type: 3}
       propertyPath: distanceChrckPlatfrom

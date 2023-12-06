@@ -19,7 +19,6 @@ public class SpawnCutScenes : MonoBehaviour
     [HideInInspector] public ControlCutScenes controlCutScenes;
     private void Start()
     {
-        Gamemanager.ChangeUIMode();
         SpawnCutScene();
     }
     void OnEnable()

@@ -12,17 +12,7 @@ public class SetSaveSlot : MonoBehaviour
     [SerializeField] bool resetAllSave;
     private void OnEnable()
     {
-        if (slodSave.Count == 0)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                slodSave.Add(transform.GetChild(i).gameObject);
-                _slodSave.Add(slodSave[i].GetComponent<SetSave>());
-                _slodSave[i].setSaveSlot = this;
-            }
-        }
-
-        _slodSave[0].bg_select.SetActive(true);
+        RestSlot();
     }
 
     private void OnDisable()
@@ -45,12 +35,13 @@ public class SetSaveSlot : MonoBehaviour
             selectSave = false;
             _slodSave[indexSave].selectSlot = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && !selectSave)
+        if (Input.GetKeyDown(KeyCode.Z) && !selectSave)
         {
             selectSave = true;
             foreach (SetSave s in _slodSave)
             {
                 s.ResetSlot();
+                s.bg_select.SetActive(false);
             }
         }
 
@@ -73,7 +64,21 @@ public class SetSaveSlot : MonoBehaviour
 
     void RestSlot()
     {
-        _slodSave.Clear();
-        slodSave.Clear();
+        if (slodSave.Count == 0)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                slodSave.Add(transform.GetChild(i).gameObject);
+                _slodSave.Add(slodSave[i].GetComponent<SetSave>());
+                _slodSave[i].setSaveSlot = this;
+            }
+        }
+        foreach (SetSave s in _slodSave)
+        {
+            s.ResetSlot();
+            s.bg_select.SetActive(false);
+        }
+        indexSave = 0;
+        _slodSave[0].bg_select.SetActive(true);
     }
 }

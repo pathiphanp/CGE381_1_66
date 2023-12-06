@@ -9,7 +9,8 @@ public class ObjEnemy : MonoBehaviour
     Collider2D coll;
     Animator anim;
     public float delayDie;
-    /*[HideInInspector]*/ public SpawnEnemyDown control;
+    /*[HideInInspector]*/
+    public SpawnEnemyDown control;
     [SerializeField] public float speedDown;
     AudioSource sfxSound;
     [SerializeField] LayerMask ground;
@@ -40,12 +41,10 @@ public class ObjEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            coll.enabled = false;
             anim.Play("Die");
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            coll.enabled = false;
             Invoke("DelayDie", delayDie);
         }
     }
@@ -55,17 +54,23 @@ public class ObjEnemy : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    void DelayDie()
+    public void DelayDie()
     {
         anim.Play("Die");
     }
 
     void SoundDie()
     {
+        coll.enabled = false;
         sfxSound.PlayOneShot(SoundManager.Instance.SearchSfx("GlassDie"));
     }
 
     void SoundRoll()
+    {
+
+    }
+
+    void OnDestroy()
     {
 
     }
