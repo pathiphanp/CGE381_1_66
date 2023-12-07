@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 587592994947130993}
   - component: {fileID: 1898587167265929254}
   m_Layer: 5
-  m_Name: Book
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c2877dfc9ccbe0043a667a0ae049a77a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "...WHEN SHE SHOULD \nHAVE BEEN PAYING \nATTENTION TO HER \nHISTORY LESSON."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9bb1f4b818d5664d96144c965fb56d3, type: 2}
   m_sharedMaterial: {fileID: 7057450673339267544, guid: c9bb1f4b818d5664d96144c965fb56d3, type: 2}
@@ -289,6 +289,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnCutScenes: {fileID: 0}
+  director: {fileID: 0}
+  CameraScenes: 0
+  canNotSkipCutScenes: 0
+  startGame: 0
 --- !u!1 &7832040970560110037
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,14 +449,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3b15b773e00afeb46bd1c1d308083975, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -529,7 +533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "...WHEN SHE SHOULD \nHAVE BEEN PAYING \nATTENTION TO HER \nHISTORY LESSON."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9bb1f4b818d5664d96144c965fb56d3, type: 2}
   m_sharedMaterial: {fileID: 7057450673339267544, guid: c9bb1f4b818d5664d96144c965fb56d3, type: 2}

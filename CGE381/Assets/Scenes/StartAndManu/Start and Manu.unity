@@ -11026,26 +11026,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.size
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[12].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 79a5c9b6de9729743881756403f79bbb, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[13].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1156d5ca88238ae4f8b5876d03b5376a, type: 3}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[12].nameSound
-      value: EnemyDie
-      objectReference: {fileID: 0}
-    - target: {fileID: 1367547251435837672, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
-      propertyPath: sfxSound.Array.data[13].nameSound
-      value: EnemyStun
-      objectReference: {fileID: 0}
     - target: {fileID: 1367547251435837673, guid: 04890b40dc21fb14c94806b15c70fa39, type: 3}
       propertyPath: m_Name
       value: AudioManager

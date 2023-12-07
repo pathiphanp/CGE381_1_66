@@ -587,6 +587,7 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (other.tag == "Key")
         {
             key++;
+            SoundManager.Instance.PlaySfx("StarDie");
             keyItem.SetActive(true);
             other.GetComponent<Key>().Die();
         }

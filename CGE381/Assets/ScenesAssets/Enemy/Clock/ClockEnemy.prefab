@@ -240,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 93017c304d3485b4696cc009c3969416, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -347,6 +347,7 @@ MonoBehaviour:
   havehead: 1
   coll: {fileID: 0}
   anim: {fileID: 0}
+  sfxSound: {fileID: 0}
 --- !u!95 &6447799441196572693
 Animator:
   serializedVersion: 5
@@ -495,7 +496,7 @@ Transform:
   - {fileID: 343979300321185167}
   - {fileID: 343979299582971458}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &343979300321185166
 GameObject:
