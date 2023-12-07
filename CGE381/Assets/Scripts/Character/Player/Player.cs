@@ -448,6 +448,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         {
             PlayerMode();
             inventory.SetActive(false);
+            showHp.SetActive(false);
+            showStar.SetActive(false);
             Time.timeScale = 1f;
         }
     }
@@ -481,6 +483,8 @@ public class Player : MonoBehaviour, IPlayerActions, IUIActions, TakeDamage
         if (context.started)
         {
             inventory.SetActive(true);
+            showHp.SetActive(true);
+            showStar.SetActive(true);
             UIMode();
             Time.timeScale = 0f;
         }

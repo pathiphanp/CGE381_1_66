@@ -19,6 +19,7 @@ public class Vase : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             canDie = true;
+            SoundManager.Instance.PlaySfx("StarDie");
             cutScenesVase.SetActive(true);
         }
     }
