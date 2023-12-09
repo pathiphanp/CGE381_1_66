@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Vase : MonoBehaviour
 {
+    Animator anim;
     [SerializeField] GameObject cutScenesVase;
     bool canDie = false;
     private void OnEnable()
@@ -14,11 +15,16 @@ public class Vase : MonoBehaviour
     {
         SpawnCutScenes.EndCutScene -= Die;
     }
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
             canDie = true;
+            anim.Play("idel");
             SoundManager.Instance.PlaySfx("StarDie");
             cutScenesVase.SetActive(true);
         }
